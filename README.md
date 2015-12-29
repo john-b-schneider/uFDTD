@@ -5,4 +5,4 @@ This work is released under the Creative Commons Attribution-ShareAlike 4.0 Inte
 
 To make the book as a PDF file, you must have LaTeX installed on your computer.  Assuming a Unix-based system, you should be able to simply type 'make' and it will make the PDF.
 
-Before committing anything to GitHub ore storing a distribution or anything like that, you should probably type 'make veryclean'.  This is remove the various files that LaTeX generates.
+Before committing anything to GitHub ore storing a distribution or anything like that, you should probably type 'make veryclean'.  This is to remove the various files that LaTeX generates.
