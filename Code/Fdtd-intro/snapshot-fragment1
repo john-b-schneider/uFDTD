@@ -1,0 +1,3 @@
+  char basename[80]="sim", filename[100];
+  int frame=0;
+  FILE *snapshot;

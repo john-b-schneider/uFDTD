@@ -1,0 +1,15 @@
+set term postscript eps
+set output 'l3-bare-bones-output200.eps'
+set nokey
+set xlabel 'Time Step'
+set ylabel 'Ez[50] (V/m)'
+set xtics 0,25
+set mxtics 5
+set mytics 4
+plot [0:200] 'l3-bare-bones-output' w l lw 2
+#
+set xtics 0,100
+set mxtics 4
+set mytics 5
+set output 'l3-bare-bones-output1000.eps'
+plot [0:1000] 'l3-bare-bones-output' w l lw 2

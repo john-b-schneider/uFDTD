@@ -1,0 +1,142 @@
+\contentsline {chapter}{\numberline {1}Numeric Artifacts}{7}
+\contentsline {section}{\numberline {1.1}Introduction}{7}
+\contentsline {section}{\numberline {1.2}Finite Precision}{8}
+\contentsline {section}{\numberline {1.3}Symbolic Manipulation}{11}
+\contentsline {chapter}{\numberline {2}Brief Review of Electromagnetics}{13}
+\contentsline {section}{\numberline {2.1}Introduction}{13}
+\contentsline {section}{\numberline {2.2}Coulomb's Law and Electric Field}{13}
+\contentsline {section}{\numberline {2.3}Electric Flux Density}{15}
+\contentsline {section}{\numberline {2.4}Static Electric Fields}{17}
+\contentsline {section}{\numberline {2.5}Gradient, Divergence, and Curl}{18}
+\contentsline {section}{\numberline {2.6}Laplacian}{21}
+\contentsline {section}{\numberline {2.7}Gauss's and Stokes' Theorems}{24}
+\contentsline {section}{\numberline {2.8}Electric Field Boundary Conditions}{25}
+\contentsline {section}{\numberline {2.9}Conductivity and Perfect Electric Conductors}{25}
+\contentsline {section}{\numberline {2.10}Magnetic Fields}{26}
+\contentsline {section}{\numberline {2.11}Magnetic Field Boundary Conditions}{27}
+\contentsline {section}{\numberline {2.12}Summary of Static Fields}{27}
+\contentsline {section}{\numberline {2.13}Time Varying Fields}{28}
+\contentsline {section}{\numberline {2.14}Summary of Time-Varying Fields}{29}
+\contentsline {section}{\numberline {2.15}Wave Equation in a Source-Free Region}{29}
+\contentsline {section}{\numberline {2.16}One-Dimensional Solutions to the Wave Equation }{30}
+\contentsline {chapter}{\numberline {3}Introduction to the FDTD Method}{33}
+\contentsline {section}{\numberline {3.1}Introduction}{33}
+\contentsline {section}{\numberline {3.2}The Yee Algorithm}{34}
+\contentsline {section}{\numberline {3.3}Update Equations in 1D }{35}
+\contentsline {section}{\numberline {3.4}Computer Implementation of a One-Dimensional\\ FDTD Simulation}{39}
+\contentsline {section}{\numberline {3.5}Bare-Bones Simulation }{41}
+\contentsline {section}{\numberline {3.6}PMC Boundary in One Dimension }{44}
+\contentsline {section}{\numberline {3.7}Snapshots of the Field}{45}
+\contentsline {section}{\numberline {3.8}Additive Source }{48}
+\contentsline {section}{\numberline {3.9}Terminating the Grid }{50}
+\contentsline {section}{\numberline {3.10}Total-Field/Scattered-Field Boundary }{53}
+\contentsline {section}{\numberline {3.11}Inhomogeneities }{60}
+\contentsline {section}{\numberline {3.12}Lossy Material }{66}
+\contentsline {chapter}{\numberline {4}Improving the FDTD Code }{75}
+\contentsline {section}{\numberline {4.1}Introduction}{75}
+\contentsline {section}{\numberline {4.2}Arrays and Dynamic Memory Allocation }{75}
+\contentsline {section}{\numberline {4.3}Macros }{77}
+\contentsline {section}{\numberline {4.4}Structures}{80}
+\contentsline {section}{\numberline {4.5}Improvement Number One }{86}
+\contentsline {section}{\numberline {4.6}Modular Design and Initialization Functions}{90}
+\contentsline {section}{\numberline {4.7}Improvement Number Two}{95}
+\contentsline {section}{\numberline {4.8}Compiling Modular Code }{102}
+\contentsline {section}{\numberline {4.9}Improvement Number Three }{103}
+\contentsline {chapter}{\numberline {5}Scaling FDTD Simulations to Any Frequency }{115}
+\contentsline {section}{\numberline {5.1}Introduction}{115}
+\contentsline {section}{\numberline {5.2}Sources}{115}
+\contentsline {subsection}{\numberline {5.2.1}Gaussian Pulse}{115}
+\contentsline {subsection}{\numberline {5.2.2}Harmonic Sources }{116}
+\contentsline {subsection}{\numberline {5.2.3}The Ricker Wavelet }{117}
+\contentsline {section}{\numberline {5.3}Mapping Frequencies to Discrete Fourier Transforms }{120}
+\contentsline {section}{\numberline {5.4}Running Discrete Fourier Transform (DFT) }{121}
+\contentsline {section}{\numberline {5.5}Real Signals and DFT's}{123}
+\contentsline {section}{\numberline {5.6}Amplitude and Phase from Two Time-Domain Samples }{126}
+\contentsline {section}{\numberline {5.7}Conductivity }{128}
+\contentsline {section}{\numberline {5.8}Transmission Coefficient for a Planar Interface}{132}
+\contentsline {subsection}{\numberline {5.8.1}Transmission through Planar Interface}{134}
+\contentsline {subsection}{\numberline {5.8.2}Measuring the Transmission Coefficient Using FDTD }{135}
+\contentsline {chapter}{\numberline {6}Differential-Equation Based ABC's}{145}
+\contentsline {section}{\numberline {6.1}Introduction}{145}
+\contentsline {section}{\numberline {6.2}The Advection Equation }{145}
+\contentsline {section}{\numberline {6.3}Terminating the Grid}{146}
+\contentsline {section}{\numberline {6.4}Implementation of a First-Order ABC}{148}
+\contentsline {section}{\numberline {6.5}ABC Expressed Using Operator Notation }{153}
+\contentsline {section}{\numberline {6.6}Second-Order ABC }{156}
+\contentsline {section}{\numberline {6.7}Implementation of a Second-Order ABC }{158}
+\contentsline {chapter}{\numberline {7}Dispersion, Impedance, Reflection, and Transmission }{161}
+\contentsline {section}{\numberline {7.1}Introduction}{161}
+\contentsline {section}{\numberline {7.2}Dispersion in the Continuous World}{161}
+\contentsline {section}{\numberline {7.3}Harmonic Representation of the FDTD Method}{162}
+\contentsline {section}{\numberline {7.4}Dispersion in the FDTD Grid }{165}
+\contentsline {section}{\numberline {7.5}Numeric Impedance}{169}
+\contentsline {section}{\numberline {7.6}Analytic FDTD Reflection and Transmission Coefficients}{169}
+\contentsline {section}{\numberline {7.7}Reflection from a PEC}{173}
+\contentsline {section}{\numberline {7.8}Interface Aligned with an Electric-Field Node}{175}
+\contentsline {chapter}{\numberline {8}Two-Dimensional FDTD Simulations}{181}
+\contentsline {section}{\numberline {8.1}Introduction}{181}
+\contentsline {section}{\numberline {8.2}Multidimensional Arrays }{181}
+\contentsline {section}{\numberline {8.3}Two Dimensions: TM$^z$ Polarization }{185}
+\contentsline {section}{\numberline {8.4}TM$^z$ Example}{189}
+\contentsline {section}{\numberline {8.5}The TFSF Boundary for TM$^z$ Polarization}{202}
+\contentsline {section}{\numberline {8.6}TM$^z$ TFSF Boundary Example }{208}
+\contentsline {section}{\numberline {8.7}TE$^z$ Polarization}{220}
+\contentsline {section}{\numberline {8.8}PEC's in TE$^z$ and TM$^z$ Simulations }{224}
+\contentsline {section}{\numberline {8.9}TE$^z$ Example}{227}
+\contentsline {chapter}{\numberline {9}Three-Dimensional FDTD }{241}
+\contentsline {section}{\numberline {9.1}Introduction}{241}
+\contentsline {section}{\numberline {9.2}3D Arrays in C }{241}
+\contentsline {section}{\numberline {9.3}Governing Equations and the 3D Grid}{244}
+\contentsline {section}{\numberline {9.4}3D Example}{252}
+\contentsline {section}{\numberline {9.5}TFSF Boundary}{267}
+\contentsline {section}{\numberline {9.6}TFSF Demonstration}{272}
+\contentsline {section}{\numberline {9.7}Unequal Spatial Steps}{282}
+\contentsline {chapter}{\numberline {10}Dispersive Material }{289}
+\contentsline {section}{\numberline {10.1}Introduction}{289}
+\contentsline {section}{\numberline {10.2}Constitutive Relations and Dispersive Media}{290}
+\contentsline {subsection}{\numberline {10.2.1}Drude Materials}{291}
+\contentsline {subsection}{\numberline {10.2.2}Lorentz Material}{292}
+\contentsline {subsection}{\numberline {10.2.3}Debye Material}{293}
+\contentsline {section}{\numberline {10.3}Debye Materials Using the ADE Method}{294}
+\contentsline {section}{\numberline {10.4}Drude Materials Using the ADE Method}{296}
+\contentsline {section}{\numberline {10.5}Magnetically Dispersive Material}{298}
+\contentsline {section}{\numberline {10.6}Piecewise Linear Recursive Convolution}{301}
+\contentsline {section}{\numberline {10.7}PLRC for Debye Material}{305}
+\contentsline {chapter}{\numberline {11}Perfectly Matched Layer }{307}
+\contentsline {section}{\numberline {11.1}Introduction}{307}
+\contentsline {section}{\numberline {11.2}Lossy Layer, 1D}{308}
+\contentsline {section}{\numberline {11.3}Lossy Layer, 2D}{310}
+\contentsline {section}{\numberline {11.4}Split-Field Perfectly Matched Layer}{312}
+\contentsline {section}{\numberline {11.5}Un-Split PML}{315}
+\contentsline {section}{\numberline {11.6}FDTD Implementation of Un-Split PML}{318}
+\contentsline {chapter}{\numberline {12}Acoustic FDTD Simulations }{323}
+\contentsline {section}{\numberline {12.1}Introduction}{323}
+\contentsline {section}{\numberline {12.2}Governing FDTD Equations}{325}
+\contentsline {section}{\numberline {12.3}Two-Dimensional Implementation}{328}
+\contentsline {chapter}{\numberline {13}Parallel Processing}{331}
+\contentsline {section}{\numberline {13.1}Threads}{331}
+\contentsline {section}{\numberline {13.2}Thread Examples}{333}
+\contentsline {section}{\numberline {13.3}Message Passing Interface}{340}
+\contentsline {section}{\numberline {13.4}Open MPI Basics}{341}
+\contentsline {section}{\numberline {13.5}Rank and Size}{343}
+\contentsline {section}{\numberline {13.6}Communicating Between Processes}{344}
+\contentsline {chapter}{\numberline {14}Near-to-Far-Field Transformation }{351}
+\contentsline {section}{\numberline {14.1}Introduction}{351}
+\contentsline {section}{\numberline {14.2}The Equivalence Principle}{351}
+\contentsline {section}{\numberline {14.3}Vector Potentials}{352}
+\contentsline {section}{\numberline {14.4}Electric Field in the Far-Field}{359}
+\contentsline {section}{\numberline {14.5}Simpson's Composite Integration}{363}
+\contentsline {section}{\numberline {14.6}Collocating the Electric and Magnetic Fields: The Geometric Mean}{363}
+\contentsline {section}{\numberline {14.7}NTFF Transformations Using the Geometric Mean }{366}
+\contentsline {subsection}{\numberline {14.7.1}Double-Slit Radiation}{366}
+\contentsline {subsection}{\numberline {14.7.2}Scattering from a Circular Cylinder}{370}
+\contentsline {subsection}{\numberline {14.7.3}Scattering from a Strongly Forward-Scattering Sphere}{371}
+\contentsline {chapter}{\numberline {A}Construction of Fourth-Order Central Differences }{A.377}
+\contentsline {chapter}{\numberline {B}Generating a Waterfall Plot and Animation }{B.379}
+\contentsline {chapter}{\numberline {C}Rendering and Animating Two-Dimensional Data }{C.383}
+\contentsline {chapter}{\numberline {D}Notation}{D.387}
+\contentsline {chapter}{\numberline {E}PostScript Primer}{E.389}
+\contentsline {section}{\numberline {E.1}Introduction}{E.389}
+\contentsline {section}{\numberline {E.2}The PostScript File}{E.390}
+\contentsline {section}{\numberline {E.3}PostScript Basic Commands}{E.390}
+\contentsline {chapter}{Index}{403}

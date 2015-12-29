@@ -1,0 +1,34 @@
+#!/bin/bash -norc
+
+rm -f sim.*
+
+3d-tfsf-demo <<EOF
+1
+5 5 5
+30 30 30
+20
+1
+10 10
+sim
+EOF
+
+mv sim.1 sphere.1
+mv sim.3 sphere.3
+mv sim.5 sphere.5
+
+rm -f sim.*
+
+3d-tfsf-demo <<EOF
+0
+5 5 5
+30 30 30
+20
+1
+10 10
+sim
+EOF
+
+mv sim.1 no-sphere.1
+mv sim.3 no-sphere.3
+mv sim.5 no-sphere.5
+

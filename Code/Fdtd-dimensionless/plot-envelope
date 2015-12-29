@@ -1,0 +1,5 @@
+set term postscript eps "Times-Roman" 14
+set output 'envelope.eps'
+set xlabel 'Space [spatial index]'
+set ylabel 'Maximum Electric Field [V/m]'
+plot [] [0:1.4] 'envelope-data' not w l lt 1 lw 2

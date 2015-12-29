@@ -1,0 +1,10 @@
+set term postscript eps
+set output 'abc-first-second.eps'
+set xlabel 'Spatial index'
+set ylabel 'Ez (V/m)'
+set key left
+set xtics 0,25
+set mxtics 5
+set mytics 4
+plot [0:200] [] 'first-sim.55' t 'First-Order ABC' w l lw 2,\
+                'second-sim.55' t 'Second-Order ABC' w l lw 2

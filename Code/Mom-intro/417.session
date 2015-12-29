@@ -1,0 +1,126 @@
+diary 417.session
+
+% Number of cells per side of the plate.
+numPerSide1=15;
+
+%%% Show function used to make voltage vector.
+type makeV
+
+%%% Create the voltage vector.
+v = makeV(1,numPerSide1);
+
+%%% Show function used to make impedance matrix 
+type makeZmn
+
+%%% Since makeZmn uses mtoikj, show that too.
+type mtoijk
+
+%%% Create the impedance matrix with 'numPerSide' segments
+%%% per side of the plate.  Time this to see how long it takes.
+t0 = cputime;
+z = makeZmn(numPerSide1);
+cputime-t0
+
+%%% Find the coefficients of the basis functions.
+t0 = cputime;
+an = inv(z)*v;
+cputime-t0
+
+%%% Plot coefficient of all basis functions.
+figure(1)
+plot(an)
+title('Fig. 1: Charge vs. Basis Function Number, Aligned Plates, \Delta=1/15')
+xlabel('Basis Function Number')
+ylabel('Charge [Coulombs]')
+
+%%% Create a 2D array of coefficients of basis function on
+%%% top plate and plot it using a surface plot.
+top = reshape(an(numPerSide1^2+1:end),numPerSide1,numPerSide1);
+del=1.0/numPerSide1;  %%% length along a side of segment
+x1=del/2:del:1.0-del/2;  %%% x location of center of segments
+y1=del/2:del:1.0-del/2;  %%% y location of center of segments
+figure(2)
+surf(x1,y1,top)
+title('Fig. 2: Charge vs. Position on Plate, Aligned Plates, \Delta=1/15')
+xlabel('Displacement from edge')
+ylabel('Displacement from edge')
+zlabel('Charge [Coulombs]')
+
+%%% Plot charge along the center of the plate.
+figure(3)
+plot(x1,top(:,8))
+title('Fig. 3: Charge vs. Position along Center of Plate, Aligned Plates, \Delta=1/15')
+ylabel('Displacement from edge')
+ylabel('Charge [Coulombs]')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Use a finer discretization.  This takes a while!
+numPerSide2=23;
+v = makeV(1,numPerSide2);
+t0 = cputime;  %%% time the following operation
+z = makeZmn(numPerSide2);
+cputime-t0  
+t0 = cputime;
+an = inv(z)*v;
+cputime-t0  
+
+figure(4)
+plot(an)
+title('Fig. 4: Charge vs. Basis Function Number, Aligned Plates, \Delta=1/23')
+xlabel('Basis Function Number')
+ylabel('Charge [Coulombs]')
+
+topFine = reshape(an(numPerSide2^2+1:end),numPerSide2,numPerSide2);
+
+del=1.0/numPerSide2;
+x2=del/2:del:1.0-del/2;
+y2=del/2:del:1.0-del/2;
+figure(5)
+surf(x2,y2,topFine)
+title('Fig. 5: Charge vs. Position on Plate, Aligned Plates, \Delta=1/23')
+zlabel('Charge [Coulombs]')
+
+%%% Take slice along center.
+figure(6)
+plot(x2,topFine(:,11))
+title('Fig. 6: Charge vs. Position along Slice of Plate, Aligned Plates, \Delta=1/23')
+xlabel('Position')
+ylabel('Charge [Coulombs]')
+hold
+plot(x1,top(:,5),'-.')
+
+hold
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Plot indicates things hadn't converged with 10 cells per side.
+%%% Try an even finer mesh and see what we get.
+
+numPerSide3=25;
+v = makeV(1,numPerSide3);
+t0 = cputime;  %%% time the following operations
+z = makeZmn(numPerSide3);
+cputime-t0
+t0=cputime;
+an = inv(z)*v;
+cputime-t0  
+
+topFiner = reshape(an(numPerSide3^2+1:end),numPerSide3,numPerSide3);
+
+del=1.0/numPerSide3;
+x3=del/2:del:1.0-del/2;
+y3=del/2:del:1.0-del/2;
+
+%%%% No need to interpolate in this case -- column 13 correspond to
+%%%% center of plate.
+figure(7)
+plot(x3,topFiner(:,13),'*')
+title('Fig. 7: Charge vs. Position along Slice of Plate, Aligned Plates')
+xlabel('Position')
+ylabel('Charge [Coulombs]')
+hold
+plot(x1,top(:,8),'-.')
+plot(x2,topFine(:,12),'-')
+legend('25 cells per side', '15 cells per side', '23 cells per side')
+
+%%% Results show we have essentially converged (although could
+%%% probably do a little better still).

@@ -1,0 +1,13 @@
+set term postscript eps
+set output 'disp-error.eps'
+set xlabel 'Points per wavelength'
+set ylabel 'phase speed ratio (FDTD/exact)'
+set key 10,0.9
+set xtics 2,2
+set mxtics 5
+set mytics 4
+set label 'Ideal' at 8,1.01
+plot [2:20] [.65:1.05]  'ideal' notitle w l lt 4,\
+ 'disp-err-75' t 'Courant number 0.75' with l lt 2 lw 2,\
+ 'disp-err-50' t 'Courant number 0.50' w l lt 1 lw 2,\
+ 'disp-err-25' t 'Courant number 0.25' w l lt 3 lw 2

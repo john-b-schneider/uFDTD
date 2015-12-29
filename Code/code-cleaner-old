@@ -1,0 +1,30 @@
+#!/bin/bash -norc
+#
+# Script to remove the 'listings' LaTeX commands from the code.
+# Might consider running this with a command such as:
+#
+#   for i in *.{c,h}; do code-cleaner $i; done
+#
+# However, be sure to make sure the output points to some other
+# directory!
+
+basename=`echo $1 | sed 's/\(.*\)\.[ch]$/\1/g'`
+extension=`echo $1 | sed 's/.*\.\([ch]\)$/\1/g'`
+#basename=`basename $1 .c`
+output=/tmp/c/${basename}.$extension
+
+if [ ! -f $1 ]; then
+  echo File $1 not found.
+  exit
+fi
+
+if [ -f $output ]; then
+  echo File $output already exists.  Don\'t want to over-write it.
+  exit
+fi
+
+echo cleaned version of $1 being written to $output
+
+sed 's|/\*b\*/||' $1 | \
+   sed 's|/\*n\*/||' | \
+   sed 's|/\*@[^@][^@]*@\*/||' > $output

@@ -1,0 +1,44 @@
+set term postscript eps "Times-Roman" 14
+set output 'all-snapshots.eps'
+set xlabel 'Space [spatial index]'
+set ylabel 'Electric Field [V/m]'
+plot [] [-1.4:1.4] 'sim.1' not w l lt 1 lw 2,\
+ 'sim.2' not w l lt 1 lw 2,\
+ 'sim.3' not w l lt 1 lw 2,\
+ 'sim.4' not w l lt 1 lw 2,\
+ 'sim.5' not w l lt 1 lw 2,\
+ 'sim.6' not w l lt 1 lw 2,\
+ 'sim.7' not w l lt 1 lw 2,\
+ 'sim.8' not w l lt 1 lw 2,\
+ 'sim.9' not w l lt 1 lw 2,\
+ 'sim.10' not w l lt 1 lw 2,\
+ 'sim.11' not w l lt 1 lw 2,\
+ 'sim.12' not w l lt 1 lw 2,\
+ 'sim.13' not w l lt 1 lw 2,\
+ 'sim.14' not w l lt 1 lw 2,\
+ 'sim.15' not w l lt 1 lw 2,\
+ 'sim.16' not w l lt 1 lw 2,\
+ 'sim.17' not w l lt 1 lw 2,\
+ 'sim.18' not w l lt 1 lw 2,\
+ 'sim.19' not w l lt 1 lw 2,\
+ 'sim.20' not w l lt 1 lw 2,\
+ 'sim.21' not w l lt 1 lw 2,\
+ 'sim.22' not w l lt 1 lw 2,\
+ 'sim.23' not w l lt 1 lw 2,\
+ 'sim.24' not w l lt 1 lw 2,\
+ 'sim.25' not w l lt 1 lw 2,\
+ 'sim.26' not w l lt 1 lw 2,\
+ 'sim.27' not w l lt 1 lw 2,\
+ 'sim.28' not w l lt 1 lw 2,\
+ 'sim.29' not w l lt 1 lw 2,\
+ 'sim.30' not w l lt 1 lw 2,\
+ 'sim.31' not w l lt 1 lw 2,\
+ 'sim.32' not w l lt 1 lw 2,\
+ 'sim.33' not w l lt 1 lw 2,\
+ 'sim.34' not w l lt 1 lw 2,\
+ 'sim.35' not w l lt 1 lw 2,\
+ 'sim.36' not w l lt 1 lw 2,\
+ 'sim.37' not w l lt 1 lw 2,\
+ 'sim.38' not w l lt 1 lw 2,\
+ 'sim.39' not w l lt 1 lw 2,\
+ 'sim.40' not w l lt 1 lw 2

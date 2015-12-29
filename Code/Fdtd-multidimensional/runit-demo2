@@ -1,0 +1,16 @@
+#!/bin/bash -norc
+rm sim.[0-9]*
+tmzdemo2 <<EOF
+5 5
+95 75
+30
+1
+10 10
+0 100 1
+0 80 1
+sim
+EOF
+
+rw2pnm -f -d 3 sim
+
+xvall sim 4

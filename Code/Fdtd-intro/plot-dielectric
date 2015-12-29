@@ -1,0 +1,19 @@
+# Note! Will have to have run 1Ddielectric first to generate
+# the necessary data files.
+############################################################
+#set term x11
+set term postscript eps
+set output 'dielectric.eps'
+#set nokey
+set key
+set xlabel 'Spatial Step'
+set ylabel 'Ez (V/m)'
+set xtics 0,25
+set ytics -0.5,0.25
+set grid
+set mxtics 5
+set mytics 4
+set arrow from 100,-0.7 to 100,0.7 nohead lt 1 lw 2 
+plot [] [-0.70:.70] 'sim.10' t 'Time-step 100' w l lw 2, \
+ 'sim.14' t 'Time-step 140' w l lw 2
+

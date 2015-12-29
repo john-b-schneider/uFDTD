@@ -1,0 +1,242 @@
+\documentclass[a4paper]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{miscdoc,multirow,bigstrut,bigdelim,colortbl}
+\newcommand{\minitab}[2][l]{\begin{tabular}{#1}#2\end{tabular}}
+
+\begin{document}
+\title{The \Package{multirow},
+  \Package{bigstrut} and
+  \Package{bigdelim} packages}
+\author{Piet van Oostrum\thanks{catalogued ``active author''}\\
+  \O{}ystein Bache\\
+  Jerry Leichter\thanks{Documentation put together by Robin
+    Fairbairns}}
+\maketitle
+
+\section{Introduction}
+These packages offer a series of extensions to the standard \LaTeX{}
+\texttt{tabular} environment.  Their respective functions are:
+\begin{description}
+\item[\Package{multirow}] which provides a construction for table cells
+  that span more than one row of the table;
+\item[\Package{bigdelim}] which creates an appropriately-sized
+  delimiter (for example, brace, parenthesis or bracket) to fit in a
+  single multirow, to indicate a relationship between other rows; and
+\item[\Package{bigstrut}] which creates struts which (slightly) stretch
+  the table row in which they sit.
+\end{description}
+
+\section{Using \Package{multirow}}\label{sec:multirow}
+
+The basic syntax is:
+\begin{quote}
+  \cmdinvoke*{multirow}{nrows}[bigstruts]{width}[fixup]{text}
+\end{quote}
+where
+\begin{description}
+\item[\emph{nrows}] is the number of rows to span.  It's up to you to
+  leave the other rows empty, or the stuff created by \cs{multirow}
+  will over-write it. With a positive value of \emph{nrows} the
+  spanned columns are this row and (\emph{nrows}-1) rows below
+  it. With a negative value of \emph{nrows} they are this row and
+  (1-\emph{nrows}) above it. 
+\item[\emph{bigstruts}] is mainly used if you've used the
+  \Package{bigstrut}.  In that case it is the total number of uses of
+  \cs{bigstrut} within the rows being spanned.  Count 2 uses for each
+  \cs{bigstrut}, 1 for each \cmdinvoke*{bigstrut}[x] where \emph{x} is
+  either \texttt{t} or \texttt{b}.  The default is 0.
+\item[\emph{width}] is the width to which the text is to be set, or
+  \texttt{*} to indicate that the text argument's natural width is to
+  be used.
+\item[\emph{text}] is the actual text of the construct.  If the width
+  was set explicitly, the text will be set in a \cs{parbox} of that
+  width; you can use \bsbs{} to force linebreaks where you like.
+
+  If the width was given as \texttt{*} the text will be set in LR
+  mode.  If you want a multiline entry in this case you should use a
+  \texttt{tabular} or \texttt{array} environment in the text
+  parameter.
+\item[\emph{fixup}] is a length used for fine tuning: the text will be
+  raised (or lowered, if \emph{fixup} is negative) by that length
+  above (below) wherever it would otherwise have gone.
+\end{description}
+For example (using both multirow and bigstrut):
+\begin{quote}
+\begin{verbatim}
+\newcommand{\minitab}[2][l]{\begin{tabular}{#1}#2\end{tabular}}
+\begin{tabular}{|c|c|}
+\hline
+\multirow{4}{1in}{Common g text} & Column g2a\\
+      & Column g2b \\
+      & Column g2c \\
+      & Column g2d \\
+\hline
+\multirow{3}[6]*{Common g text} & Column g2a\bigstrut\\\cline{2-2}
+      & Column g2b \bigstrut\\\cline{2-2}
+      & Column g2c \bigstrut\\
+\hline
+\multirow{4}[8]{1in}{Common g text} & Column g2a\bigstrut\\\cline{2-2}
+      & Column g2b \bigstrut\\\cline{2-2}
+      & Column g2c \bigstrut\\\cline{2-2}
+      & Column g2d \bigstrut\\
+\hline
+\multirow{4}*{\minitab[c]{Common \\ g text}} & Column g2a\\
+      & Column g2b \\
+      & Column g2c \\
+      & Column g2d \\
+\hline
+\end{tabular}
+\end{verbatim}
+\end{quote}
+which will appear as:
+\begin{quote}
+  \begin{tabular}{|c|c|}
+    \hline
+    \multirow{4}{1in}{Common g text} & Column g2a\\
+      & Column g2b \\
+      & Column g2c \\
+      & Column g2d \\
+    \hline
+    \multirow{3}[6]*{Common g text} & Column g2a\bigstrut\\\cline{2-2}
+      & Column g2b \bigstrut\\\cline{2-2}
+      & Column g2c \bigstrut\\
+    \hline
+    \multirow{4}[8]{1in}{Common g text} & Column g2a\bigstrut\\\cline{2-2}
+      & Column g2b \bigstrut\\\cline{2-2}
+      & Column g2c \bigstrut\\\cline{2-2}
+      & Column g2d \bigstrut\\
+    \hline
+    \multirow{4}*{\minitab[c]{Common \\ g text}} & Column g2a\\
+      & Column g2b \\
+      & Column g2c \\
+      & Column g2d \\
+    \hline
+  \end{tabular}
+\end{quote}
+
+If any of the spanned rows are unusually large, or if you're using the
+\Package{bigstrut} and \cs{bigstrut}s are used asymetrically about the
+centerline of the spanned rows, the vertical centering may not come
+out right.  Use the fixup argument in this case.
+
+Just before \emph{text} is expanded, the \cs{multirowsetup} macro is
+expanded to set up any special environment.  Initially,
+\cs{multirowsetup} contains just \cs{raggedright}.  It may be
+redefined with \cs{renewcommand}.
+
+It's just about impossible to deal correctly with descenders.  The
+text will be set up centred, but it may then have a baseline that
+doesn't match the baseline of the stuff beside it, in particular if
+the stuff beside it has descenders and \emph{text} does not.  This may
+result in a small misalignment.  About all that can be done is to do a
+final touchup on \emph{text}, using the fixup optional argument.
+(Hint:  If you use a measure like \texttt{.1ex}, there's a reasonable
+chance that the fixup will still be correct if you change the point
+size.)
+
+\cs{multirow} is mainly designed for use with \environment{table}, as
+opposed to \environment{array}, environments.  It will not work well in an
+array environment since the lines have an extra \texttt{jot} of space
+between them which it won't account for.  Fixing this is difficult in
+general, and doesn't seem worth it.  The \emph{bigstruts} argument may
+be used to provide a semi-automatic fix: First set \cs{bigstrutjot} to
+\texttt{.5}\cs{jot}.  Then simply repeat \emph{nrows} as the bigstruts
+argument.  This will be close, but probably not exact; you can use the
+fixup argument to refine the result.  (If you do this repeatedly,
+you'll probably want to wrap these steps up in a simple macro.  Note
+that the modified \cs{bigstrutjot} value will not give reasonable
+results if you have bigstruts and use this argument for its intended
+purpose elsewhere.  In that case, you might want to set it locally.)
+
+If you use \cs{multirow} with the \Package{colortbl} package you have
+to take precautions if you want to colour the column that has the
+\cs{multirow} in it.  \Package{colortbl} works by colouring each cell
+separately.  So if you use \cs{multirow} with a positive \emph{nrows}
+value, \Package{colortbl} will first color the top cell, then
+\cs{multirow} will typeset \emph{nrows} cells starting with this cell,
+and later \Package{colortbl} will color the other cells, effectively
+hiding the text in that area.  This can be solved by putting the
+\cs{multirow} in the last row with a negative \emph{nrows} value.
+See, for example:
+\begin{quote}
+\begin{verbatim}
+\begin{tabular}{l>{\columncolor{yellow}}l}
+  aaaa & \\
+  cccc & \\
+  dddd & \multirow{-3}*{bbbb}\\
+\end{tabular}
+\end{verbatim}
+\end{quote}
+which will produce:
+\begin{quote}
+  \begin{tabular}{l>{\columncolor{yellow}}l}
+    aaaa & \\
+    cccc & \\
+    dddd & \multirow{-3}*{bbbb}\\
+  \end{tabular}
+\end{quote}
+
+\section{Using \Package{bigstrut}}
+
+\cmdinvoke*{bigstrut}[x] produces a strut which is \cs{bigstrutjot}
+(\texttt{2pt} by default) higher, lower, or both than the standard
+array/table strut.  Use it in table entries that are adjacent to
+\cs{hline}s to leave an extra bit of space\,---\,according to the
+TeXbook (page 246), ``This is a little touch that improves the
+appearance of boxed tables; look for it as a mark of quality.''
+
+Although you could use \cs{bigstrut} in an array, there isn't normally
+much point since arrays are `opened up' by \cs{jot} anyway.
+
+\cmdinvoke{bigstrut}[t] adds height; \cmdinvoke{bigstrut}[b] adds
+depth.  Just \cs{bigstrut} adds both.  So:  Use
+\cmdinvoke{bigstrut}[t] in the row just \emph{after} an \cs{hline};
+\cmdinvoke{bigstrut}[b] in the row just \emph{before}; and
+\cs{bigstrut} if there are \cs{hline}s both before and after.
+
+Spaces after the \cs{bigstrut} are ignored, even if it has an optional
+argument.  Spaces before the \cs{bigstrut} are generally ignored (by a
+single \unskip).
+
+Note: The \Package{multirow} package makes use of \cs{bigstrutjot}.  If
+both styles are used, they can be used in either order, as each checks
+to see if the other has already defined \cs{bigstrutjot}.  However,
+the default values they set are different: if only \Package{multirow}
+is used, \cs{bigstrutjot} will be set to \texttt{3pt}.  If
+\Package{bigstrut} is used, with or without \Package{multirow},
+\cs{bigstrutjot} will be \texttt{2pt}.
+
+\section{Using \Package{bigdelim}}
+
+The package is for working in a \environment{table} or \environment{array}
+environment, in which the \Package{multirow} packages is also used.
+
+Syntax of use is
+\begin{quote}
+  \delcmdinvoke*{ldelim}({n}{width}[text]\\
+  \delcmdinvoke*{rdelim}){n}{width}[text]
+\end{quote}
+The commands are used in a column of a \environment{tabular} or
+\environment{array}; they create a big parenthesis, brace or whatever
+delimiter that extends over the \emph{n} rows starting at the one
+containing the command.  Corresponding cells in the following rows
+must be explicitly given (as empty cells).
+
+The first parameter is a delimiter to be used, e.g., \cs{\char`\{}
+\cs{\char`\}} \texttt{[} \texttt{]} \texttt{(} \texttt{)}\,---\,in fact,
+anything that can be used with \cs{left} or \cs{right}, as appropriate.
+
+The optional \emph{text} is set centred to the left of \cs{ldelim} or
+to the right of \cs{rdelim}.  The \emph{width} is that reserved for
+the delimiter and its text; with a current copy of the
+\Package{multirow} package, the \emph{width} may be given as
+\texttt{*}, but that may cause the delimiters to be too small.
+
+Also with a recent version of \Package{multirow} the commands may be
+used in the last row of the extension with a negative \emph{n}
+parameter.  This is useful in combination with \Package{colortbl} (see
+the discussion in section \ref{sec:multirow} on \Package{multirow}).
+If there are unusually tall rows you may have to enlarge \emph{n} (you
+can use non-integral values).
+
+\end{document}

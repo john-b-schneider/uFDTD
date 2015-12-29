@@ -1,0 +1,109 @@
+\documentclass[twoside,12pt]{book}
+%\documentclass[12pt]{report}
+
+\topmargin -.25in
+%\headheight 0pt
+%\headsep 0pt
+\textwidth 6.5in
+\textheight 9.0in
+\oddsidemargin 0in
+\evensidemargin 0in
+\raggedbottom
+
+\usepackage{times}        % For making nicer PDF files:
+\usepackage[intlimits]{amsmath}      % Good math stuff
+\usepackage{epsfig}
+\usepackage{url}
+\usepackage{makeidx}
+\usepackage{multirow}
+\usepackage{fancyvrb}
+\usepackage{listings}
+
+\pagestyle{headings}
+
+\input{commands}
+
+%\includeonly{%
+%numerical-issues,%
+%em-review,%
+%fdtd-intro,%
+%fdtd-improved-code%
+%fdtd-dimensionless,%
+%fdtd-abc,%
+%fdtd-dispersion,
+%fdtd-multidimensional,
+%fdtd-3d,
+%fdtd-dispersive-material,%
+%fdtd-pml,%
+%fdtd-acoustics,%
+%fdtd-near-to-far,%
+%parallel-processing,%
+%mom-intro,%
+%appendices,%
+%postscript-primer%
+%}
+
+\makeindex
+
+\begin{document}
+
+\lstset{language=C,
+        moredelim=[is][\bfseries]{/*b*/}{/*n*/}, % /*b*/=bold, /*n*/='normal'
+        numbers=left,
+        numberstyle=\tiny,
+%        stringstyle=\ttfamily,
+%        columns=fixed,
+        basicstyle=\ttfamily\small,
+        keywordstyle=\ttfamily\small,
+	escapeinside={/*@}{@*/},
+	showstringspaces=false
+}
+
+\renewcommand{\thepage}{\roman{page}}
+
+\title{Understanding the Finite-Difference Time-Domain Method}
+\author{John B. Schneider}
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+%\renewcommand{\thepage}{\arabic{chapter}.\arabic{page}}
+\renewcommand{\thepage}{\arabic{page}}
+
+\include{numerical-issues}
+\include{em-review}
+\include{fdtd-intro}
+\include{fdtd-improved-code}
+\include{fdtd-dimensionless}
+\include{fdtd-abc}
+\include{fdtd-dispersion}
+\include{fdtd-multidimensional}
+\include{fdtd-3d}
+\include{fdtd-dispersive-material}
+\include{fdtd-pml}
+\include{fdtd-acoustics}
+\include{parallel-processing}
+\include{fdtd-near-to-far}
+%\include{mom-intro}
+
+\appendix
+
+\renewcommand{\thepage}{\Alph{chapter}.\arabic{page}}
+
+\include{appendices}
+\include{postscript-primer}
+
+\renewcommand{\thepage}{\arabic{page}}
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\bibliographystyle{unsrt}
+\bibliography{fdtd,this-paper}
+
+\end{document}

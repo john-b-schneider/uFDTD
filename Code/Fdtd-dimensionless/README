@@ -1,0 +1,7 @@
+The "envelope-data" file was generated using matlab.  The commands
+were:
+
+  z=readOneD('sim');
+  y=max(z);
+  dlmwrite('envelope-data',y,'\n');
+

@@ -1,0 +1,16 @@
+set term postscript eps "Times-Roman" 14
+set xlabel 'spatial index'
+set ylabel 'Electric Field [V/m]'
+
+set output 'disp-s0.5-ppw10.eps'
+plot [] [-0.75:1] 'cdtds-0.5-ppw-10' notitle w l lw 2
+
+set output 'disp-s1-ppw10.eps'
+plot [] [-0.75:1] 'cdtds-1-ppw-10' notitle w l lw 2
+
+set output 'disp-s0.5-ppw20.eps'
+plot [] [-0.75:1] 'cdtds-0.5-ppw-20' notitle w l lw 2
+
+set output 'disp-s1-ppw20.eps'
+plot [] [-0.75:1] 'cdtds-1-ppw-20' notitle w l lw 2
+

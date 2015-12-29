@@ -1,0 +1,11 @@
+#!/bin/bash -norc
+lossy-half << EOF
+49
+40
+409 1
+0 199 1
+sim
+EOF
+
+exit
+

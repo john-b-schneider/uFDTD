@@ -1,0 +1,1933 @@
+%!PS-Adobe-3.0 EPSF-3.0%%Creator: Adobe Illustrator(TM) 3.2%%AI8_CreatorVersion: 14.0.0%%For: (John Schneider) ()%%Title: (foo.eps)%%CreationDate: 10/6/09 9:02 AM%%Canvassize: 8640%%BoundingBox: 44 151 661 471%%DocumentProcessColors: Black%%DocumentFonts: Courier%%DocumentNeededFonts: Courier%%DocumentSuppliedResources: procset Adobe_packedarray 2.0 0%%+ procset Adobe_cshow 1.1 0%%+ procset Adobe_customcolor 1.0 0%%+ procset Adobe_typography_AI3 1.0 1%%+ procset Adobe_pattern_AI3 1.0 0%%+ procset Adobe_Illustrator_AI3 1.0 1%AI3_ColorUsage: Color%AI3_IncludePlacedImages%AI3_TemplateBox: 306.5 395.5 306.5 395.5%AI3_TileBox: -71.5 107.5 662.5 683.5%AI3_DocumentPreview: Header%%PageOrigin:30 31%AI7_GridSettings: 72 8 72 8 1 0 0.8 0.8 0.8 0.9 0.9 0.9%AI9_Flatten: 1%AI12_CMSettings: 00.MS%%EndComments%%BeginProlog%%BeginResource: procset Adobe_packedarray 2.0 0
+%%Title: (Packed Array Operators)
+%%Version: 2.0 0
+%%CreationDate: (8/2/90) ()
+%%Copyright: ((C) 1987-1996 Adobe Systems Incorporated All Rights Reserved)
+userdict /Adobe_packedarray 5 dict dup begin put
+/initialize
+{
+/packedarray where
+	{
+	pop
+	}
+	{
+	Adobe_packedarray begin
+	Adobe_packedarray
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		userdict 3 1 roll put
+		} forall
+ end
+	} ifelse
+} def
+/terminate
+{
+} def
+/packedarray
+{
+array astore readonly
+} def
+/setpacking
+{
+pop
+} def
+/currentpacking
+{
+false
+} def
+currentdict readonly pop end
+%%EndResource
+Adobe_packedarray /initialize get exec
+%%BeginResource: procset Adobe_cshow 1.1 0
+%%Title: (cshow Operator)
+%%Version: 1.1 0
+%%CreationDate: (1/23/89) ()
+%%Copyright: ((C) 1987-1996 Adobe Systems Incorporated All Rights Reserved)
+currentpacking true setpacking
+userdict /Adobe_cshow 3 dict dup begin put
+/initialize
+{
+/cshow where
+	{
+	pop
+	}
+	{
+	userdict /Adobe_cshow_vars 1 dict dup begin put
+	/_cshow
+		{} def
+	Adobe_cshow begin
+	Adobe_cshow
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		userdict 3 1 roll put
+		} forall
+ end
+ end
+	} ifelse
+} def
+/terminate
+{
+} def
+/cshow
+{
+exch
+Adobe_cshow_vars
+	exch /_cshow
+	exch put
+	{
+	0 0 Adobe_cshow_vars /_cshow get exec
+	} forall
+} def
+currentdict readonly pop end
+setpacking
+%%EndResource
+%%BeginResource: procset Adobe_customcolor 1.0 0
+%%Title: (Custom Color Operators)
+%%Version: 1.0 0
+%%CreationDate: (5/9/88) ()
+%%Copyright: ((C) 1987-1996 Adobe Systems Incorporated All Rights Reserved)
+currentpacking true setpacking
+userdict /Adobe_customcolor 5 dict dup begin put
+/initialize
+{
+/setcustomcolor where
+	{
+	pop
+	}
+	{
+	Adobe_customcolor begin
+	Adobe_customcolor
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		pop pop
+		} forall
+ end
+	Adobe_customcolor begin
+	} ifelse
+} def
+/terminate
+{
+currentdict Adobe_customcolor eq
+	{
+ end
+	} if
+} def
+/findcmykcustomcolor
+{
+5 packedarray
+}  def
+/setcustomcolor
+{
+exch
+aload pop pop
+4
+	{
+	4 index mul 4 1 roll
+	} repeat
+5 -1 roll pop
+setcmykcolor
+} def
+/setoverprint
+{
+pop
+} def
+currentdict readonly pop end
+setpacking
+%%EndResource
+%%BeginResource: procset Adobe_typography_AI3 2.0 0
+%%Title: (Typography Operators)
+%%Version: 2.0 0
+%%CreationDate:(5/31/90) ()
+%%Copyright: ((C) 1987-1996 Adobe Systems Incorporated All Rights Reserved)
+currentpacking true setpacking
+userdict /Adobe_typography_AI3 48 dict dup begin put
+/initialize
+{
+/TZ
+ where
+	{
+	pop
+	}
+	{
+	Adobe_typography_AI3 begin
+	Adobe_typography_AI3
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		pop pop
+		} forall
+ end
+	Adobe_typography_AI3 begin
+	} ifelse
+} def
+/terminate
+{
+currentdict Adobe_typography_AI3 eq
+	{
+ end
+	} if
+} def
+/modifyEncoding
+{
+	/_tempEncode exch ddef
+	
+	/_pntr 0 ddef
+	
+	{
+		counttomark -1 roll
+		dup type dup /marktype eq 		
+		{
+			pop pop exit
+		}
+		{
+			/nametype eq
+			{
+				_tempEncode /_pntr dup load dup 3 1 roll 1 add ddef 3 -1 roll
+				put
+			}
+			{
+				/_pntr exch ddef					
+			}
+			ifelse
+		}
+		ifelse
+	}
+	loop	
+	
+	_tempEncode
+}
+def
+/TE
+{
+	StandardEncoding 256 array copy modifyEncoding 
+	/_nativeEncoding exch def
+} def
+%
+/TZ		
+{
+	dup type /arraytype eq {/_wv exch def} {/_wv 0 def} ifelse 
+	/_useNativeEncoding exch def
+	pop pop
+	
+	findfont _wv type /arraytype eq {_wv makeblendedfont} if dup length 2 add dict
+	
+ begin
+	
+		mark exch
+		{
+			1 index /FID ne { def } if cleartomark mark
+		}
+		forall
+		pop
+		
+		/FontName exch def
+		
+		counttomark 0 eq
+		{
+			1 _useNativeEncoding eq
+			{
+				/Encoding _nativeEncoding def
+			}
+			if
+			cleartomark
+		}
+		{	
+			/Encoding load 256 array copy 
+			modifyEncoding /Encoding exch def
+		}
+		ifelse		
+		FontName currentdict
+ end
+	
+	definefont pop
+}
+def
+/tr
+{
+_ax _ay 3 2 roll
+} def
+/trj
+{
+_cx _cy _sp _ax _ay 6 5 roll
+} def
+/a0
+{
+/Tx
+	{
+	dup 
+	currentpoint 3 2 roll
+	tr _psf
+	newpath moveto
+	tr _ctm _pss
+	} ddef
+/Tj
+	{
+	dup
+	currentpoint 3 2 roll
+	trj _pjsf
+	newpath moveto
+	trj _ctm _pjss
+	} ddef
+	
+} def
+/a1
+{
+/Tx
+	{
+	dup currentpoint 4 2 roll gsave
+	dup currentpoint 3 2 roll
+	tr _psf
+	newpath moveto
+	tr _ctm _pss
+	grestore 3 1 roll moveto tr sp
+	} ddef
+/Tj
+	{
+	dup currentpoint 4 2 roll gsave
+	dup currentpoint 3 2 roll
+	trj _pjsf
+	newpath moveto
+	trj _ctm _pjss
+	grestore 3 1 roll moveto tr sp
+	} ddef
+	
+} def
+/e0
+{
+/Tx
+	{
+	tr _psf
+	} ddef
+/Tj
+	{
+	trj _pjsf
+	} ddef
+} def
+/e1
+{
+/Tx
+	{
+	dup currentpoint 4 2 roll gsave 
+	tr _psf  
+	grestore 3 1 roll moveto tr sp 
+	} ddef
+/Tj
+	{
+	dup currentpoint 4 2 roll gsave 
+	trj _pjsf
+	grestore 3 1 roll moveto tr sp 
+	} ddef
+} def
+/i0
+{
+/Tx
+	{
+	tr sp
+	} ddef
+/Tj
+	{
+	trj jsp
+	} ddef
+} def
+/i1
+{
+W N
+} def
+/o0
+{
+/Tx
+	{
+	tr sw rmoveto
+	} ddef
+/Tj
+	{
+	trj swj rmoveto
+	} ddef
+} def
+/r0
+{
+/Tx
+	{
+	tr _ctm _pss
+	} ddef
+/Tj
+	{
+	trj _ctm _pjss
+	} ddef
+} def
+/r1
+{
+/Tx
+	{
+	dup currentpoint 4 2 roll currentpoint gsave newpath moveto
+	tr _ctm _pss 
+	grestore 3 1 roll moveto tr sp 
+	} ddef
+/Tj
+	{
+	dup currentpoint 4 2 roll currentpoint gsave newpath moveto
+	trj _ctm _pjss
+	grestore 3 1 roll moveto tr sp 
+	} ddef
+} def
+/To
+{
+	pop _ctm currentmatrix pop
+} def
+/TO
+{
+	iTe _ctm setmatrix newpath
+} def
+/Tp
+{
+	pop _tm astore pop _ctm setmatrix 
+	_tDict begin /W {} def /h {} def
+} def
+/TP
+{
+ end
+	iTm 0 0 moveto
+} def
+/Tr
+{
+	_render 3 le {currentpoint newpath moveto} if
+	dup 8 eq {pop 0} {dup 9 eq {pop 1} if} ifelse
+	dup /_render exch ddef
+	_renderStart exch get load exec
+} def
+/iTm
+{
+_ctm setmatrix _tm concat 0 _rise translate _hs 1 scale
+} def
+/Tm
+{
+_tm astore pop iTm 0 0 moveto
+} def
+/Td
+{
+_mtx translate _tm _tm concatmatrix pop iTm 0 0 moveto
+} def
+/iTe
+{
+	_render -1 eq {} {_renderEnd _render get dup null ne {load exec} {pop} ifelse} ifelse
+	/_render -1 ddef
+} def
+/Ta
+{
+pop
+} def
+/Tf
+{
+dup 1000 div /_fScl exch ddef
+exch findfont exch scalefont setfont
+} def
+/Tl
+{
+pop
+0 exch _leading astore pop
+} def
+/Tt
+{
+pop
+} def
+/TW
+{
+3 npop
+} def
+/Tw
+{
+/_cx exch ddef
+} def
+/TC
+{
+3 npop
+} def
+/Tc
+{
+/_ax exch ddef
+} def
+/Ts
+{
+/_rise exch ddef
+currentpoint
+iTm
+moveto
+} def
+/Ti
+{
+3 npop
+} def
+/Tz
+{
+100 div /_hs exch ddef
+iTm
+} def
+/TA
+{
+pop
+} def
+/Tq
+{
+pop
+} def
+/Th
+{
+pop pop pop pop pop
+} def
+/TX {pop} def
+%/Tx
+%/Tj
+/Tk
+{
+exch pop _fScl mul neg 0 rmoveto
+} def
+/TK
+{
+2 npop
+} def
+/T*
+{
+_leading aload pop neg Td
+} def
+/T*-
+{
+_leading aload pop Td
+} def
+/T-
+{
+_hyphen Tx
+} def
+/T+
+{} def
+/TR
+{
+_ctm currentmatrix pop 	
+_tm astore pop 
+iTm 0 0 moveto 
+} def
+/TS
+{
+0 eq {Tx} {Tj} ifelse
+} def
+currentdict readonly pop end
+setpacking
+%%EndResource
+%%BeginResource: procset Adobe_pattern_AI3 1.1 0
+%%Title: (Adobe Illustrator (R) Version 3.0 Pattern Operators)
+%%Version: 1.1 0
+%%CreationDate: (7/21/89) ()
+%%Copyright: ((C) 1987-1996 Adobe Systems Incorporated All Rights Reserved)
+currentpacking true setpacking
+userdict /Adobe_pattern_AI3 16 dict dup begin put
+/initialize
+{
+/definepattern where
+	{
+	pop
+	}
+	{
+	Adobe_pattern_AI3 begin
+	Adobe_pattern_AI3
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		pop pop
+		} forall
+	mark
+	cachestatus 7 1 roll pop pop pop pop exch pop exch
+		{
+		{
+		10000 add
+		dup 2 index gt
+			{
+			exit
+			} if
+		dup setcachelimit
+		} loop
+		} stopped
+	cleartomark
+	} ifelse
+} def
+/terminate
+{
+currentdict Adobe_pattern_AI3 eq
+	{
+ end
+	} if
+} def
+errordict
+/nocurrentpoint
+{
+pop
+stop
+} put
+errordict
+/invalidaccess
+{
+pop
+stop
+} put
+/patternencoding
+256 array def
+0 1 255
+{
+patternencoding exch ( ) 2 copy exch 0 exch put cvn put
+} for
+/definepattern
+{
+17 dict begin
+/uniform exch def
+/cache exch def
+/key exch def
+/procarray exch def
+/mtx exch matrix invertmatrix def
+/height exch def
+/width exch def
+/ctm matrix currentmatrix def
+/ptm matrix def
+/str 32 string def
+/slice 9 dict def
+slice /s 1 put
+slice /q 256 procarray length div sqrt floor cvi put
+slice /b 0 put
+/FontBBox [0 0 0 0] def
+/FontMatrix mtx matrix copy def
+/Encoding patternencoding def
+/FontType 3 def
+/BuildChar
+	{
+	exch
+ begin
+	/setstrokeadjust where {pop true setstrokeadjust} if
+	slice begin
+	dup q dup mul mod s idiv /i exch def
+	dup q dup mul mod s mod /j exch def
+	q dup mul idiv procarray exch get
+	/xl j width s div mul def
+	/xg j 1 add width s div mul def
+	/yl i height s div mul def
+	/yg i 1 add height s div mul def
+	uniform
+		{
+		1 1
+		}
+		{
+		width 0 dtransform
+		dup mul exch dup mul add sqrt dup 1 add exch div
+		0 height dtransform
+		dup mul exch dup mul add sqrt dup 1 add exch div
+		} ifelse
+	width 0 cache
+		{
+		xl 4 index mul yl 4 index mul xg 6 index mul yg 6 index mul
+		setcachedevice
+		}
+		{
+		setcharwidth
+		} ifelse
+	gsave
+	scale
+	newpath
+	xl yl moveto
+	xg yl lineto
+	xg yg lineto
+	xl yg lineto
+	closepath
+	clip
+	newpath
+ end
+ end
+	exec
+	grestore
+	} def
+key currentdict definefont
+end
+} def
+/patterncachesize
+{
+gsave
+newpath
+0 0 moveto
+width 0 lineto
+width height lineto
+0 height lineto
+closepath
+patternmatrix setmatrix
+pathbbox
+exch ceiling 4 -1 roll floor sub 3 1 roll
+ceiling exch floor sub
+mul 1 add
+grestore
+} def
+/patterncachelimit
+{
+cachestatus 7 1 roll 6 npop 8 mul
+} def
+/patternpath
+{
+exch dup begin setfont
+ctm setmatrix
+concat
+slice exch /b exch slice /q get dup mul mul put
+FontMatrix concat
+uniform
+	{
+	width 0 dtransform round width div exch round width div exch
+	0 height dtransform round height div exch height div exch
+	0 0 transform round exch round exch
+	ptm astore setmatrix
+	}
+	{
+	ptm currentmatrix pop
+	} ifelse
+{currentpoint} stopped not
+	{
+	2 npop
+	pathbbox
+	true
+	4 index 3 index eq
+	4 index 3 index eq
+	and
+		{
+		pop false
+			{
+			{2 npop}
+			{3 npop true}
+			{7 npop true}
+			{pop true}
+			pathforall
+			} stopped
+			{
+			5 npop true
+			} if
+		} if
+		{
+		height div ceiling height mul 4 1 roll
+		width div ceiling width mul 4 1 roll
+		height div floor height mul 4 1 roll
+		width div floor width mul 4 1 roll
+		2 index sub height div ceiling cvi exch
+		3 index sub width div ceiling cvi exch
+		4 2 roll moveto
+		FontMatrix mtx invertmatrix
+		dup dup 4 get exch 5 get rmoveto
+		ptm ptm concatmatrix pop
+		slice /s
+		patterncachesize patterncachelimit div ceiling sqrt ceiling cvi
+		dup slice /q get gt
+			{
+			pop slice /q get
+			} if
+		put
+		0 1 slice /s get dup mul 1 sub
+			{
+			slice /b get add
+			gsave
+			0 1 str length 1 sub
+				{
+				str exch 2 index put
+				} for
+			pop
+			dup
+				{
+				gsave
+				ptm setmatrix
+				1 index str length idiv {str show} repeat
+				1 index str length mod str exch 0 exch getinterval show
+				grestore
+				0 height rmoveto
+				} repeat
+			grestore
+			} for
+		2 npop
+		}
+		{
+		4 npop
+		} ifelse
+	} if
+end
+} def
+/patternclip
+{
+clip
+} def
+/patternstrokepath
+{
+strokepath
+} def
+/patternmatrix
+matrix def
+/patternfill
+{
+dup type /dicttype eq
+	{
+	Adobe_pattern_AI3 /patternmatrix get
+	} if
+gsave
+patternclip
+Adobe_pattern_AI3 /patternpath get exec
+grestore
+newpath
+} def
+/patternstroke
+{
+dup type /dicttype eq
+	{
+	Adobe_pattern_AI3 /patternmatrix get
+	} if
+gsave
+patternstrokepath
+true
+	{
+		{
+			{
+			newpath 
+			moveto
+			}
+			{
+			lineto
+			}
+			{
+			curveto
+			}
+			{
+			closepath
+			3 copy
+			Adobe_pattern_AI3 /patternfill get exec
+			} pathforall
+		3 npop
+		} stopped
+			{
+			5 npop
+			patternclip
+			Adobe_pattern_AI3 /patternfill get exec
+			} if
+	}
+	{
+	patternclip
+	Adobe_pattern_AI3 /patternfill get exec
+	} ifelse
+grestore
+newpath
+} def
+/patternashow
+{
+3 index type /dicttype eq
+	{
+	Adobe_pattern_AI3 /patternmatrix get 4 1 roll
+	} if
+	{
+	2 npop (0) exch
+	2 copy 0 exch put pop
+	gsave
+	false charpath currentpoint
+	6 index 6 index 6 index
+	Adobe_pattern_AI3 /patternfill get exec
+	grestore
+	newpath moveto
+	2 copy rmoveto
+	} exch cshow
+5 npop
+} def
+/patternawidthshow
+{
+6 index type /dicttype eq
+	{
+	Adobe_pattern_AI3 /patternmatrix get 7 1 roll
+	} if
+	{
+	2 npop (0) exch
+	2 copy 0 exch put 
+	gsave
+	_sp eq {5 index 5 index rmoveto} if
+	false charpath currentpoint
+	9 index 9 index 9 index
+	Adobe_pattern_AI3 /patternfill get exec
+	grestore
+	newpath moveto
+	2 copy rmoveto
+	} exch cshow
+8 npop
+} def
+/patternashowstroke
+{
+4 index type /dicttype eq
+	{
+	patternmatrix /patternmatrix get 5 1 roll
+	} if
+4 1 roll
+	{
+	2 npop (0) exch
+	2 copy 0 exch put pop
+	gsave
+	false charpath
+	currentpoint
+	4 index setmatrix
+	7 index 7 index 7 index
+	Adobe_pattern_AI3 /patternstroke get exec
+	grestore
+	newpath moveto
+	2 copy rmoveto
+	} exch cshow
+6 npop
+} def
+/patternawidthshowstroke
+{
+7 index type /dicttype eq
+	{
+	patternmatrix /patternmatrix get 8 1 roll
+	} if
+7 1 roll
+	{
+	2 npop (0) exch
+	2 copy 0 exch put
+	gsave
+	_sp eq {5 index 5 index rmoveto} if
+	false charpath currentpoint
+	7 index setmatrix
+	10 index 10 index 10 index
+	Adobe_pattern_AI3 /patternstroke get exec
+	grestore
+	newpath moveto
+	2 copy rmoveto
+	} exch cshow
+9 npop
+} def
+currentdict readonly pop end
+setpacking
+%%EndResource
+%%BeginResource: procset Adobe_Illustrator_AI3 1.1 0
+%%Title: (Adobe Illustrator (R) Version 3.0 Full Prolog)
+%%Version: 1.1 0
+%%CreationDate: (3/7/1994) ()
+%%Copyright: ((C) 1987-1996 Adobe Systems Incorporated All Rights Reserved)
+currentpacking true setpacking
+userdict /Adobe_Illustrator_AI3 71 dict dup begin put
+/initialize
+{
+userdict /Adobe_Illustrator_AI3_vars 67 dict dup begin put
+/_lp /none def
+/_pf {} def
+/_ps {} def
+/_psf {} def
+/_pss {} def
+/_pjsf {} def
+/_pjss {} def
+/_pola 0 def
+/_doClip 0 def
+/cf	currentflat def
+/_tm matrix def
+/_renderStart [/e0 /r0 /a0 /o0 /e1 /r1 /a1 /i0] def 
+/_renderEnd [null null null null /i1 /i1 /i1 /i1] def
+/_render -1 def
+/_rise 0 def
+/_ax 0 def
+/_ay 0 def
+/_cx 0 def
+/_cy 0 def
+/_leading [0 0] def
+/_ctm matrix def
+/_mtx matrix def
+/_sp 16#020 def
+/_hyphen (-) def
+/_fScl 0 def
+/_cnt 0 def
+/_hs 1 def
+/_nativeEncoding 0 def
+/_useNativeEncoding 0 def
+/_tempEncode 0 def
+/_pntr 0 def
+/_tDict 2 dict def
+/_wv 0 def
+/Tx {} def
+/Tj {} def
+/CRender {} def
+/_AI3_savepage {} def
+/_gf null def
+/_cf 4 array def
+/_if null def
+/_of false def
+/_fc {} def
+/_gs null def
+/_cs 4 array def
+/_is null def
+/_os false def
+/_sc {} def
+/_pd 1 dict def
+/_ed 15 dict def
+/_pm matrix def
+/_fm null def
+/_fd null def
+/_fdd null def
+/_sm null def
+/_sd null def
+/_sdd null def
+/_i null def
+Adobe_Illustrator_AI3 begin
+Adobe_Illustrator_AI3 dup /nc get begin
+	{
+	dup xcheck
+		{
+		bind
+		} if
+	pop pop
+	} forall
+end
+end
+end
+Adobe_Illustrator_AI3 begin
+Adobe_Illustrator_AI3_vars begin
+newpath
+} def
+/terminate
+{
+end
+end
+} def
+/_
+null def
+/ddef
+{
+Adobe_Illustrator_AI3_vars 3 1 roll put
+} def
+/xput
+{
+dup load dup length exch maxlength eq
+	{
+	dup dup load dup
+	length 2 mul dict copy def
+	} if
+load begin def end
+} def
+/npop
+{
+	{
+	pop
+	} repeat
+} def
+/sw
+{
+dup length exch stringwidth
+exch 5 -1 roll 3 index mul add
+4 1 roll 3 1 roll mul add
+} def
+/swj
+{
+dup 4 1 roll
+dup length exch stringwidth 
+exch 5 -1 roll 3 index mul add
+4 1 roll 3 1 roll mul add 
+6 2 roll /_cnt 0 ddef
+{1 index eq {/_cnt _cnt 1 add ddef} if} forall pop
+exch _cnt mul exch _cnt mul 2 index add 4 1 roll 2 index add 4 1 roll pop pop
+} def
+/ss
+{
+4 1 roll
+	{
+	2 npop 
+	(0) exch 2 copy 0 exch put pop
+	gsave
+	false charpath currentpoint
+	4 index setmatrix
+	stroke
+	grestore
+	moveto
+	2 copy rmoveto
+	} exch cshow
+3 npop
+} def
+/jss
+{
+4 1 roll
+	{
+	2 npop 
+	(0) exch 2 copy 0 exch put 
+	gsave
+	_sp eq 
+		{
+		exch 6 index 6 index 6 index 5 -1 roll widthshow  
+		currentpoint
+		}
+		{
+		false charpath currentpoint
+		4 index setmatrix stroke
+		}ifelse
+	grestore
+	moveto
+	2 copy rmoveto
+	} exch cshow
+6 npop
+} def
+/sp
+{
+	{
+	2 npop (0) exch
+	2 copy 0 exch put pop
+	false charpath
+	2 copy rmoveto
+	} exch cshow
+2 npop
+} def
+/jsp
+{
+	{
+	2 npop 
+	(0) exch 2 copy 0 exch put 
+	_sp eq 
+		{
+		exch 5 index 5 index 5 index 5 -1 roll widthshow  
+		}
+		{
+		false charpath
+		}ifelse
+	2 copy rmoveto
+	} exch cshow
+5 npop
+} def
+/pl
+{
+transform
+0.25 sub round 0.25 add exch
+0.25 sub round 0.25 add exch
+itransform
+} def
+/setstrokeadjust where
+	{
+	pop true setstrokeadjust
+	/c
+	{
+	curveto
+	} def
+	/C
+	/c load def
+	/v
+	{
+	currentpoint 6 2 roll curveto
+	} def
+	/V
+	/v load def
+	/y
+	{
+	2 copy curveto
+	} def
+	/Y
+	/y load def
+	/l
+	{
+	lineto
+	} def
+	/L
+	/l load def
+	/m
+	{
+	moveto
+	} def
+	}
+	{
+	/c
+	{
+	pl curveto
+	} def
+	/C
+	/c load def
+	/v
+	{
+	currentpoint 6 2 roll pl curveto
+	} def
+	/V
+	/v load def
+	/y
+	{
+	pl 2 copy curveto
+	} def
+	/Y
+	/y load def
+	/l
+	{
+	pl lineto
+	} def
+	/L
+	/l load def
+	/m
+	{
+	pl moveto
+	} def
+	} ifelse
+/d
+{
+setdash
+} def
+/cf	{} def
+/i
+{
+dup 0 eq
+	{
+	pop cf
+	} if
+setflat
+} def
+/j
+{
+setlinejoin
+} def
+/J
+{
+setlinecap
+} def
+/M
+{
+setmiterlimit
+} def
+/w
+{
+setlinewidth
+} def
+/H
+{} def
+/h
+{
+closepath
+} def
+/N
+{
+_pola 0 eq 
+	{
+	_doClip 1 eq {clip /_doClip 0 ddef} if 
+	newpath
+	} 
+	{
+	/CRender {N} ddef
+	}ifelse
+} def
+/n
+{N} def
+/F
+{
+_pola 0 eq 
+	{
+	_doClip 1 eq 
+		{
+		gsave _pf grestore clip newpath /_lp /none ddef _fc 
+		/_doClip 0 ddef
+		}
+		{
+		_pf
+		}ifelse
+	} 
+	{
+	/CRender {F} ddef
+	}ifelse
+} def
+/f
+{
+closepath
+F
+} def
+/S
+{
+_pola 0 eq 
+	{
+	_doClip 1 eq 
+		{
+		gsave _ps grestore clip newpath /_lp /none ddef _sc 
+		/_doClip 0 ddef
+		}
+		{
+		_ps
+		}ifelse
+	} 
+	{
+	/CRender {S} ddef
+	}ifelse
+} def
+/s
+{
+closepath
+S
+} def
+/B
+{
+_pola 0 eq 
+	{
+	_doClip 1 eq
+	gsave F grestore 
+		{
+		gsave S grestore clip newpath /_lp /none ddef _sc
+		/_doClip 0 ddef
+		} 
+		{
+		S
+		}ifelse
+	}
+	{
+	/CRender {B} ddef
+	}ifelse
+} def
+/b
+{
+closepath
+B
+} def
+/W
+{
+/_doClip 1 ddef
+} def
+/*
+{
+count 0 ne 
+	{
+	dup type (stringtype) eq {pop} if
+	} if 
+_pola 0 eq {newpath} if
+} def
+/u
+{} def
+/U
+{} def
+/q
+{
+_pola 0 eq {gsave} if
+} def
+/Q
+{
+_pola 0 eq {grestore} if
+} def
+/*u
+{
+_pola 1 add /_pola exch ddef
+} def
+/*U
+{
+_pola 1 sub /_pola exch ddef 
+_pola 0 eq {CRender} if
+} def
+/D
+{pop} def
+/*w
+{} def
+/*W
+{} def
+/`
+{
+/_i save ddef
+6 1 roll 4 npop
+concat pop
+userdict begin
+/showpage {} def
+0 setgray
+0 setlinecap
+1 setlinewidth
+0 setlinejoin
+10 setmiterlimit
+[] 0 setdash
+/setstrokeadjust where {pop false setstrokeadjust} if
+newpath
+0 setgray
+false setoverprint
+} def
+/~
+{
+end
+_i restore
+} def
+/@
+{} def
+/&
+{} def
+/O
+{
+0 ne
+/_of exch ddef
+/_lp /none ddef
+} def
+/R
+{
+0 ne
+/_os exch ddef
+/_lp /none ddef
+} def
+/g
+{
+/_gf exch ddef
+/_fc
+{
+_lp /fill ne
+	{
+	_of setoverprint
+	_gf setgray
+	/_lp /fill ddef
+	} if
+} ddef
+/_pf
+{
+_fc
+fill
+} ddef
+/_psf
+{
+_fc
+ashow
+} ddef
+/_pjsf
+{
+_fc
+awidthshow
+} ddef
+/_lp /none ddef
+} def
+/G
+{
+/_gs exch ddef
+/_sc
+{
+_lp /stroke ne
+	{
+	_os setoverprint
+	_gs setgray
+	/_lp /stroke ddef
+	} if
+} ddef
+/_ps
+{
+_sc
+stroke
+} ddef
+/_pss
+{
+_sc
+ss
+} ddef
+/_pjss
+{
+_sc
+jss
+} ddef
+/_lp /none ddef
+} def
+/k
+{
+_cf astore pop
+/_fc
+{
+_lp /fill ne
+	{
+	_of setoverprint
+	_cf aload pop setcmykcolor
+	/_lp /fill ddef
+	} if
+} ddef
+/_pf
+{
+_fc
+fill
+} ddef
+/_psf
+{
+_fc
+ashow
+} ddef
+/_pjsf
+{
+_fc
+awidthshow
+} ddef
+/_lp /none ddef
+} def
+/K
+{
+_cs astore pop
+/_sc
+{
+_lp /stroke ne
+	{
+	_os setoverprint
+	_cs aload pop setcmykcolor
+	/_lp /stroke ddef
+	} if
+} ddef
+/_ps
+{
+_sc
+stroke
+} ddef
+/_pss
+{
+_sc
+ss
+} ddef
+/_pjss
+{
+_sc
+jss
+} ddef
+/_lp /none ddef
+} def
+/x
+{
+/_gf exch ddef
+findcmykcustomcolor
+/_if exch ddef
+/_fc
+{
+_lp /fill ne
+	{
+	_of setoverprint
+	_if _gf 1 exch sub setcustomcolor
+	/_lp /fill ddef
+	} if
+} ddef
+/_pf
+{
+_fc
+fill
+} ddef
+/_psf
+{
+_fc
+ashow
+} ddef
+/_pjsf
+{
+_fc
+awidthshow
+} ddef
+/_lp /none ddef
+} def
+/X
+{
+/_gs exch ddef
+findcmykcustomcolor
+/_is exch ddef
+/_sc
+{
+_lp /stroke ne
+	{
+	_os setoverprint
+	_is _gs 1 exch sub setcustomcolor
+	/_lp /stroke ddef
+	} if
+} ddef
+/_ps
+{
+_sc
+stroke
+} ddef
+/_pss
+{
+_sc
+ss
+} ddef
+/_pjss
+{
+_sc
+jss
+} ddef
+/_lp /none ddef
+} def
+/dp
+{
+dup null eq
+{
+pop
+_dp 0 ne
+	{
+	0 1 _dp 1 sub _dl mod
+		{
+		_da exch get 3 get
+		} for
+	_dp 1 sub _dl mod 1 add packedarray
+	_da 0 get aload pop 8 -1 roll 5 -1 roll pop 4 1 roll
+	definepattern pop
+	} if
+}
+{
+_dp 0 ne _dp _dl mod 0 eq and
+	{
+	null dp
+	} if
+7 packedarray _da exch _dp _dl mod exch put
+_dp _dl mod _da 0 get 4 get 2 packedarray
+/_dp _dp 1 add def
+} ifelse
+} def
+/E
+{
+_ed begin
+dup 0 get type /arraytype ne
+	{
+	0
+		{
+		dup 1 add index type /arraytype eq
+			{
+			1 add
+			}
+			{
+			exit
+			} ifelse
+		} loop
+	array astore
+	} if
+/_dd exch def
+/_ury exch def
+/_urx exch def
+/_lly exch def
+/_llx exch def
+/_n exch def
+/_y 0 def
+/_dl 4 def
+/_dp 0 def
+/_da _dl array def
+0 1 _dd length 1 sub
+	{
+	/_d exch _dd exch get def
+	0 2 _d length 2 sub
+		{
+		/_x exch def
+		/_c _d _x get _ ne def
+		/_r _d _x 1 add get cvlit def
+		_r _ ne
+			{
+			_urx _llx sub _ury _lly sub [1 0 0 1 0 0] 
+				[
+				/save cvx
+				_llx neg _lly neg /translate cvx
+				_c
+					{
+					nc /begin cvx
+					} if
+				_r dup type /stringtype eq
+					{
+					cvx
+					}
+					{
+					{exec} /forall cvx
+					} ifelse
+				_c
+					{
+					/end cvx
+					} if
+				/restore cvx
+				] cvx
+			/_fn 12 _n length add string def
+			_y _fn cvs pop
+			/_y _y 1 add def
+			_fn 12 _n putinterval
+			_fn _c false dp
+			_d exch _x 1 add exch put
+			} if
+		} for
+	} for
+null dp
+_n _dd /_pd
+end xput
+} def
+/fc
+{
+_fm dup concatmatrix pop
+} def
+/p
+{
+/_fm exch ddef
+9 -2 roll _pm translate fc
+7 -2 roll _pm scale fc
+5 -1 roll _pm rotate fc
+4 -2 roll exch 0 ne
+	{
+	dup _pm rotate fc
+	1 -1 _pm scale fc
+	neg _pm rotate fc
+	}
+	{
+	pop
+	} ifelse
+dup _pm rotate fc
+exch dup sin exch cos div 1 0 0 1 0 6 2 roll
+_pm astore fc
+neg _pm rotate fc
+_pd exch get /_fdd exch ddef
+/_pf
+{
+save
+/_doClip 0 ddef
+0 1 _fdd length 1 sub
+	{
+	/_fd exch _fdd exch get ddef
+	_fd
+	0 2 _fd length 2 sub
+		{
+		gsave
+		2 copy get dup _ ne
+			{
+			cvx exec _fc
+			}
+			{
+			pop
+			} ifelse
+		2 copy 1 add get dup _ ne
+			{
+			aload pop findfont _fm
+			patternfill
+			}
+			{
+			pop
+			fill
+			} ifelse
+		grestore
+		pop
+		} for
+	pop
+	} for
+restore
+newpath
+} ddef
+/_psf
+{
+save
+/_doClip 0 ddef
+0 1 _fdd length 1 sub
+	{
+	/_fd exch _fdd exch get ddef
+	_fd
+	0 2 _fd length 2 sub
+		{
+		gsave
+		2 copy get dup _ ne
+			{
+			cvx exec _fc
+			}
+			{
+			pop
+			} ifelse
+		2 copy 1 add get dup _ ne
+			{
+			aload pop findfont _fm
+			9 copy 6 npop patternashow
+			}
+			{
+			pop
+			6 copy 3 npop ashow
+			} ifelse
+		grestore
+		pop
+		} for
+	pop
+	} for
+restore
+%3 npop newpath
+sw rmoveto
+} ddef
+/_pjsf
+{
+save
+/_doClip 0 ddef
+0 1 _fdd length 1 sub
+	{
+	/_fd exch _fdd exch get ddef
+	_fd
+	0 2 _fd length 2 sub
+		{
+		gsave
+		2 copy get dup _ ne
+			{
+			cvx exec _fc
+			}
+			{
+			pop
+			} ifelse
+		2 copy 1 add get dup _ ne
+			{
+			aload pop findfont _fm
+			12 copy 6 npop patternawidthshow
+			}
+			{
+			pop 9 copy 3 npop awidthshow
+			} ifelse
+		grestore
+		pop
+		} for
+	pop
+	} for
+restore
+swj rmoveto
+} ddef
+/_lp /none ddef
+} def
+/sc
+{
+_sm dup concatmatrix pop
+} def
+/P
+{
+/_sm exch ddef
+9 -2 roll _pm translate sc
+7 -2 roll _pm scale sc
+5 -1 roll _pm rotate sc
+4 -2 roll exch 0 ne
+	{
+	dup _pm rotate sc
+	1 -1 _pm scale sc
+	neg _pm rotate sc
+	}
+	{
+	pop
+	} ifelse
+dup _pm rotate sc
+exch dup sin exch cos div 1 0 0 1 0 6 2 roll
+_pm astore sc
+neg _pm rotate sc
+_pd exch get /_sdd exch ddef
+/_ps
+{
+save
+/_doClip 0 ddef
+0 1 _sdd length 1 sub
+	{
+	/_sd exch _sdd exch get ddef
+	_sd
+	0 2 _sd length 2 sub
+		{
+		gsave
+		2 copy get dup _ ne
+			{
+			cvx exec _sc
+			}
+			{
+			pop
+			} ifelse
+		2 copy 1 add get dup _ ne
+			{
+			aload pop findfont _sm
+			patternstroke
+			}
+			{
+			pop stroke
+			} ifelse
+		grestore
+		pop
+		} for
+	pop
+	} for
+restore
+newpath
+} ddef
+/_pss
+{
+save
+/_doClip 0 ddef
+0 1 _sdd length 1 sub
+	{
+	/_sd exch _sdd exch get ddef
+	_sd
+	0 2 _sd length 2 sub
+		{
+		gsave
+		2 copy get dup _ ne
+			{
+			cvx exec _sc
+			}
+			{
+			pop
+			} ifelse
+		2 copy 1 add get dup _ ne
+			{
+			aload pop findfont _sm
+			10 copy 6 npop patternashowstroke
+			}
+			{
+			pop 7 copy 3 npop ss
+			} ifelse
+		grestore
+		pop
+		} for
+	pop
+	} for
+restore
+pop sw rmoveto
+} ddef
+/_pjss
+{
+save
+/_doClip 0 ddef
+0 1 _sdd length 1 sub
+	{
+	/_sd exch _sdd exch get ddef
+	_sd
+	0 2 _sd length 2 sub
+		{
+		gsave
+		2 copy get dup _ ne
+			{
+			cvx exec _sc
+			}
+			{
+			pop
+			} ifelse
+		2 copy 1 add get dup _ ne
+			{
+			aload pop findfont _sm
+			13 copy 6 npop patternawidthshowstroke
+			}
+			{
+			pop 10 copy 3 npop jss
+			} ifelse
+		grestore
+		pop
+		} for
+	pop
+	} for
+restore
+pop swj rmoveto
+} ddef
+/_lp /none ddef
+} def
+/A
+{
+pop
+} def
+/nc 3 dict def
+nc begin
+/setgray
+{
+pop
+} bind def
+/setcmykcolor
+{
+4 npop
+} bind def
+/setcustomcolor
+{
+2 npop
+} bind def
+currentdict readonly pop end
+currentdict readonly pop end
+setpacking
+/annotatepage
+{
+} def
+%%EndResource
+%%EndProlog%%BeginSetup%%IncludeFont: CourierAdobe_cshow /initialize get exec
+Adobe_customcolor /initialize get exec
+Adobe_typography_AI3 /initialize get exec
+Adobe_pattern_AI3 /initialize get exec
+Adobe_Illustrator_AI3 /initialize get exec
+[39/quotesingle 96/grave 128/Adieresis/Aring/Ccedilla/Eacute/Ntilde/Odieresis/Udieresis/aacute/agrave/acircumflex/adieresis/atilde/aring/ccedilla/eacute/egrave/ecircumflex/edieresis/iacute/igrave/icircumflex/idieresis/ntilde/oacute/ograve/ocircumflex/odieresis/otilde/uacute/ugrave/ucircumflex/udieresis/dagger/degree/cent/sterling/section/bullet/paragraph/germandbls/registered/copyright/trademark/acute/dieresis/.notdef/AE/Oslash/.notdef/plusminus/.notdef/.notdef/yen/mu/.notdef/.notdef/.notdef/.notdef/.notdef/ordfeminine/ordmasculine/.notdef/ae/oslash/questiondown/exclamdown/logicalnot/.notdef/florin/.notdef/.notdef/guillemotleft/guillemotright/ellipsis/space/Agrave/Atilde/Otilde/OE/oe/endash/emdash/quotedblleft/quotedblright/quoteleft/quoteright/divide/.notdef/ydieresis/Ydieresis/fraction/Euro/guilsinglleft/guilsinglright/fi/fl/daggerdbl/periodcentered/quotesinglbase/quotedblbase/perthousand/Acircumflex/Ecircumflex/Aacute/Edieresis/Egrave/Iacute/Icircumflex/Idieresis/Igrave/Oacute/Ocircumflex/.notdef/Ograve/Uacute/Ucircumflex/Ugrave/dotlessi/circumflex/tilde/macron/breve/dotaccent/ring/cedilla/hungarumlaut/ogonek/caronTE%AI3_BeginEncoding: _Courier Courier[/_Courier/Courier 0 0 0 TZ%AI3_EndEncoding TrueType%AI3_BeginPattern: (Azure Rings)(Azure Rings) 22.5 22.5 58.5 58.5 [%AI3_Tile(0 O 0 R 0.9569 0.9294 0 0 k 0.9569 0.9294 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 1.75 w 4 M []0 d40.5 58.5 m40.5 48.5586 32.4409 40.5 22.5 40.5 c12.5591 40.5 4.5 48.5586 4.5 58.5 c4.5 68.4414 12.5591 76.5 22.5 76.5 c32.4409 76.5 40.5 68.4414 40.5 58.5 cs40.5 22.5 m40.5 12.5586 32.4409 4.5 22.5 4.5 c12.5591 4.5 4.5 12.5586 4.5 22.5 c4.5 32.4414 12.5591 40.5 22.5 40.5 c32.4409 40.5 40.5 32.4414 40.5 22.5 cs40.5 40.5 m40.5 30.5586 32.4409 22.5 22.5 22.5 c12.5591 22.5 4.5 30.5586 4.5 40.5 c4.5 50.4414 12.5591 58.5 22.5 58.5 c32.4409 58.5 40.5 50.4414 40.5 40.5 cs58.5 58.5 m58.5 48.5586 50.4409 40.5 40.5 40.5 c30.5591 40.5 22.5 48.5586 22.5 58.5 c22.5 68.4414 30.5591 76.5 40.5 76.5 c50.4409 76.5 58.5 68.4414 58.5 58.5 cs58.5 22.5 m58.5 12.5586 50.4409 4.5 40.5 4.5 c30.5591 4.5 22.5 12.5586 22.5 22.5 c22.5 32.4414 30.5591 40.5 40.5 40.5 c50.4409 40.5 58.5 32.4414 58.5 22.5 cs58.5 40.5 m58.5 30.5586 50.4409 22.5 40.5 22.5 c30.5591 22.5 22.5 30.5586 22.5 40.5 c22.5 50.4414 30.5591 58.5 40.5 58.5 c50.4409 58.5 58.5 50.4414 58.5 40.5 cs76.5 58.5 m76.5 48.5586 68.4409 40.5 58.5 40.5 c48.5591 40.5 40.5 48.5586 40.5 58.5 c40.5 68.4414 48.5591 76.5 58.5 76.5 c68.4409 76.5 76.5 68.4414 76.5 58.5 cs76.5 22.5 m76.5 12.5586 68.4409 4.5 58.5 4.5 c48.5591 4.5 40.5 12.5586 40.5 22.5 c40.5 32.4414 48.5591 40.5 58.5 40.5 c68.4409 40.5 76.5 32.4414 76.5 22.5 cs76.5 40.5 m76.5 30.5586 68.4409 22.5 58.5 22.5 c48.5591 22.5 40.5 30.5586 40.5 40.5 c40.5 50.4414 48.5591 58.5 58.5 58.5 c68.4409 58.5 76.5 50.4414 76.5 40.5 cs%AI6_EndPatternLayer) &] E%AI3_EndPattern%AI3_BeginPattern: (Camouflage)(Camouflage) 1 1 73 73 [%AI3_Tile(0 O 0 R 0.6 0.1412 0.9373 0.0275 k 0.6 0.1412 0.9373 0.0275 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d1 73 m1 1 L73 1 L73 73 L1 73 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.4941 0.3529 0.9529 0.2 k 0.4941 0.3529 0.9529 0.2 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d18.5449 73 m18.5449 1 L46.7832 1 L46.7832 73 L18.5449 73 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.1882 0.1098 0.9059 0.0157 k 0.1882 0.1098 0.9059 0.0157 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d11.9512 1 m11.9512 4.7129 9.2314 2.8813 9.2314 6.5938 c9.2314 10.2334 4.25 10.2334 4.25 13.8735 c4.25 17.4858 10.0313 17.4858 10.0313 21.0991 c10.0313 24.832 10.208 24.832 10.208 28.5654 c10.208 32.3071 5.5205 32.3071 5.5205 36.0469 c5.5205 39.7021 11.8838 39.7021 11.8838 43.356 c11.8838 47.0566 7.4609 47.0566 7.4609 50.7568 c7.4609 54.4043 5.7959 54.4043 5.7959 58.0542 c5.7959 61.7686 4.6631 61.7686 4.6631 65.4805 c4.6631 69.1636 11.9512 69.3184 11.9512 73 C27.9268 73 L27.9268 69.3184 22.0635 69.1636 22.0635 65.4805 c22.0635 61.7686 28.6631 61.7686 28.6631 58.0542 c28.6631 54.4043 25.1553 54.4043 25.1553 50.7568 c25.1553 47.0566 28.8145 47.0566 28.8145 43.356 c28.8145 39.7021 22.1191 39.7021 22.1191 36.0469 c22.1191 32.3071 26.3945 32.3071 26.3945 28.5654 c26.3945 24.832 24.4248 24.832 24.4248 21.0991 c24.4248 17.4858 20.3838 17.4858 20.3838 13.8735 c20.3838 10.2334 24.6055 10.2334 24.6055 6.5938 c24.6055 2.8813 27.9268 4.7129 27.9268 1 C11.9512 1 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.9216 0.2157 0.9451 0.0745 k 0.9216 0.2157 0.9451 0.0745 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d41.875 1 m41.875 4.7134 42.3867 2.8818 42.3867 6.5938 c42.3867 10.2334 40.5947 10.2334 40.5947 13.8735 c40.5947 17.4858 41.5742 17.4858 41.5742 21.0991 c41.5742 24.832 43.6484 24.832 43.6484 28.5659 c43.6484 32.3076 39.1709 32.3076 39.1709 36.0469 c39.1709 39.7026 39.7549 39.7026 39.7549 43.356 c39.7549 47.0566 45.3896 47.0566 45.3896 50.7568 c45.3896 54.4043 40.1055 54.4043 40.1055 58.0542 c40.1055 61.7686 40.6289 61.7686 40.6289 65.4805 c40.6289 69.1636 41.875 69.3184 41.875 73 C59.0752 73 L59.0752 69.4219 53.4805 70.1934 53.4805 66.6143 c53.4805 62.9136 55.8945 62.9136 55.8945 59.2153 c55.8945 55.502 61.0059 55.502 61.0059 51.7886 c61.0059 48.1489 60.5635 48.1489 60.5635 44.5103 c60.5635 40.897 59.9277 40.897 59.9277 37.2842 c59.9277 33.5508 56.3662 33.5508 56.3662 29.8169 c56.3662 26.0762 61.0908 26.0762 61.0908 22.3354 c61.0908 18.6812 52.6025 18.6812 52.6025 15.0264 c52.6025 11.3262 55.7461 11.3262 55.7461 7.6265 c55.7461 3.978 59.0752 4.6484 59.0752 1 C41.875 1 Lf%AI6_EndPatternLayer) &] E%AI3_EndPattern%AI3_BeginPattern: (Honeycomb)(Honeycomb) 12.9819 14.6548 65.8066 60.6758 [%AI3_Tile(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d64.0161 21.3906 m64.0161 7.9009 L52.3345 1.1543 L40.6475 7.9009 L40.6475 21.3906 L52.3345 28.1372 L64.0161 21.3906 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d43.9536 19.4839 m43.9536 9.8081 L52.3345 4.9702 L60.7153 9.8081 L60.7153 19.4839 L52.3345 24.3218 L43.9536 19.4839 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d37.479 21.394 m37.479 7.9014 L25.7944 1.1548 L14.1099 7.9014 L14.1099 21.3911 L25.7944 28.1406 L37.479 21.394 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d17.4126 19.4839 m17.4126 9.8081 L25.7944 4.9702 L34.1743 9.8081 L34.1743 19.4839 L25.7944 24.3218 L17.4126 19.4839 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d24.3691 44.0386 m24.3691 30.5459 L12.6846 23.7993 L1 30.5459 L1 44.0356 L12.6846 50.7852 L24.3691 44.0386 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d4.3027 42.1284 m4.3027 32.4526 L12.6846 27.6147 L21.0645 32.4526 L21.0645 42.1284 L12.6846 46.9663 L4.3027 42.1284 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d77.2871 44.3774 m77.2871 30.8843 L65.603 24.1382 L53.9185 30.8843 L53.9185 44.3765 L65.603 51.1226 L77.2871 44.3774 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d57.2202 42.4692 m57.2202 32.7915 L65.603 27.9536 L73.9819 32.7915 L73.9819 42.4692 L65.603 47.3081 L57.2202 42.4692 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d50.7471 44.3774 m50.7471 30.8843 L39.0649 24.1382 L27.3774 30.8843 L27.3774 44.3765 L39.0649 51.1235 L50.7471 44.3774 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d30.6821 42.4692 m30.6821 32.7915 L39.0649 27.9517 L47.4438 32.7915 L47.4438 42.4702 L39.0649 47.3091 L30.6821 42.4692 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d37.479 67.3599 m37.479 53.8682 L25.7944 47.1221 L14.1099 53.8682 L14.1099 67.3599 L25.7944 74.1074 L37.479 67.3599 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d17.4126 65.4526 m17.4126 55.7749 L25.7944 50.937 L34.1743 55.7749 L34.1772 65.4526 L25.7944 70.2905 L17.4126 65.4526 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.4235 0.5059 0.949 0.3569 k 0.4235 0.5059 0.949 0.3569 K) @(%AI6_BeginPatternLayer0 J 0 j 2 w 4 M []0 d64.0161 67.3599 m64.0161 53.8682 L52.3345 47.1221 L40.6475 53.8682 L40.6475 67.3599 L52.3345 74.1074 L64.0161 67.3599 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.2 0.4627 0.9922 0.0627 k 0.2 0.4627 0.9922 0.0627 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d43.9536 65.4526 m43.9536 55.7749 L52.3345 50.937 L60.7153 55.7749 L60.7153 65.4526 L52.3345 70.2905 L43.9536 65.4526 Ls%AI6_EndPatternLayer) &] E%AI3_EndPattern%AI3_BeginPattern: (Jungle Stripes)(Jungle Stripes) 37 19 73 55 [%AI3_Tile(0 O 0 R 1 0 1 0 k 1 0 1 0 K) @(%AI6_BeginPatternLayer0 J 0 j 18 w 4 M []0 d37 37 m73 37 lS%AI6_EndPatternLayer) &(0 O 0 R 0.3451 0 0.6863 0 k 0.3451 0 0.6863 0 K) @(%AI6_BeginPatternLayer0 J 0 j 9 w 4 M []0 d37 37 m73 37 lS%AI6_EndPatternLayer) &] E%AI3_EndPattern%AI3_BeginPattern: (Mediterranean Tiles)(Mediterranean Tiles) 4.9482 11.5332 39.291 45.8818 [%AI3_Tile(0 O 0 R 0 0 0 0 k 0 0 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d0.1499 40.748 m10.0083 40.749 L16.9673 33.79 L16.9702 23.9297 L10.0093 16.9697 L0.1509 16.9688 L0.1499 40.748 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.57 0.75 0 0 k 0.57 0.75 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d0.1499 40.748 m10.0083 40.749 L16.9673 33.79 L16.9702 23.9297 L10.0093 16.9697 L0.1509 16.9688 L0.1499 40.748 Ls%AI6_EndPatternLayer) &(0 O 0 R 0 0 0 0 k 0 0 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d16.9712 0.1504 m10.0122 7.1094 L10.0093 16.9697 L16.9702 23.9297 L26.8296 23.9307 L33.7915 16.9727 L33.7915 7.1123 L26.8335 0.1514 L16.9712 0.1504 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.57 0.75 0 0 k 0.57 0.75 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d16.9712 0.1504 m10.0122 7.1094 L10.0093 16.9697 L16.9702 23.9297 L26.8296 23.9307 L33.7915 16.9727 L33.7915 7.1123 L26.8335 0.1514 L16.9712 0.1504 Ls%AI6_EndPatternLayer) &(0 O 0 R 0 0 0 0 k 0 0 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d16.9673 33.79 m10.0083 40.749 L10.0054 50.6084 L16.9663 57.5693 L26.8257 57.5703 L33.7876 50.6113 L33.7876 40.752 L26.8296 33.791 L16.9673 33.79 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.57 0.75 0 0 k 0.57 0.75 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d16.9673 33.79 m10.0083 40.749 L10.0054 50.6084 L16.9663 57.5693 L26.8257 57.5703 L33.7876 50.6113 L33.7876 40.752 L26.8296 33.791 L16.9673 33.79 Ls%AI6_EndPatternLayer) &(0 O 0 R 0 0 0 0 k 0 0 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d33.7915 16.9727 m26.8296 23.9307 L26.8296 33.791 L33.7876 40.752 L43.6475 40.7529 L50.6094 33.7939 L50.6094 23.9336 L43.6494 16.9736 L33.7915 16.9727 Lf%AI6_EndPatternLayer) &(0 O 0 R 0.57 0.75 0 0 k 0.57 0.75 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 0.3 w 4 M []0 d33.7915 16.9727 m26.8296 23.9307 L26.8296 33.791 L33.7876 40.752 L43.6475 40.7529 L50.6094 33.7939 L50.6094 23.9336 L43.6494 16.9736 L33.7915 16.9727 Ls%AI6_EndPatternLayer) &(0 O 0 R 0.9725 0.9451 0 0 k 0.9725 0.9451 0 0 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d43.6514 7.1123 m43.6514 16.9727 L33.7915 16.9727 L33.7915 7.1123 L43.6514 7.1123 Lf26.8296 23.9307 m26.8296 33.791 L16.9702 33.791 L16.9702 23.9307 L26.8296 23.9307 Lf10.0093 7.1094 m10.0093 16.9697 L0.1538 16.9697 L0.1538 7.1094 L10.0093 7.1094 Lf43.6494 40.752 m43.6494 50.6113 L33.7876 50.6113 L33.7876 40.752 L43.6494 40.752 Lf10.0083 40.749 m10.0083 50.6084 L0.1499 50.6084 L0.1499 40.749 L10.0083 40.749 Lf%AI6_EndPatternLayer) &] E%AI3_EndPattern%AI3_BeginPattern: (Pyramids)(Pyramids) 1 1 19.5 19.5 [%AI3_Tile(0 O 0 R 0.1882 0.1294 0.102 0.0118 k 0.1882 0.1294 0.102 0.0118 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d1 19.5 m10.25 10.25 l19.5 19.5 l1 19.5 lf%AI6_EndPatternLayer) &(0 O 0 R 0.6235 0.4863 0.4863 0.4784 k 0.6235 0.4863 0.4863 0.4784 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d19.5 1 m10.25 10.25 l1 1 l19.5 1 lf%AI6_EndPatternLayer) &(0 O 0 R 0.3529 0.2549 0.2235 0.0667 k 0.3529 0.2549 0.2235 0.0667 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d1 1 m10.25 10.25 l1 19.5 l1 1 lf%AI6_EndPatternLayer) &(0 O 0 R 0.4902 0.3647 0.3451 0.2196 k 0.4902 0.3647 0.3451 0.2196 K) @(%AI6_BeginPatternLayer0 J 0 j 1 w 4 M []0 d19.5 19.5 m10.25 10.25 l19.5 1 l19.5 19.5 lf%AI6_EndPatternLayer) &] E%AI3_EndPattern%%EndSetup0 Auu0 To1 0 0 1 58.9106 340.8516 0 TpTP1 0 0 1 58.9106 340.8516 Tm0 Tr0 O0 0 0 1 k0 J 0 j 1 w 4 M []0 d/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\164\155\172\144\145\155\157\62\056\143) Tx 0 0 TkTOUU0 R0 0 0 1 K2 w143.5005 260 m45 260 L45 359 L143.5005 359 L143.5005 260 Ls1 w44.8335 332.3008 m143.6665 332.3008 lSuu0 To1 0 0 1 73.313 315.334 0 TpTP1 0 0 1 73.313 315.334 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\155\141\151\156\(\)) Tx 0 0 TkTOUU0 R0 0 0 1 K2 w375.2559 369.9023 m276.7559 369.9023 L276.7559 468.9033 L375.2559 468.9033 L375.2559 369.9023 Ls1 w276.5898 442.2031 m375.4219 442.2031 lSuu0 To1 0 0 1 288.7944 233.5176 0 TpTP1 0 0 1 288.7944 233.5176 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\165\160\144\141\164\145\62\144\056\143) Tx 0 0 TkTOUU0 R0 0 0 1 K2 w516.5996 153.2354 m418.0996 153.2354 L418.0996 252.2363 L516.5996 252.2363 L516.5996 153.2354 Ls1 w417.9326 224.9678 m516.7666 224.9678 lSuuu0 To1 0 0 1 285.1934 208.002 0 TpTP1 0 0 1 285.1934 208.002 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\165\160\144\141\164\145\105\62\144\(\)) Tx 0 0 TkTOUUuu0 To1 0 0 1 285.1934 193.502 0 TpTP1 0 0 1 285.1934 193.502 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\165\160\144\141\164\145\110\62\144\(\)) Tx 0 0 TkTOUUU0 R0 0 0 1 K2 w258.1675 370.5596 m159.6675 370.5596 L159.6675 469.5601 L258.1675 469.5601 L258.1675 370.5596 Ls1 w159.5015 442.8604 m258.3335 442.8604 lSuu0 To1 0 0 1 173.896 425.894 0 TpTP1 0 0 1 173.896 425.894 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\147\162\151\144\111\156\151\164\(\)) Tx 0 0 TkTOUUu0 R0 0 0 1 K3 w483.75 252.5 m483.75 357.0586 lS0 O0 0 0 1 k1 w483.75 355.834 m479.4277 353.207 l479.3301 353.3535 l482.1289 360.4043 l482.6699 362.8594 483.209 365.3164 483.75 367.7734 c484.291 365.3164 484.832 362.8594 485.3711 360.4043 c488.1719 353.3535 l488.0977 353.207 l483.75 355.834 lfUu0 R0 0 0 1 K3 w143.917 330.8926 m326.0283 330.8926 l326.0283 357.8926 lS0 O0 0 0 1 k1 w326.0259 356.834 m321.4829 354.207 l321.3804 354.3535 l324.3228 361.4043 l324.8911 363.8594 325.4575 366.3164 326.0259 368.7734 c326.5947 366.3164 327.1606 363.8594 327.7295 361.4043 c330.6719 354.3535 l330.5938 354.207 l326.0259 356.834 lfUuuu0 To1 0 0 1 433.9795 233.5156 0 TpTP1 0 0 1 433.9795 233.5156 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\164\146\163\146) Tx 0 0 TkTOUUuu0 To1 0 0 1 462.7842 233.5156 0 TpTP1 0 0 1 462.7842 233.5156 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\164\155\172) Tx 0 0 TkTOUUuu0 To1 0 0 1 484.3877 233.5156 0 TpTP1 0 0 1 484.3877 233.5156 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\056\143) Tx 0 0 TkTOUUU0 R0 0 0 1 K2 w532.334 369.5 m433.8335 369.5 L433.8335 468.5005 L532.334 468.5005 L532.334 369.5 Ls1 w433.6675 441.8003 m532.5 441.8003 lSuuu0 To1 0 0 1 432.2451 208 0 TpTP1 0 0 1 432.2451 208 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\164\146\163\146\111\156\151\164\(\)) Tx 0 0 TkTOUUuu0 To1 0 0 1 425.0439 193.5 0 TpTP1 0 0 1 425.0439 193.5 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\164\146\163\146\125\160\144\141\164\145\(\)) Tx 0 0 TkTOUUUuu0 To1 0 0 1 296.4121 450.8501 0 TpTP1 0 0 1 296.4121 450.8501 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\141\142\143\164\155\172\056\143) Tx 0 0 TkTOUU0 R0 0 0 1 K2 w374.5664 153.2354 m276.0659 153.2354 L276.0659 252.2363 L374.5664 252.2363 L374.5664 153.2354 Ls1 w275.8979 224.2998 m374.7324 224.2998 lSuuu0 To1 0 0 1 292.8105 425.3345 0 TpTP1 0 0 1 292.8105 425.3345 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\141\142\143\111\156\151\164\(\)) Tx 0 0 TkTOUUuu0 To1 0 0 1 307.2129 410.8345 0 TpTP1 0 0 1 307.2129 410.8345 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\141\142\143\(\)) Tx 0 0 TkTOUUUuu0 To1 0 0 1 160.377 233.6826 0 TpTP1 0 0 1 160.377 233.6826 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\163\156\141\160\163\150\157\164\62\144\056\143) Tx 0 0 TkTOUU0 R0 0 0 1 K2 w262.5835 152.832 m144.749 152.832 L144.749 251.833 L262.5835 251.833 L262.5835 152.832 Ls1 w145.6665 224.0625 m263 224.0625 lSuuu0 To1 0 0 1 145.9746 208.167 0 TpTP1 0 0 1 145.9746 208.167 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\163\156\141\160\163\150\157\164\111\156\151\164\62\144\(\)) Tx 0 0 TkTOUUuu0 To1 0 0 1 160.377 193.667 0 TpTP1 0 0 1 160.377 193.667 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\163\156\141\160\163\150\157\164\62\144\(\)) Tx 0 0 TkTOUUUu0 R0 0 0 1 K3 w142.917 351.2266 m210.2505 351.2266 l210.2505 358.3926 lS0 O0 0 0 1 k1 w210.2505 357.168 m205.9282 354.541 l205.8306 354.6875 l208.6294 361.7383 l209.1704 364.1934 209.7095 366.6504 210.2505 369.1074 c210.7915 366.6504 211.3325 364.1934 211.8716 361.7383 c214.6724 354.6875 l214.5981 354.541 l210.2505 357.168 lfUu0 R0 0 0 1 K3 w143.9629 270.1787 m211.2964 270.1787 l211.2964 263.5117 lS0 O0 0 0 1 k1 w211.2964 264.7354 m215.6196 267.3643 l215.7183 267.2168 l212.9175 260.167 l212.3774 257.7109 211.8374 255.2539 211.2964 252.7979 c210.7563 255.2539 210.2163 257.7109 209.6753 260.167 c206.8745 267.2168 l206.9487 267.3643 l211.2964 264.7354 lfUu0 R0 0 0 1 K3 w143.584 288.6094 m326.25 288.6094 l326.25 262.9424 lS0 O0 0 0 1 k1 w326.25 264.166 m330.5723 266.7949 l330.6719 266.6475 l327.8711 259.5977 l327.3301 257.1416 326.791 254.6846 326.25 252.2285 c325.709 254.6846 325.1699 257.1416 324.6289 259.5977 c321.8281 266.6475 l321.9023 266.7949 l326.25 264.166 lfUu0 R0 0 0 1 K3 w143.584 309.9443 m449.5396 309.9443 l449.5396 262.9434 lS0 O0 0 0 1 k1 w450.0898 264.167 m454.1631 266.7959 l454.2568 266.6484 l451.6177 259.5986 l451.1074 257.1426 450.5996 254.6855 450.0898 252.2295 c449.5801 254.6855 449.0723 257.1426 448.562 259.5986 c445.9229 266.6484 l445.9927 266.7959 l450.0898 264.167 lfUuu0 To1 0 0 1 177.4966 450.1831 0 TpTP1 0 0 1 177.4966 450.1831 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\147\162\151\144\164\155\172\056\143) Tx 0 0 TkTOUUuu0 To1 0 0 1 582 234.0869 0 TpTP1 0 0 1 582 234.0869 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\162\151\143\153\145\162\056\143) Tx 0 0 TkTOUU0 R0 0 0 1 K2 w659.0879 153.2354 m560.5879 153.2354 L560.5879 252.2363 L659.0879 252.2363 L659.0879 153.2354 Ls1 w560.4219 225.5361 m659.2559 225.5361 lSuuu0 To1 0 0 1 571.1982 208.5703 0 TpTP1 0 0 1 571.1982 208.5703 Tm0 Tr0 O0 0 0 1 k/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\145\172\111\156\143\111\156\151\164\(\)) Tx 0 0 TkTOUUuu0 To1 0 0 1 585.6006 194.0703 0 TpTP1 0 0 1 585.6006 194.0703 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\145\172\111\156\143\(\)) Tx 0 0 TkTOUUUuu0 To1 0 0 1 441.3276 425.7271 0 TpTP1 0 0 1 441.3276 425.7271 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\147\162\151\144\111\156\151\164\61\144\(\)) Tx 0 0 TkTOUUuu0 To1 0 0 1 448.73 450.0161 0 TpTP1 0 0 1 448.73 450.0161 Tm0 Tr/_Courier 12 Tf100 Tz0 Tt0 0 Tl0 Tc(\147\162\151\144\61\144\145\172\056\143) Tx 0 0 TkTOUUu0 R0 0 0 1 K3 w386.333 206.333 m418 206.333 lS0 O0 0 0 1 k1 w387.71 206.333 m390.667 201.4688 l390.502 201.3594 l382.5703 204.5088 l379.8066 205.1172 377.043 205.7246 374.2803 206.333 c377.043 206.9404 379.8066 207.5488 382.5703 208.1572 c390.502 211.3076 l390.667 211.2246 l387.71 206.333 lfUu0 R0 0 0 1 K3 w516.5 206.666 m548 206.666 lS0 O0 0 0 1 k1 w546.623 206.666 m543.666 211.5303 l543.832 211.6406 l551.7637 208.4902 l554.5254 207.8818 557.291 207.2744 560.0527 206.666 c557.291 206.0586 554.5254 205.4502 551.7637 204.8418 c543.832 201.6914 l543.666 201.7744 l546.623 206.666 lfU%%PageTrailergsave annotatepage grestore showpage%%TrailerAdobe_Illustrator_AI3 /terminate get exec
+Adobe_pattern_AI3 /terminate get exec
+Adobe_typography_AI3 /terminate get exec
+Adobe_customcolor /terminate get exec
+Adobe_cshow /terminate get exec
+Adobe_packedarray /terminate get exec
+%%EOF

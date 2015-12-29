@@ -1,0 +1,14 @@
+#/bin/bash -norc
+
+rm -f sim*.[0-9]* sim*.ppm
+
+3ddemo << EOF
+15
+1
+10 10
+sim
+EOF
+
+
+rw2pnm -f -d3 sim-x
+rw2pnm -f -d3 sim-y

@@ -1,0 +1,15 @@
+    /* get snapshot if time a multiple of 10 */
+    if (qTime%10 == 0) {
+      /* construct string with complete file name */
+      sprintf(filename,"%s.%d",basename,frame++);
+
+      /* open file */
+      snapshot=fopen(filename,"w");
+
+      /* write data to file */
+      for (m=0; m<SIZE; m++)
+	fprintf(snapshot,"%f\n",ez[m]);
+
+      /* close file */
+      fclose(snapshot);
+    }

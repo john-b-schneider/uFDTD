@@ -1,0 +1,75 @@
+2013/10/22 Ran into issues with multirow.sty not being found with the
+current distribution of LaTeX.  So, grabbed that off the Web (from
+CTAN).  Unpacked the zip file I downloaded which created the directory
+multirow.  I created a symbolic link from the root directory to the
+multirow.sty in that directory and then everything seemed to compile
+okay.
+
+Notes:
+
+* Should improve Fig. 2.1.
+
+* Should perhaps add a label "S" for the surface in Figs. 2.2 and
+  2.3.
+
+* Should add figures for boundary conditions.
+
+* Should add a table explaining use of notation
+
+     c = speed of light {\em in free space}
+     N_\lambda = point per wavelength
+ 
+  etc.  Would help me be consistent
+
+Done:
+- The wave equation should be added to the review chapter (2).
+  Additionally the proof that f(t+/-x/c) are solutions to the wave
+  equation -- which currently appears as an appendix in chap. 3 --
+  should be move to chap. 2.
+
+Done:
+- should added something to show Delta_x and Delta_t to Figs. 3.1-3.3.
+
+Done!
+- Need better way to include code.  Would like to be able to have some
+  text as bold (e.g., when it was just added to code that was
+  otherwise unchanged).  Also, floats can be split across multiple
+  pages.  Hmmm, something to ponder...
+
+* Chap 3: Probably should add a plot which shows a single snapshot of
+  the dielectric case so that the magnitude of the transmitted and
+  reflected pulse can be seen.
+
+* I'm not as consistent as I probably should be when it comes to "E_z"
+  vs. "the E_z field" (similarly for H_y).  So, I will say things like
+  "plots of the $E_z$ field are ..."  Wouldn't be just as clear, and a
+  bit more terse/clean, to say simply "plots of $E_z$ are ..."?  I
+  think so.
+
+* Don't think I'm consistent in the use of the terms temporal step,
+  temporal step size, and time step.  Perhaps temporal step should
+  refer to del_t and temporal index should refer to q.  Similarly for
+  space: spatial step = del_x and spatial index = m, n, or p.  Thus
+  "size" shouldn't appear anywhere in the text.
+
+* Should add a section to the EM review about harmonic fields and
+  phasor notation.
+
+* MoM stuff: Should have a discussion of general integral equations.
+
+* MoM stuff: 
+
+  o After getting through the symmetry stuff, should probably have a
+  discussion about how the modified basis function is somewhat
+  equivalent to a modified Green's function.  Should say that we want
+  the Green's function to include as much of the environmental
+  information as possible.
+
+  o Then should explore the two-plate problem and show how, assuming
+  equal and opposite charge, it is equivalent to charge above an
+  infinite ground plane.  The use of an appropriate Green's function
+  should be discussed.
+
+  o Would be nice to have some discussion of dielectric materials!!!
+  Can see the Ph.D. work and papers of Juha Avelin for pointers into
+  the literature.

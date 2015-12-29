@@ -1,0 +1,21 @@
+# Note! Will have to have run l3-additive first to generate
+# the necessary data files.
+############################################################
+set term postscript eps
+set output 'l3-additive1.eps'
+set nokey
+set xlabel 'Spatial Step'
+set ylabel 'Ez (V/m)'
+set xtics 0,25
+set mxtics 5
+set mytics 4
+plot [] [0:1] 'sim.2' w l lw 2
+
+#pause(-1)
+set output 'l3-additive2.eps'
+plot [] [0:1] 'sim.3' w l lw 2
+
+#pause(-1)
+set output 'l3-additive3.eps'
+plot [] [0:1] 'sim.4' w l lw 2
+

@@ -1,0 +1,88 @@
+plot [] [-1:1] 'sim.1' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.2' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.3' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.4' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.5' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.6' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.7' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.8' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.9' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.10' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.11' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.12' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.13' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.14' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.15' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.16' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.17' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.18' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.19' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.20' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.21' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.22' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.23' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.24' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.25' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.26' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.27' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.28' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.29' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.30' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.31' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.32' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.33' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.34' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.35' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.36' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.37' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.38' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.39' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.40' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.41' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.42' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.43' w l lw 3
+pause -1
+plot [] [-1:1] 'sim.44' w l lw 3
+pause -1

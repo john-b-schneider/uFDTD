@@ -1,0 +1,429 @@
+\chapter{Construction of Fourth-Order Central Differences \label{ap:diff}}
+
+%\setcounter{page}{1}
+
+% now do this kind of numbering everywhere
+%\renewcommand{\thepage}{\Alph{chapter}.\arabic{page}}
+
+Assuming a uniform spacing of $\delta$ between sample points, we seek
+an approximation of the derivative of a function at $x_0$ which falls
+midway between two sample point.  Taking the Taylor series expansion
+of the function at the four sample points nearest to $x_0$ yields
+\begin{eqnarray}
+  f\!\left(x_0+\frac{3\delta}{2}\right) &=&
+    f(x_0) + \frac{3\delta}{2} f'(x_0) +
+        \frac{1}{2!}\left(\frac{3\delta}{2}\right)^2 f''(x_0) + 
+        \frac{1}{3!}\left(\frac{3\delta}{2}\right)^3 f'''(x_0) + \ldots,
+	\label{eq:fourI}
+  \\
+  f\!\left(x_0+\frac{\delta}{2}\right) &=&
+    f(x_0) + \frac{\delta}{2} f'(x_0) +
+        \frac{1}{2!}\left(\frac{\delta}{2}\right)^2 f''(x_0) + 
+        \frac{1}{3!}\left(\frac{\delta}{2}\right)^3 f'''(x_0) + \ldots,
+	\label{eq:fourII}
+  \\
+  f\!\left(x_0-\frac{\delta}{2}\right) &=&
+    f(x_0) - \frac{\delta}{2} f'(x_0) +
+        \frac{1}{2!}\left(\frac{\delta}{2}\right)^2 f''(x_0) -
+        \frac{1}{3!}\left(\frac{\delta}{2}\right)^3 f'''(x_0) + \ldots,
+	\label{eq:fourIII}
+  \\
+  f\!\left(x_0-\frac{3\delta}{2}\right) &=&
+    f(x_0) - \frac{3\delta}{2} f'(x_0) +
+        \frac{1}{2!}\left(\frac{3\delta}{2}\right)^2 f''(x_0) -
+        \frac{1}{3!}\left(\frac{3\delta}{2}\right)^3 f'''(x_0) + \ldots
+	\label{eq:fourIV}
+\end{eqnarray}
+Subtracting \refeq{eq:fourIII} from \refeq{eq:fourII} and 
+\refeq{eq:fourIV} from \refeq{eq:fourI} yields
+\begin{eqnarray}
+  f\!\left(x_0+\frac{\delta}{2}\right) -
+  f\!\left(x_0-\frac{\delta}{2}\right) &=& 
+   \delta f'(x_0) +
+        \frac{2}{3!}\left(\frac{\delta}{2}\right)^3 f'''(x_0) + \ldots
+	\label{eq:inner}
+  \\
+  f\!\left(x_0+\frac{3\delta}{2}\right) -
+  f\!\left(x_0-\frac{3\delta}{2}\right) &=& 
+   3 \delta f'(x_0) +
+        \frac{2}{3!}\left(\frac{3\delta}{2}\right)^3 f'''(x_0) + \ldots
+	\label{eq:outer}
+\end{eqnarray}
+The goal now is to eliminate the term containing $f'''(x_0)$.  This
+can be accomplished by multiplying \refeq{eq:inner} by 27 and then
+subtracting \refeq{eq:outer}.  The result is
+\begin{equation}
+  27 f\!\left(x_0+\frac{\delta}{2}\right) -
+  27 f\!\left(x_0-\frac{\delta}{2}\right) 
+  - f\!\left(x_0+\frac{3\delta}{2}\right) +
+  f\!\left(x_0-\frac{3\delta}{2}\right) =
+    24 \delta f'(x_0) + O(\delta^5).
+\end{equation}
+Solving for $f'(x_0)$ yields
+\begin{equation}
+  \left.\frac{df(x)}{dx}\right|_{x=x_0} = \frac{9}{8} 
+  \frac{f\!\left(x_0+\frac{\delta}{2}\right) -
+        f\!\left(x_0-\frac{\delta}{2}\right)}{\delta}
+  -\frac{1}{24}
+  \frac{f\!\left(x_0+\frac{3\delta}{2}\right) -
+        f\!\left(x_0-\frac{3\delta}{2}\right)}{\delta}
+    + O(\delta^4).
+\end{equation}
+The first term on the right-hand side is the contribution from the
+sample points nearest $x_0$ and the second term is the contribution
+from the next nearest points.  The highest-order term not shown is
+fourth-order in terms of $\delta$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Generating a Waterfall Plot and Animation
+\label{ap:waterfall}} 
+
+%\setcounter{page}{1}
+\index{waterfall plot|(}
+
+Assume we are interested in plotting multiple snapshots of
+one-dimensional data.  A waterfall plot displays all the snapshots in
+a single image where each snapshot is offset slightly from the next.
+On the other hand, animations display one image at a time, but
+cycle through the images quickly enough so that one can clearly
+visualize the temporal behavior of the field.  Animations are a
+wonderful way to ascertain what is happening in an FDTD simulation
+but, since there is no way to put an animation on a piece of paper,
+waterfall plots also have a great deal of utility.  
+
+We begin by discussing waterfall plots.  First, the data from the
+individual frames must be loaded into Matlab.  The m-file for a
+function to accomplish this is shown in Program
+\ref{pro:readOneD}.  This function, {\tt readOneD()}, reads each frame
+and stores the data into a matrix---each row of which corresponds to
+one frame.  {\tt readOneD()} takes a single argument corresponding to
+the base name of the frames.  For example, issuing the command {\tt z
+= readOneD('sim');} would create a matrix {\tt z} where the first row
+corresponded to the data in file {\tt sim.0}, the second row to the
+data in file {\tt sim.1}, and so on.
+
+Note that there is a {\tt waterfall()} function built into Matlab.
+One could use that to display the data by issuing the command {\tt
+waterfall(z)}.  However, the built-in command is arguably overkill.
+Its hidden-line removal and colorization slow the rendering and do not
+necessarily aide in the visualization of the data.
+
+The plot shown in Fig.\ \ref{fig:waterfall} did not use Matlab's
+{\tt waterfall()} function.  Instead, it was generated using a
+function called {\tt simpleWaterfall()} whose m-file is shown in
+Program \ref{pro:waterfall}.  This command takes three arguments.  The
+first is the matrix which would be created by {\tt readOneD()}, the
+second is the vertical offset between successive plots, and the third
+is a vertical scale factor.
+
+Given these two m-files, Fig.\ \ref{fig:waterfall} was generated using
+the following commands:
+\small
+\renewcommand{\baselinestretch}{1.0}
+\begin{verbatim}
+z = readOneD('sim');
+simpleWaterfall(z, 1, 1.9)  % vertical offset = 1, scale factor = 1.9
+xlabel('Space [spatial index]')
+ylabel('Time [frame number]')
+\end{verbatim}
+\normalsize
+\renewcommand{\baselinestretch}{1.0}
+
+\begin{program}
+{\tt readOneD.m} Matlab code to read one-dimensional data from a
+series of frames. \label{pro:readOneD} 
+\codemiddle
+\begin{lstlisting}[language=Matlab]
+function z = readOneD(basename)
+%readOneD(BASENAME) Read 1D data from a series of frames.
+%  [Z, dataLength, nFrames] = readOneD(BASENAME) Data
+%  is read from a series of data files all which have
+%  the common base name given by the string BASENAME,
+%  then a dot, then a frame index (generally starting
+%  with zero).  Each frame corresponds to one row of Z.
+
+% read the first frame and establish length of data
+nFrames = 0;
+filename = sprintf('%s.%d', basename, nFrames);
+nFrames = nFrames + 1;
+if exist(filename, 'file')
+  z = dlmread(filename, '\n');
+  dataLength = length(z);
+else
+  return;
+end
+
+% loop through other frames and break out of loop
+% when next frame does not exist
+while 1
+  filename = sprintf('%s.%d',basename,nFrames);
+  nFrames = nFrames + 1;
+  if exist(filename, 'file')
+    zTmp = dlmread(filename, '\n');
+    if length(zTmp) ~= dataLength  % check length matches
+      error('Frames have different sizes.')
+      break;
+    end
+    z = [z zTmp]; % append new data to z
+  else
+    break;
+  end
+end
+
+% reshape z to appropriate dimensions
+z = reshape(z, dataLength, nFrames - 1);
+z = z';
+
+return;
+\end{lstlisting}
+\end{program}
+
+\begin{program}
+{\tt simpleWaterfall.m} Matlab function to generate a simple waterfall
+plot. \label{pro:waterfall} 
+\codemiddle
+\begin{lstlisting}[language=Matlab]
+function simpleWaterfall(z, offset, scale)
+%simpleWaterfall Waterfall plot from offset x-y plots.
+%  simpleWaterfall(Z, OFFSET, SCALE) Plots each row of z
+%  where successive plots are offset from each other by
+%  OFFSET and each plot is scaled vertically by SCALE.
+
+hold off               % release any previous plot
+plot(scale * z(1, :))  % plot the first row
+hold on                % hold the plot
+
+for i = 2:size(z, 1)   % plot the remaining rows
+  plot(scale * z(i, :) + offset * (i - 1))
+end
+
+hold off               % release the plot
+
+return
+\end{lstlisting}
+\end{program}
+
+A function to generate an animation of one-dimensional data sets is
+shown in Program \ref{pro:animateOneD}.  There are multiple ways to
+accomplish this goal and thus one should keep in mind that Program
+\ref{pro:animateOneD} is not necessarily the best approach for a
+particular situation.  The function in Program \ref{pro:animateOneD}
+is called {\tt oneDmovie()} and it takes three arguments: the base
+name of the snapshots, and the minimum and maximum values of the
+vertical axis.  The function uses a loop, starting in line $25$, to
+read each of the snapshots.  Each snapshot is plotted and the plot
+recorded as a frame of a Matlab ``movie'' (see the Matlab command {\tt
+movie()} for further details).  The {\tt oneDmovie()} function returns
+an array of movie frames.  As an example, assume the base name is
+``{\tt sim}'' and the user wants the plots to range from $-1.0$ to
+$1.0$.  The following commands would display the animation $10$ times
+(the second argument to the {\tt movie()} command controls how often
+the movie is repeated):
+\small
+\renewcommand{\baselinestretch}{1.0}
+\begin{verbatim}
+reel = oneDmovie('sim',-1,1);
+movie(reel,10)
+\end{verbatim}
+\normalsize
+\renewcommand{\baselinestretch}{1.0}
+An alternative implementation might read all the data first, as was
+done with the waterfall plot, and then determine the ``global''
+minimum and maximum values from the data itself.  This would free the
+user from specify those value as {\tt oneDmovie()} currently requires.
+Such an implementation is left to the interested reader.
+
+
+\begin{program}
+{\tt oneDmovie.m} Matlab function which can be used to generate an
+animation for multiple one-dimensional data sets.  For further
+information on Matlab movies, see the Matlab command {\tt
+movie}. \label{pro:animateOneD} 
+\codemiddle
+\begin{lstlisting}[language=Matlab]
+function reel = oneDmovie(basename, y_min, y_max)
+% oneDmovie Create a movie from data file with a common base
+%    name which contain 1D data.
+%
+% basename = common base name of all files
+% y_min    = minimum value used for all frames
+% y_max    = maximum value used for all frames
+%
+% reel = movie which can be played with a command such as:
+%          movie(reel, 10)
+%    This would play the movie 10 times.  To control the frame
+%    rate, add a third argument specifying the desired rate.
+
+% open the first frame (i.e., first data file).
+frame = 1;
+filename = sprintf('%s.%d', basename, frame);
+fid = fopen(filename, 'rt');
+
+% to work around rendering bug under Mac OS X see:
+% <www.mathworks.com/support/solutions/
+%  data/1-VW0GM.html?solution=1-VW0GM>
+figure; set(gcf, 'Renderer', 'zbuffer');
+
+% provided fid is not -1, there is another file to process
+while fid ~= -1
+  data=fscanf(fid, '%f');    % read the data
+  plot(data)                % plot the data
+  axis([0 length(data) y_min y_max]) % scale axes appropriately
+  reel(frame) = getframe;   % capture the frame for the movie
+
+  % construct the next file name and try to open it
+  frame = frame + 1;
+  filename = sprintf('%s.%d', basename, frame);
+  fid = fopen(filename, 'rb');
+end
+
+return
+\end{lstlisting}
+\end{program}
+
+\index{waterfall plot|)}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Rendering and Animating Two-Dimensional Data
+\label{ap:render2d}} 
+
+%\setcounter{page}{1}
+
+The function shown below is Matlab code that can be used to generate a
+movie from a sequence of binary (raw) files.  The files (or frames)
+are assumed to be named such that they share a common base name then
+have a dot followed by a frame number.  Here the frame number is
+assumed to start at zero.  The function can have one, two, or three
+arguments.  This first argument is the base name, the second is the
+value which is used to normalize all the data, and the third argument
+specifies the number of decades of data to display.  Here the absolute
+value of the data is plotted in a color-mapped imaged.  Logarithmic
+(base 10) scaling is used so that the value which is normalized to
+unity will correspond to zero on the color scale and the smallest
+normalized value will correspond, on the color scale, to the negative
+of the number of decades (e.g., if the number of decades were three,
+the smallest value would correspond to $-3$).  This smallest
+normalized value actually corresponds to a normalized value of
+$10^{-d}$ where $d$ is the number of decades.  Thus the (normalized)
+values shown in the output varying from $10^{-d}$ to $1$.  The default
+normalization and number of decades are $1$ and $3$, respectively.
+
+\begin{program}
+{\tt raw2movie.m} Matlab function to generate a movie given a sequence
+of raw files.
+\label{pro:raw2movie}
+\codemiddle
+\begin{lstlisting}[language=Matlab]
+function reel = raw2movie(basename, z_norm, decades)
+% raw2movie Creates a movie from "raw" files with a common base
+%      name.
+%
+% The absolute value of the data is used together with
+% logarithmic scaling.  The user may specify one, two, or
+% three arguments.
+% raw2movie(basename, z_norm, decades) or
+% raw2movie(basename, z_norm) or
+% raw2movie(basename):
+% basename = common base name for all files
+% z_norm   = value used to normalize all frames, typically this
+%         would be the maximum value for all the frames.
+%         Default value is 1.
+% decades  = decades to be used in the display.  The normalized
+%         data is assumed to vary between 1.0 and 10^(-decades)
+%         so that after taking the log (base 10), the values
+%         vary between 0 and -decades.  Default value is 3.
+%
+% return value:
+% reel = movie which can be played with a command such as:
+%          movie(reel, 10)
+%        pcolor() is used to generate the frames.
+%
+% raw file format:
+% The raw files are assumed to consist of all floats (in
+% binary format).  The first two elements specify the horizontal
+% and vertical dimensions.  Then the data itself is given in
+% English book-reading order, i.e., from the upper left corner
+% of the image and then scanned left to right.  The frame number
+% is assumed to start at zero.
+
+% set defaults if we have less than three arguments
+if nargin < 3, decades = 3; end
+if nargin < 2, z_norm = 1.0; end
+
+% open the first frame
+frame = 0;
+filename = sprintf('%s.%d', basename, frame);
+fid = fopen(filename, 'rb');
+
+if fid == -1
+  error(['raw2movie: initial frame not found: ', filename])
+end
+
+% to work around rendering bug under Mac OS X implementation.
+figure; set(gcf, 'Renderer', 'zbuffer');
+
+% provided fid is not -1, there is another file to process
+while fid ~= -1
+  size_x = fread(fid, 1, 'single');
+  size_y = fread(fid, 1, 'single');
+
+  data = flipud(transpose(...
+           reshape(...
+             fread(fid, size_x * size_y, 'single'), size_x, size_y)...
+         ));
+
+  % plot the data
+  if decades ~= 0
+    pcolor(log10(abs((data + realmin) / z_norm)))
+    shading flat
+    axis equal
+    axis([1 size_x 1 size_y])
+    caxis([-decades 0])
+    colorbar
+  else
+    pcolor(abs((data + realmin) / z_norm))
+    shading flat
+    axis equal
+    axis([1 size_x 1 size_y])
+    caxis([0 1])
+    colorbar
+  end
+
+  % capture the frame for the movie (Matlab wants index to start
+  % at 1, not zero, hence the addition of one to the frame)
+  reel(frame + 1) = getframe;
+
+  % construct the next file name and try to open it
+  frame = frame + 1;
+  filename = sprintf('%s.%d', basename, frame);
+  fid = fopen(filename,' rb');
+
+end
+\end{lstlisting}
+\end{program}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Notation}
+
+%\setcounter{page}{1}
+
+\begin{tabular}{ll}
+$c$ & speed of light {\em in free space}\\
+$N_{\mbox{\scriptsize freq}}$ &
+        index of spectral component corresponding to a frequency
+        with discretization $\ppw$ \\
+$\ppw$ & 
+        number of points per wavelength for a given frequency \\
+      & (the wavelength is the one pertaining to propagation in free
+        space) \\
+$N_L$ & number of points per skin depth ($L$ for loss)\\
+$N_P$ & number of points per wavelength at peak frequency of a Ricker
+        wavelet  \\
+$N_T$ & number of time steps in a simulation \\
+$S_c$ & Courant number ($c\Delt/\Delx$ in one dimension)\\
+$s_t$ & Temporal shift operator \\
+$s_x$ & Spatial shift operator (in the $x$ direction) \\
+\end{tabular}

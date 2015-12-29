@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2014/MacPorts 2014_1)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: sisyphus.aux
+A level-1 auxiliary file: numerical-issues.aux
+A level-1 auxiliary file: em-review.aux
+A level-1 auxiliary file: fdtd-intro.aux
+A level-1 auxiliary file: fdtd-improved-code.aux
+A level-1 auxiliary file: fdtd-dimensionless.aux
+A level-1 auxiliary file: fdtd-abc.aux
+A level-1 auxiliary file: fdtd-dispersion.aux
+A level-1 auxiliary file: fdtd-multidimensional.aux
+A level-1 auxiliary file: fdtd-3d.aux
+A level-1 auxiliary file: fdtd-dispersive-material.aux
+A level-1 auxiliary file: fdtd-pml.aux
+A level-1 auxiliary file: fdtd-acoustics.aux
+A level-1 auxiliary file: parallel-processing.aux
+A level-1 auxiliary file: fdtd-near-to-far.aux
+A level-1 auxiliary file: appendices.aux
+A level-1 auxiliary file: postscript-primer.aux
+The style file: unsrt.bst
+Database file #1: fdtd.bib
+Database file #2: this-paper.bib
+You've used 7 entries,
+            1791 wiz_defined-function locations,
+            529 strings with 5378 characters,
+and the built_in function-call counts, 1475 in all, are:
+= -- 136
+> -- 54
+< -- 0
++ -- 21
+- -- 14
+* -- 101
+:= -- 238
+add.period$ -- 21
+call.type$ -- 7
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 66
+empty$ -- 153
+format.name$ -- 14
+if$ -- 324
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 10
+newline$ -- 38
+num.names$ -- 7
+pop$ -- 22
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 21
+stack$ -- 0
+substring$ -- 100
+swap$ -- 7
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 15
+width$ -- 8
+write$ -- 79

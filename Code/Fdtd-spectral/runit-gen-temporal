@@ -1,0 +1,33 @@
+#!/bin/bash -norc
+# Observation point 80 cells beyond boundary.
+fdtd-1d-die << EOF
+8192
+n
+die-8192
+170
+EOF
+
+
+fdtd-1d << EOF
+8192
+n
+inc-8192
+170
+EOF
+
+# Observation point 4 cells beyond boundary.
+fdtd-1d-die << EOF
+8192
+n
+die-8192-x4
+94
+EOF
+
+
+fdtd-1d << EOF
+8192
+n
+inc-8192-x4
+94
+EOF
+

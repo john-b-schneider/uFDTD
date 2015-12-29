@@ -1,0 +1,1271 @@
+\chapter{Dispersive Material \label{chap:dispersive}}
+
+%\setcounter{page}{1}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnotetext[2]{Lecture notes by John Schneider.  {\tt
+fdtd-dispersive-material.tex}}
+
+\section{Introduction}
+
+For many problems one can obtain acceptably accurate results
+by assuming material parameters are constants.  However, constant
+material parameters are inherently an approximation.  For example, it
+is impossible to have a lossless dielectric with constant permittivity
+(except, of course, for free space).  If such a material did exist it
+would violate causality.  (For a material to behave causally, the
+Kramers-Kronig relations show that for any deviation from free-space
+behavior the imaginary part of the permittivity or permeability, i.e.,
+the loss, cannot vanish for all frequencies.  Nevertheless, as far as
+causality is concerned, the loss can be arbitrarily small.)
+
+A non-unity, scalar, constant relative permittivity is equivalent to
+assuming the polarization of charge within a material is instantaneous
+and in perfect proportion to the applied electric field.  Furthermore,
+the reaction is the same at all frequencies, is the same in all
+directions, is the same for all times, and the same proportionality
+constant holds for all field strengths.  In reality, essentially none
+of the these assumptions are absolutely correct.  The relationship
+between the electric flux density $\Dvec$ and the electric field
+$\Evec$ can reflect all the complexity of the real world.  Instead of
+simply having $\Dvec=\epsilon\Evec$ where $\epsilon$ is a scalar
+constant, one can make $\epsilon$ a tensor to describe different
+behaviors in different directions (off diagonal terms would indicate
+the amount of coupling from one direction to another).  The
+permittivity can also be written as a nonlinear function of the
+applied electric field to account for nonlinear media.  The material
+parameters can be functions of time (such as might pertain to a
+material which is being heated).  Finally, one should not forget that
+the permittivity can be a function of position to account for spatial
+inhomogeneities.  
+
+When the speed of light in a material is a function of frequency, the
+material is said to be dispersive.  The fact that the FDTD grid is
+dispersive has been discussed in Chap.\ \ref{chap:dispersion}.  That
+dispersion is a numerical artifact and is distinct from the 
+subject of this chapter.  We have also considered lossy materials.
+Even when the conductivity of a material is assumed to be constant,
+the material is dispersive (ref.\ \refeq{eq:lossyK} which shows that
+the phase constant is not linearly proportional to the frequency which
+must be the case for non-dispersive propagation).
+
+When the permittivity or permeability of a material are functions of
+frequency, the material is dispersive.  In time-harmonic form one can
+account for the frequency dependence of permittivity by writing
+$\hDvec(\omega)=\hat{\epsilon}(\omega)\hEvec(\omega)$, where a caret
+is used to indicate a quantity in the frequency domain.  This
+expression is simple in the frequency domain, but the FDTD method is a
+time-domain technique.  The multiplication of harmonic functions is
+equivalent to convolution in the time domain.  Therefore it requires
+some additional effort to model these types of dispersive materials.
+We start with a brief review of dispersive materials and then consider
+two ways in which to model such materials in the FDTD method.
+
+\section{Constitutive Relations and Dispersive Media}
+
+The electric flux density and magnetic field are related to the
+electric field and the magnetic flux density via
+\begin{eqnarray}
+  \Dvec &=& \epsilon_0 \Evec + \mathbf{P}, \label{eq:dAndEAndP}\\
+  \Hvec &=& \frac{\Bvec}{\mu_0} - \mathbf{M}, \label{eq:hAndBAndM}
+\end{eqnarray}
+where $\mathbf{P}$ and $\mathbf{M}$ account for the electric and
+magnetic dipoles, respectively, induced in the media.  Keep in mind
+that force on a charge is a function of $\Evec$ and $\Bvec$ so in some
+sense $\Evec$ and $\Bvec$ are the ``real'' fields.  The polarization
+vector $\mathbf{P}$ accounts for the local displacement of bound
+charge in a material.  Because of the way in which $\mathbf{P}$ is
+constructed, by adding it to $\epsilon_0\Evec$ the resulting electric
+flux density $\Dvec$ has the local effect of bound charge removed.  In
+this way, the integral of $\Dvec$ over a closed surface yields the
+free charge (thus Gauss's law, as expressed using the $\Dvec$ field,
+is true whether material is present or not).
+
+The magnetic field $\Hvec$ ignores the local effect of bound charge in
+motion.  Thus, the integration of $\Hvec$ over a closed loop yields
+the current flowing through the surface enclosed by that loop where
+the current is due to either the flow of free charge or displacement
+current (i.e., the integral form of Ampere's law).  Rearranging the
+terms in \refeq{eq:hAndBAndM} and multiplying by $\mu_0$ yields an
+expression for the magnetic flux density\footnote{Note that there are
+  those (e.g., Feynman) who advocate that one should avoid using
+  $\Dvec$ and $\Hvec$.  Others (e.g., Sommerfeld) have discussed the
+  unfortunate naming of the magnetic field and the magnetic flux
+  density.  However, those issues are peripheral to the main subject
+  of interest here and we will employ the notation and usage as is
+  commonly found in engineering electromagnetics.}, i.e.,
+\begin{equation}
+  \Bvec = \mu_0(\Hvec + \mathbf{M}).
+\end{equation}
+
+At a given frequency, for a linear, isotropic medium, the polarization
+vectors can be related to the electric and magnetic fields via an
+electric or magnetic susceptibility
+\begin{eqnarray}
+  \hPvec(\omega) &=&
+        \epsilon_0\hat{\chi}_e(\omega)\hEvec(\omega), \\
+  \hMvec(\omega) &=&
+        \hat{\chi}_m(\omega)\hHvec(\omega),
+\end{eqnarray}
+where $\hat{\chi}_e(\omega)$ and $\hat{\chi}_m(\omega)$ are the
+electric and magnetic susceptibility, respectively.\footnote{Here we
+  will assume that $\hat{\chi}_e(\omega)$ and $\hat{\chi}_m(\omega)$
+  are not functions of time.  Thus frequency response of the material
+  ``today'' is the same as it will be ``tomorrow.''}  Thus we can
+write
+\begin{eqnarray}
+  \hDvec(\omega) &=& \epsilon_0\hEvec(\omega)
+        	+ \epsilon_0\hat{\chi}_e(\omega)\hEvec(\omega), 
+  \label{eq:dispersiveD} \\ 
+  \hBvec(\omega) &=&\mu_0\hHvec(\omega)
+	 + \mu_0\hat{\chi}_m(\omega)\hHvec(\omega). 
+  \label{eq:dispersiveB}
+\end{eqnarray}
+For the time being we restrict discussion to the electric fields where
+the permittivity $\hat{\epsilon}(\omega)$ is defined as
+\begin{equation}
+ \hat{\epsilon}(\omega) = \epsilon_0\hat{\epsilon}_r(\omega) =
+     \epsilon_0(\epsilon_\infty + \hat{\chi}_e(\omega)).
+\end{equation}
+where $\hat{\epsilon}_r$ is the relative permittivity and, as will be
+seen, the constant $\epsilon_\infty$ accounts for the effect of the
+charged material at high frequencies where the susceptibility
+function goes to zero.
+
+The time-domain electric flux density can be obtain by inverse
+transforming \refeq{eq:dispersiveD}.  The product of
+$\hat{\chi}_e$ and $\hEvec$ in the frequency domain yields a
+convolution in the time domain.  The fields are assumed to be zero
+prior to $t=0$, so this yields
+\begin{equation}
+  \Dvec(t) = \epsilon_0\Evec(t) + \int_{\tau=0}^t
+	  \chi_e(\tau)\Evec(t-\tau)d\tau
+\end{equation}
+where $\chi_e(t)$ is the inverse transform of $\hat{\chi}_e(\omega)$:
+\begin{equation}
+  \chi_e(t) =
+  \frac{1}{2\pi}\int_{-\infty}^\infty \hat{\chi}_e(\omega) e^{j\omega t} d\omega.
+\end{equation}
+The time-domain function $\epsilon_0\chi_e(t)$ corresponds to the
+polarization vector $\mathbf{P}(t)$ for an impulsive electric
+field---effectively the impulse response of the medium.
+
+We now consider three common susceptibility functions.  As will be
+shown these are based on either simple mechanical or electrical
+models.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Drude Materials}
+
+In the Drude model, which often provides a good model of the behavior
+of conductors, charges are assumed to move under the influence of the
+electric field but they experience a damping force as well.  This can
+be described by the following simple mechanical model
+\begin{equation}
+  M\frac{d^2\mathbf{x}}{dt^2} = Q\Evec(t) - Mg \frac{d\mathbf{x}}{dt}
+  \label{eq:drudePhysical}
+\end{equation}
+where $M$ is the mass of the charge, $g$ is the damping coefficient,
+$Q$ is the amount of charge, and $\mathbf{x}$ is the displacement of
+the charge (the displacement is assumed to be in an arbitrary
+direction and not restricted to the $x$ axis despite the use of the
+symbol $\mathbf{x}$).  The left side of this equation is mass times
+acceleration and the right side is the sum of the forces on the
+charge, i.e., a driving force and a damping force.  Rearranging this
+and converting to the frequency domain yields
+\begin{equation}
+  M(j\omega)^2\hxvec(\omega) + Mg
+  (j\omega)\hxvec(\omega) = Q\hEvec(\omega).
+\end{equation}
+Thus the displacement can be expressed as
+\begin{equation}
+  \hxvec(\omega) = 
+   -\frac{Q}{M\left(\omega^2 - jg\omega\right)}\hat{\Evec}(\omega).
+   \label{eq:xVecDef}
+\end{equation}
+The polarization vector $\mathbf{P}$ is related to the dipole moment
+of individual charges.  If $N$ is the number of dipoles per unit
+volume, the polarization vector is given by
+\begin{equation}
+  \hPvec = NQ\hxvec.
+  \label{eq:pVecDef}
+\end{equation}
+Note that $\mathbf{P}$ has units of charge per units area (C/m$^2$)
+and thus, as would be expected from \refeq{eq:dAndEAndP}, has the same
+units as electric flux.  Combining \refeq{eq:xVecDef} and
+\refeq{eq:pVecDef} yields
+\begin{equation}
+  \hPvec(\omega) =
+   - \epsilon_0\frac{\frac{NQ^2}{M\epsilon_0}}{\omega^2 - jg\omega}
+     \hEvec(\omega).
+\end{equation}
+The electric susceptibility for Drude materials is thus given by
+\begin{equation}
+  \hat{\chi}_e(\omega) = - \frac{\omega^2_p}{\omega^2 - jg\omega}
+  \label{eq:drudeChiOmega}
+\end{equation}
+where $\omega^2_p=NQ^2/(M\epsilon_0)$.  However, we are not overly
+concerned with the specifics behind any one constant.  For example,
+some authors may elect to combine the mass and damping coefficient
+which were kept as separate quantities in \refeq{eq:drudePhysical}
+(the product of the two dictates the damping force).  Regardless of
+how the constants are defined, ultimately the Drude susceptibility
+will take the form shown in \refeq{eq:drudeChiOmega}.
+
+The relative permittivity for a Drude material can thus be written
+\begin{equation}
+  \hat{\epsilon}_r(\omega) = \epsilon_\infty 
+    - \frac{\omega^2_p}{\omega^2 - jg\omega}
+  \label{eq:drudeEpsR}.
+\end{equation}
+Note that as $\omega$ goes to infinity the relative permittivity
+reduces to $\epsilon_\infty$.  Consider a rather special case in which
+$\epsilon_\infty=1$ and $g=0$.  When $\omega=\omega_p/\sqrt{2}$ the
+relative permittivity is $-1$.  It is possible, at least to some
+extent, to construct a material which has not only this kind of
+behavior for permittivity but also for the behavior for the
+permeability, i.e., $\mu_r=\epsilon_r=-1$.  This kind of material,
+which is known by various names including meta material,
+double-negative material, backward-wave material, and left-handed
+material, possesses many interesting properties.  Some properties of
+these ``meta materials'' are also rather controversial as some people
+have made claims that others dispute (such as the ability to construct
+a ``perfect'' lens using a planar slab of this material).
+
+The impulse response for the medium is the inverse Fourier transform of 
+\refeq{eq:drudeChiOmega}:
+\begin{equation}
+  \chi_e(t) = \frac{\omega^2_p}{g}\left(1-e^{-gt}\right)u(t)
+\end{equation}
+where $u(t)$ is the unit step function.  The factor $g$ is seen to
+determine the rate at which the response goes to zero, i.e., its
+inverse is the relaxation time.  The factor $\omega_p$ is known as the
+plasma frequency.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lorentz Material}
+
+Lorentz material is based on a second-order mechanical model of charge
+motion.  In this case, in addition to a damping force, there is a
+restoring force (effectively a spring force which wants to bring the
+charge back to its initial position).  The sum of the forces can be
+expressed as
+\begin{equation}
+  M\frac{d^2\mathbf{x}}{dt^2} = 
+  Q\Evec(t) - Mg \frac{d\mathbf{x}}{dt} - MK \mathbf{x}.
+  \label{eq:lorentzPhysical}
+\end{equation}
+The terms in commons with those in \refeq{eq:drudePhysical} as they
+had in the case of the Drude model.  The additional term represents
+the restoring force (which is proportional to the displacement) and is
+scaled by the spring constant $K$.
+
+Converting to the frequency domain and rearranging yields
+\begin{equation}
+  -M\omega^2\hxvec(\omega) + 
+  jMg\omega\hxvec(\omega) + MK \hxvec(\omega)
+  = Q\hEvec(\omega).
+\end{equation}
+Thus the displacement is given by 
+\begin{equation}
+  \hxvec(\omega) = 
+   \frac{Q}{M\left(K + jg\omega - \omega^2 \right)}\hEvec(\omega).
+\end{equation}
+Relating displacement to the polarization vector via $\hPvec =
+NQ\hxvec$ yields
+\begin{equation}
+  \hPvec(\omega) = 
+   \epsilon_0\frac{NQ^2}
+        {M\epsilon_0\left(K + jg\omega - \omega^2 \right)}
+        \hEvec(\omega).
+\end{equation}
+From this the susceptibility is identified as
+\begin{equation}
+ \hat{\chi}_e(\omega) = 
+     \frac{NQ^2}
+        {M\epsilon_0\left(K + jg\omega - \omega^2 \right)}
+\end{equation}
+However, as before, the important thing is the form of the function,
+not the individual constants.  We thus write this as
+\begin{equation}
+ \hat{\chi}_e(\omega) = 
+     \frac{\epsilon_\ell\omega^2_\ell}
+        {\omega^2_\ell + 2 j g_\ell \omega - \omega^2}
+ \label{eq:lorentzOmega}
+\end{equation}
+where $\omega_\ell$ is the undamped resonant frequency, $g_\ell$ is
+the damping coefficient, and $\epsilon_\ell$ (together with
+$\epsilon_\infty$) accounts for the relatively permittivity at zero
+frequency.  The corresponding relative permittivity is given by
+\begin{equation}
+   \hat{\epsilon}_r(\omega) = \epsilon_\infty + 
+     \frac{\epsilon_\ell\omega^2_\ell}
+        {\omega^2_\ell + 2 j g_\ell \omega - \omega^2}.
+\end{equation}
+Note that when the frequency goes to zero the relative permittivity
+becomes $\epsilon_\infty + \epsilon_\ell$ whereas when the frequency
+goes to infinity the relative permittivity is simply $\epsilon_\infty$.
+
+The time-domain form of the susceptibility function is given by the
+inverse transform of \refeq{eq:lorentzOmega}.  This yields
+\begin{equation}
+ \chi_e(t) = 
+    \frac{\epsilon_\ell \omega^2_\ell}
+    {\sqrt{\omega^2_\ell-g^2_\ell}} e^{-g_\ell t}
+    \sin\!\left(t \sqrt{\omega^2_\ell-g^2_\ell}\right)u(t).
+\end{equation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Debye Material}
+
+Debye materials can be thought of as a simple RC circuit where the
+amount of polarization is related to the voltage across the capacitor.
+The ``source'' driving the circuit is the electric field.  For a step
+in the source, there may be a constant polarization.  As the frequency
+goes to infinity, the polarization goes to zero (leaving just the
+constant residual high-frequency term).  The susceptibility is thus
+written
+\begin{equation}
+  \hat{\chi}_e(\omega) = \frac{\epsilon_d}{1+j\omega \tau_d}
+\end{equation}
+where $\tau_d$ is the time constant and $\epsilon_d$ (together
+with $\epsilon_\infty$) accounts for the relative permittivity when
+the frequency is zero.  The relative permittivity is given by
+\begin{equation}
+  \hat{\epsilon}_r(\omega) =
+    \epsilon_\infty + \frac{\epsilon_d}{1+j\omega \tau_d}.
+\end{equation}
+The time-domain form of the susceptibility function is
+\begin{equation}
+  \chi_e(t) = \frac{\epsilon_d}{\tau_d} e^{-t/\tau_d}u(t).
+  \label{eq:debyeChiTime}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Debye Materials Using the ADE Method}
+
+The finite-difference approximation of the differential equation that
+relates the polarization and the electric field can be used to obtain
+the polarization at future times in terms of its past value and an
+expression involving the electric field.  By doing so, one can obtain
+a consistent FDTD model that requires that a quantity related to the
+polarization be stored as an additional variable.  This approach is
+known as the auxiliary differential equation (ADE) method.
+
+In the frequency domain Ampere's law can be written
+\begin{equation}
+ \epsilon_0\epsilon_\infty j\omega\hEvec+\sigma\hEvec+\hJpvec =
+	\nabla\times\hHvec
+\end{equation}
+where the polarization current $\hJpvec$ is given by
+\begin{equation}
+  \hJpvec = j\omega\hPvec = j\omega\epsilon_0\hat{\chi}_e\hEvec.
+\end{equation}
+For a Debye material this becomes
+\begin{equation}
+  \hJpvec = j\omega\epsilon_0
+	\frac{\epsilon_d}{1+j\omega\tau}\hEvec.
+\end{equation}
+Multiplying through by $1+j\omega\tau$ yields
+\begin{equation}
+  \hJpvec + j\omega\tau\hJpvec = j\omega\epsilon_0\epsilon_d\hEvec.
+\end{equation}
+Converting to the time domain produces
+\begin{equation}
+  \Jpvec + \tau\frac{\partial\Jpvec}{\partial t} 
+   = \epsilon_0\epsilon_d\frac{\partial\Evec}{\partial t}.
+\end{equation}
+Discretizing this about the time-step $q+1/2$ yields
+\begin{equation}
+  \frac{\Jpvec^{q+1} + \Jpvec^q}{2} + 
+  \tau\frac{\Jpvec^{q+1} - \Jpvec^q}{\Delt} =
+  \epsilon_0\epsilon_d\frac{\Evec^{q+1}-\Evec^q}{\Delt}.
+  \label{eq:vectorDiscreteJp}
+\end{equation}
+Since we are assuming an isotropic medium, the polarization current is
+aligned with the electric field.  Hence in \refeq{eq:vectorDiscreteJp}
+the $x$ component of $\Jpvec$ depends only on the $x$ component of
+$\Evec$ (and similarly for the $y$ and $z$ components).
+
+Solving \refeq{eq:vectorDiscreteJp} for $\Jpvec^{q+1}$ yields
+\begin{equation}
+  \Jpvec^{q+1} =
+    \frac{1-\frac{\Delt}{2\tau}}{1+\frac{\Delt}{2\tau}}\Jpvec^q +
+    \frac{\frac{\Delt}{\tau}}{1+\frac{\Delt}{2\tau}}
+    \frac{\epsilon_0\epsilon_d}{\Delt}
+    \left(\Evec^{q+1}-\Evec^q\right).
+    \label{eq:jpUpdateDebyeI}
+\end{equation}
+Whatever the  time-constant $\tau$ is, it can be expressed in terms of
+some multiple of the time-step, i.e., $\tau=N_\tau\Delt$ where
+$N_\tau$ does not need to be an integer.  As will be shown, it is
+convenient to multiply both sides of \refeq{eq:jpUpdateDebyeI} by the
+spatial step size.  We will assume a uniform grid in which
+$\Delx=\Dely=\Delz=\delta$.  Thus \refeq{eq:jpUpdateDebyeI} can be
+written
+\begin{equation}
+  \delta\Jpvec^{q+1} =
+    \frac{1-\frac{1}{2N_\tau}}{1+\frac{1}{2N_\tau}}\delta\Jpvec^q +
+    \frac{\frac{1}{N_\tau}}{1+\frac{1}{2N_\tau}}
+    \frac{\epsilon_0\epsilon_d\delta}{\Delt}\left(\Evec^{q+1}-\Evec^q\right).
+    \label{eq:jpUpdateDebyeII}
+\end{equation}
+Consider the factor $\epsilon_0\epsilon_d\delta/\Delt$:
+\begin{equation}
+  \frac{\epsilon_0\epsilon_d\delta}{\Delt} =
+  \frac{\sqrt{\epsilon_0\mu_0}\epsilon_d\delta}{\sqrt{\frac{\mu_0}{\epsilon_0}}\Delt}
+  =
+  \frac{\epsilon_d\delta}{\eta_0 c\Delt} =
+  \frac{\epsilon_d}{\eta_0 S_c}.
+\end{equation}
+Therefore \refeq{eq:jpUpdateDebyeII} can be written
+\begin{equation}
+  \delta\Jpvec^{q+1} =
+    \cjj\delta\Jpvec^q +
+    \cje\left(\Evec^{q+1}-\Evec^q\right),
+    \label{eq:jpUpdateDebyeIII}
+\end{equation}
+where
+\begin{eqnarray}
+  \cjj &=& \frac{1-\frac{1}{2N_\tau}}{1+\frac{1}{2N_\tau}}, \\
+  \cje &=& \frac{\frac{1}{N_\tau}}{1+\frac{1}{2N_\tau}}
+             \frac{\epsilon_d}{\eta_0 S_c}.
+\end{eqnarray}
+Recall that Ampere's law is discretized about the time-step
+$(q+1/2)\Delt$.  Since the polarization current appears in Ampere's
+law, we thus need an expression for $\delta\Jpvec^{q+1/2}$.  This is
+simply given by the average of $\delta\Jpvec^{q+1}$ (which is given by
+\refeq{eq:jpUpdateDebyeIII}) and $\delta\Jpvec^{q}$:
+\begin{equation}
+  \delta\Jpvec^{q+1/2} =
+  \frac{\delta\Jpvec^{q+1}+\delta\Jpvec^{q}}{2} = 
+    \frac{1}{2}\left([1+\cjj]\delta\Jpvec^q +
+    \cje\left(\Evec^{q+1}-\Evec^q\right)\right).
+  \label{eq:jpDebyeHalf}
+\end{equation}
+
+The discrete time-domain form of Ampere's law expanded about the
+time-step $(q+1/2)$ is
+\begin{equation}
+ \epsilon_0\epsilon_\infty \frac{\Evec^{q+1}-\Evec^q}{\Delt}
+ +\sigma\frac{\Evec^{q+1}+\Evec^q}{2}+\Jpvec^{q+1/2} =
+	\nabla\times\Hvec^{q+1/2}.
+ \label{eq:ampereDiscrete}
+\end{equation}
+Multiplying through by $\delta$ and using \refeq{eq:jpDebyeHalf} in 
+\refeq{eq:ampereDiscrete} yields
+\begin{equation}
+ \frac{\epsilon_\infty\epsilon_0\delta}{\Delt} 
+ \left(\Evec^{q+1}-\Evec^q\right)
+ +\frac{\sigma\delta}{2}\left(\Evec^{q+1}+\Evec^q\right)
+ + \frac{1}{2}\left([1+\cjj]\delta\Jpvec^q +
+    \cje\left(\Evec^{q+1}-\Evec^q\right)\right)=
+	\delta\nabla\times\Hvec^{q+1/2}.
+ \label{eq:ampereDiscreteDebyeI}
+\end{equation}
+The curl of the magnetic field, which involves spatial derivatives,
+will have a $\delta$ in the denominator of the finite differences.
+Thus $\delta\nabla\times\Hvec^{q+1/2}$ will involve merely the
+difference of the various magnetic-field components.
+
+Regrouping terms in \refeq{eq:ampereDiscreteDebyeI} produces
+\begin{equation}
+ \Evec^{q+1}\left(\frac{\epsilon_\infty\epsilon_0\delta}{\Delt} 
+                   + \frac{\sigma\delta}{2}
+                   + \frac{1}{2}\cje\right)
+ =
+ \Evec^q\left(\frac{\epsilon_\infty\epsilon_0\delta}{\Delt} 
+                   - \frac{\sigma\delta}{2}
+                   + \frac{1}{2}\cje\right)
+ +\delta\nabla\times\Hvec^{q+1/2} -
+ \frac{1}{2}\left[1+\cjj\right]\delta\Jpvec^q.
+ \label{eq:eUpdateDebye}
+\end{equation}
+The term multiplying the electric fields can be written as
+\begin{equation}
+  \frac{\epsilon_\infty\epsilon_0\delta}{\Delt}\left(1
+                   \pm \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+                   + \frac{\cje\Delt}{2\epsilon_\infty\epsilon_0\delta}\right)
+  =
+  \frac{\epsilon_\infty}{\eta_0 S_c}\left(1
+                   \pm \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+                   + \frac{\cje\eta_0 S_c}{2\epsilon_\infty}\right).
+\end{equation}
+Therefore \refeq{eq:eUpdateDebye} can be written
+\begin{equation}
+ \Evec^{q+1}=
+  \frac{1 - \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+          + \frac{\cje\eta_0 S_c}{2\epsilon_\infty}}
+       {1 + \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+          + \frac{\cje\eta_0 S_c}{2\epsilon_\infty}}
+ \Evec^q
+ +  \frac{\frac{\eta_0 S_c}{\epsilon_\infty}}{1
+                   + \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+                   + \frac{\cje\eta_0 S_c}{2\epsilon_\infty}}
+\left(\delta\nabla\times\Hvec^{q+1/2} -
+ \frac{1}{2}\left[1+\cjj\right]\delta\Jpvec^q\right).
+ \label{eq:eUpdateDebyeI}
+\end{equation}
+The way in which the term $\sigma\Delt/(2\epsilon_0)$ could be
+expressed in terms of the skin depth was discussed in Sec.\
+\ref{sec:conductivity}.
+
+The FDTD model of a Debye material would be implemented as follows:
+\begin{enumerate}
+\item Update the magnetic fields in the usual way.  
+      $\Hvec^{q-1/2}\Rightarrow \Hvec^{q+1/2}$.
+\item For each electric-field component, do the following:
+\begin{enumerate}
+\item Copy the electric field to a temporary variable.
+      $E_{\mathit{tmp}}=E^q$.
+\item Update the electric field using \refeq{eq:eUpdateDebyeI}.
+      $E^{q}\Rightarrow E^{q+1}$.
+\item Update the polarization current (actually $\delta$ times the
+      polarization current) using
+      \refeq{eq:jpUpdateDebyeIII}. $J_p^q\Rightarrow J_p^{q+1}$.
+      This update requires both $E^{q+1}$ and $E^q$ (which is stored
+      in $E_{\mathit{tmp}}$).
+\end{enumerate}
+\item Repeat.
+\end{enumerate}
+The polarization current (actually the product of the spatial
+step-size and the polarization current, i.e., $\delta\Jpvec$) must be
+stored as a separate quantity.  Of course it only needs to be stored
+for nodes at which it is non-zero.
+
+If the polarization current is initially zero and $\cje$ is zero, the
+polarization current will always be zero and the material behaves as a
+standard non-dispersive material (although, of course, dispersion is
+always present in the grid itself).  Thus the update equations
+presented here can be used throughout a simulation which is a mix of
+dispersive and non-dispersive media.  One merely has to set the
+constants to the appropriate values for a given location.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Drude Materials Using the ADE Method}
+
+The electric susceptibility for a Drude material is given in
+\refeq{eq:drudeChiOmega} and can also be written
+\begin{equation}
+  \hat{\chi}_e(\omega) =  \frac{\omega^2_p}{j\omega(j\omega + g)}.
+\end{equation}
+The associated polarization current is
+\begin{equation}
+  \hJpvec = j\omega\hPvec = j\omega\epsilon_0\hat{\chi}_e\hEvec = 
+  j\omega\epsilon_0\frac{\omega_p^2}{j\omega(j\omega + g)}\hEvec.
+\end{equation}
+Canceling $j\omega$ and cross multiplying by $g+j\omega$ yields
+\begin{equation}
+g\hJpvec + j\omega\hJpvec = \epsilon_0\omega_p^2\hEvec.
+\end{equation}
+Expressed in the time-domain, this is
+\begin{equation}
+  g\Jpvec + \frac{\partial\Jpvec}{\partial t} =
+  \epsilon_0\omega_p^2\Evec.
+\end{equation}
+Discretizing time and expanding this about the time-step $q+1/2$
+yields
+\begin{equation}
+  g\frac{\Jpvec^{q+1} +\Jpvec^q}{2}+ \frac{\Jpvec^{q+1}-\Jpvec^q}{\Delt} =
+  \epsilon_0\omega_p^2\frac{\Evec^{q+1}+\Evec^q}{2}.
+\end{equation}
+Solving for $\Jpvec^{q+1}$ we obtain
+\begin{equation}
+  \Jpvec^{q+1} = \frac{1-\frac{g\Delt}{2}}{1+\frac{g\Delt}{2}}\Jpvec^q
+  +\frac{1}{1+\frac{g\Delt}{2}}
+   \frac{\epsilon_0\omega_p^2\Delt}{2}\left(\Evec^{q+1}+\Evec^q\right).
+  \label{eq:jpUpdateDrude}
+\end{equation}
+The damping or loss term $g$ is the inverse of the relaxation time and
+hence can be expressed as a multiple of the number of time steps,
+i.e.,
+\begin{equation}
+  g = \frac{1}{N_g\Delt}
+\end{equation}
+where $N_g$ does not need to be integer.  Consider the term
+multiplying the electric field
+\begin{equation}
+  \frac{\epsilon_0\omega_p^2\Delt}{2} = 
+  \frac{\sqrt{\epsilon_0\mu_0}4 \pi^2 f_p^2 \Delt}
+       {\sqrt{\frac{\mu_0}{\epsilon_0}}2} = 
+  \frac{2\pi^2 c^2 \Delt}{\eta_0\lambda_p^2c} = 
+  \frac{2\pi^2 c \Delt}{\eta_0(N_p\delta)^2} = 
+  \frac{2\pi^2 S_c}{\eta_0 N_p^2 \delta}
+\end{equation}
+where $f_p$ is the plasma frequency in Hertz, $\lambda_p$ is the
+free-space wavelength at this frequency, and $N_p$ is the number of
+points per wavelength at the plasma frequency.  Since this term
+contains $\delta$ in the denominator, we multiply
+\refeq{eq:jpUpdateDrude} by $\delta$ to obtain
+\begin{equation}
+  \delta\Jpvec^{q+1} = \cjj\delta\Jpvec^q
+  +\cje\left(\Evec^{q+1}+\Evec^q\right)
+  \label{eq:jpUpdateDrudeI}
+\end{equation}
+where
+\begin{eqnarray}
+  \cjj &=& \frac{1-\frac{1}{2N_g}}{1+\frac{1}{2N_g}},  \\
+  \cje &=& \frac{1}{1+\frac{1}{2N_g}}\frac{2\pi^2 S_c}{\eta_0 N_p^2}.
+\end{eqnarray}
+Note the similarity between \refeq{eq:jpUpdateDebyeIII} and
+\refeq{eq:jpUpdateDrudeI}.  These equations have nearly identical
+forms but the constants are different and there is a different sign
+associated with the ``old'' value of the electric field.
+
+The general discretized form of Ampere's law expanded about the
+time-step $(q+1/2)$ is unchanged from \refeq{eq:ampereDiscrete} and is
+repeat below
+\begin{equation}
+ \epsilon_0\epsilon_\infty \frac{\Evec^{q+1}-\Evec^q}{\Delt}
+ +\sigma\frac{\Evec^{q+1}+\Evec^q}{2}+\Jpvec^{q+1/2} =
+	\nabla\times\Hvec^{q+1/2}.
+\end{equation}
+As before, $\delta\Jpvec^{q+1/2}$ can be obtained by the average of
+$\delta\Jpvec^{q+1}$ and $\delta\Jpvec^{q}$:
+\begin{equation}
+  \delta\Jpvec^{q+1/2} =
+  \frac{\delta\Jpvec^{q+1}+\delta\Jpvec^{q}}{2} = 
+    \frac{1}{2}\left([1+\cjj]\delta\Jpvec^q +
+    \cje\left(\Evec^{q+1}+\Evec^q\right)\right).
+  \label{eq:jpDrudeHalf}
+\end{equation}
+Multiplying through by $\delta$ and using \refeq{eq:jpDrudeHalf} for
+the polarization current yields
+\begin{equation}
+ \frac{\epsilon_\infty\epsilon_0\delta}{\Delt} 
+ \left(\Evec^{q+1}-\Evec^q\right)
+ + \frac{\sigma\delta}{2}\left(\Evec^{q+1}+\Evec^q\right)
+ + \frac{1}{2}\left([1+\cjj]\delta\Jpvec^q +
+     \cje\left(\Evec^{q+1}+\Evec^q\right)\right)=
+	\delta\nabla\times\Hvec^{q+1/2}.
+\end{equation}
+Note that, other than the constants being those for a Drude material,
+the only way in which this expression differs from
+\refeq{eq:ampereDiscreteDebyeI} is the sign of the ``old'' electric
+field associated with the polarization current.  Therefore
+\refeq{eq:eUpdateDebyeI} again yields the expression for the
+``future'' electric field if we make the appropriate change of sign.
+The result is
+\begin{equation}
+ \Evec^{q+1}=
+  \frac{1 - \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+          - \frac{\cje\eta_0 S_c}{2\epsilon_\infty}}
+       {1 + \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+          + \frac{\cje\eta_0 S_c}{2\epsilon_\infty}}
+ \Evec^q
+ +  \frac{\frac{\eta_0 S_c}{\epsilon_\infty}}{1
+                   + \frac{\sigma\Delt}{2\epsilon_\infty\epsilon_0}
+                   + \frac{\cje\eta_0 S_c}{2\epsilon_\infty}}
+\left(\delta\nabla\times\Hvec^{q+1/2} -
+ \frac{1}{2}\left[1+\cjj\right]\delta\Jpvec^q\right).
+\label{eq:eUpdateDrude}
+\end{equation}
+
+The implementation of an FDTD algorithm for Drude material now
+parallels that for Debye material:
+\begin{enumerate}
+\item Update the magnetic fields in the usual way.  
+      $\Hvec^{q-1/2}\Rightarrow \Hvec^{q+1/2}$.
+\item For each electric-field component, do the following
+\begin{enumerate}
+\item Copy the electric field to a temporary variable.
+      $E_{\mathit{tmp}}=E^q$.
+\item Update the electric field using \refeq{eq:eUpdateDrude}.
+      $E^{q}\Rightarrow E^{q+1}$.
+\item Update the polarization current (actually $\delta$ times the
+      polarization current) using
+      \refeq{eq:jpUpdateDrudeI}. $J^{q}\Rightarrow J^{q+1}$.
+      This update requires both $E^{q+1}$ and $E^q$ (which is stored
+      in $E_{\mathit{tmp}}$).
+\end{enumerate}
+\item Repeat.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Magnetically Dispersive Material}
+
+In the frequency domain Faraday's law is
+\begin{equation}
+  \nabla\times\hEvec = -j\omega\hBvec - \sigma_m\hHvec
+\end{equation}
+where $\sigma_m$ is the magnetic conductivity.  Generalizing
+\refeq{eq:dispersiveB} slightly, the permeability can be written
+as
+\begin{equation}
+ \hat{\mu}(\omega) = \mu_0\hat{\mu}_r(\omega) =
+     \mu_0(\mu_\infty + \hat{\chi}_m(\omega)).
+\end{equation}
+where the factor $\mu_\infty$ accounts for the permeability at high
+frequencies.  Faraday's law can thus be written
+\begin{equation}
+  \nabla\times\hEvec = -j\omega\mu_0\mu_\infty\hHvec(\omega)
+	 - \sigma_m\hHvec
+         - \hJmvec.
+\end{equation}
+where the magnetic polarization current $\hJmvec$ is given by
+\begin{equation}
+  \hJmvec = j\omega\mu_0\hMvec = 
+  j\omega\mu_0\hat{\chi}_m(\omega)\hHvec(\omega).
+\end{equation}
+
+The derivation of the equations which govern an FDTD implementation of
+a magnetically dispersive material parallel that of electrically
+dispersive material.  Here we consider the case of Drude dispersion
+where
+\begin{equation}
+  \hat{\chi}_m(\omega) = -\frac{\omega_p^2}{\omega^2 -jg\omega}
+  =  \frac{\omega_p^2}{j\omega(j\omega + g)}.
+\end{equation}
+(The plasma frequency $\omega_p$ and damping term $g$ for magnetic
+susceptibility are distinct from those of electric susceptibility.)
+Thus the polarization current and magnetic field are related by
+\begin{equation}
+  \hJmvec = j\omega\mu_0\frac{\omega_p^2}{j\omega(j\omega + g)}\hHvec
+  = \frac{\mu_0\omega_p^2}{(j\omega + g)}\hHvec.
+\end{equation}
+Multiplying by $g+j\omega$ yields
+\begin{equation}
+  (g+j\omega)\hJmvec = \mu_0\omega_p^2\hHvec.
+\end{equation}
+The time-domain equivalent of this is
+\begin{equation}
+  g\Jmvec+\frac{\partial\Jmvec}{\partial t} = \mu_0\omega_p^2\Hvec.
+\end{equation}
+Discretizing time and expanding this about the time-step $q$ yields
+\begin{equation}
+  g\frac{\Jmvec^{q+1/2}+\Jmvec^{q-1/2}}{2}
+  +\frac{\Jmvec^{q+1/2}-\Jmvec^{q-1/2}}{\Delt} = 
+  \mu_0\omega_p^2\frac{\Hvec^{q+1/2}+\Hvec^{q-1/2}}{2}.
+\end{equation}
+Solving for $\Jmvec^{q+1/2}$ yields
+\begin{equation}
+  \Jmvec^{q+1/2} = \frac{1-\frac{g\Delt}{2}}{1+\frac{g\Delt}{2}}\Jmvec^{q-1/2}
+  + \frac{1}{1+\frac{g\Delt}{2}}
+   \frac{\mu_0\omega_p^2\Delt}{2}\left(\Hvec^{q+1/2}+\Hvec^{q-1/2}\right).
+  \label{eq:jmUpdateDrude}
+\end{equation}
+Consider the term multiplying the magnetic field
+\begin{equation}
+  \frac{\mu_0\omega_p^2\Delt}{2} = 
+  \frac{\sqrt{\frac{\mu_0}{\epsilon_0}}
+        \sqrt{\epsilon_0\mu_0}4 \pi^2 f_p^2 \Delt}{2} = 
+  \frac{2\pi^2 \eta_0 c^2 \Delt}{\lambda_p^2c} =
+  \frac{2\pi^2 \eta_0 c \Delt}{(N_p\delta)^2} = 
+  \frac{2\pi^2 \eta_0 S_c}{N_p^2 \delta}.
+  \label{eq:coefficientDrudeM}
+\end{equation}
+where, as before, $f_p$ is the plasma frequency in Hertz, $\lambda_p$
+is the free-space wavelength at this frequency, and $N_p$ is the
+number of points per wavelength at the plasma frequency.  Again
+expressing the damping coefficient in terms of some multiple of the
+time step, i.e., $g=1/(N_g\Delt)$, multiplying all terms in
+\refeq{eq:jmUpdateDrude} by $\delta$, and employing the final form of the
+term given in \refeq{eq:coefficientDrudeM}, the update equation for
+the polarization current can be written as
+\begin{equation}
+  \delta\Jmvec^{q+1/2} = \cjj\delta\Jmvec^{q-1/2}
+  +\cjh\left(\Hvec^{q+1/2}+\Hvec^{q-1/2}\right)
+  \label{eq:jmUpdateDrudeI}
+\end{equation}
+where
+\begin{eqnarray}
+  \cjj &=& \frac{1-\frac{1}{2N_g}}{1+\frac{1}{2N_g}},  \\
+  \cjh &=& \frac{1}{1+\frac{1}{2N_g}}\frac{2\pi^2 \eta_0 S_c}{N_p^2}.
+\end{eqnarray}
+To obtain the magnetic polarization current at time-step $q$, the
+current at time-steps $q+1/2$ and $q-1/2$ are averaged:
+\begin{equation}
+  \delta\Jmvec^q =
+  \frac{\delta\Jmvec^{q+1/2}+\delta\Jmvec^{q-1/2}}{2} = 
+    \frac{1}{2}\left([1+\cjj]\delta\Jmvec^{q-1/2} +
+    \cjh\left(\Hvec^{q+1/2}+\Hvec^{q-1/2}\right)\right).
+  \label{eq:jmDrudeQ}
+\end{equation}
+
+The discretized form of Faraday's law expanded about time-step $q$ is
+\begin{equation}
+ -\mu_0\mu_\infty\frac{\Hvec^{q+1/2}-\Hvec^{q-1/2}}{\Delt}
+ - \sigma_m\frac{\Hvec^{q+1/2}-\Hvec^{q-1/2}}{2} - \Jmvec^q =
+	\nabla\times\Evec^q.
+\end{equation}
+Multiplying through by $-\delta$ and using \refeq{eq:jmDrudeQ} for
+the polarization current yields
+\begin{eqnarray}
+ \lefteqn{\frac{\mu_\infty\mu_0\delta}{\Delt} 
+ \left(\Hvec^{q+1/2}-\Hvec^{q-1/2}\right)
+ +\frac{\sigma_m\delta}{2}\left(\Hvec^{q+1/2}+\Hvec^{q-1/2}\right)} 
+ \nonumber\\
+ && \mbox{} + \frac{1}{2}\left([1+\cjj]\delta\Jmvec^{q-1/2} +
+    \cjh\left(\Hvec^{q+1/2}+\Hvec^{q-1/2}\right)\right)=
+	-\delta\nabla\times\Evec^q.
+ \label{eq:faradayDrude}
+\end{eqnarray}
+After regrouping terms we obtain
+\begin{eqnarray}
+ \lefteqn{\Hvec^{q+1/2}\left(\frac{\mu_\infty\mu_0\delta}{\Delt} 
+                   + \frac{\sigma_m\delta}{2}
+                   + \frac{1}{2}\cjh\right) =} \nonumber\\
+ &&\Hvec^{q-1/2}\left(\frac{\mu_\infty\mu_0\delta}{\Delt} 
+                   - \frac{\sigma_m\delta}{2}
+                   + \frac{1}{2}\cjh\right)
+ -\delta\nabla\times\Evec^q -
+ \frac{1}{2}\left[1+\cjj\right]\delta\Jmvec^{q-1/2}.
+ \label{eq:hUpdateDrude}
+\end{eqnarray}
+The factor $\mu_0\delta/\Delt$ is equivalent to $\eta_0/S_c$ so that
+the update equation for the magnetic field can be written
+\begin{equation}
+ \Hvec^{q+1/2}=
+  \frac{1 - \frac{\sigma_m\Delt}{2\mu_\infty\mu_0}
+          - \frac{\cjh S_c}{2\eta_0 \mu_\infty}}
+       {1 + \frac{\sigma_m\Delt}{2\mu_\infty\mu_0}
+          + \frac{\cjh S_c}{2\eta_0 \mu_\infty}} \Hvec^{q-1/2}
+ + \frac{\frac{S_c}{\eta_0 \mu_\infty}}{1
+                   + \frac{\sigma_m\Delt}{2\mu_\infty\mu_0}
+                   + \frac{\cjh S_c}{2\eta_0 \mu_\infty}}
+ \left(-\delta\nabla\times\Evec^q -
+       \frac{1}{2}\left[1+\cjj\right]\delta\Jmvec^{q-1/2}\right).
+ \label{eq:hUpdateDrudeI}
+\end{equation}
+
+An FDTD model of a magnetically dispersive material would be
+implemented as follows:
+\begin{enumerate}
+\item For each magnetic-field component, do the following
+\begin{enumerate}
+\item Copy the magnetic field to a temporary variable.
+      $H_{\mathit{tmp}}=H^{q-1/2}$.
+\item Update the magnetic field using \refeq{eq:hUpdateDrudeI}.
+      $H^{q-1/2}\Rightarrow H^{q+1/2}$.
+\item Update the polarization current (actually $\delta$ times the
+      polarization current) using
+      \refeq{eq:jmUpdateDrudeI}. $J_m^{q-1/2}\Rightarrow J_m^{q+1/2}$.
+      This update requires both $H^{q+1/2}$ and $H^{q-1/2}$ (which is stored
+      in $H_{\mathit{tmp}}$).
+\end{enumerate}
+\item Update the electric fields in whatever way is appropriate (which
+      may include the dispersive implementations described previously)
+      $\Evec^{q}\Rightarrow \Evec^{q+1}$.
+\item Repeat.
+\end{enumerate}
+
+\section{Piecewise Linear Recursive Convolution}
+
+An alternative implementation of dispersive material is offered by the 
+piecewise linear recursive convolution (PLRC) method.  Recall that
+multiplication in the frequency domain is equivalent to convolution in
+the time domain.  Thus, the frequency-domain relationship
+\begin{equation}
+  \hDvec(\omega) = \epsilon_0\epsilon_\infty\hEvec(\omega) + 
+    \epsilon_0\hat{\chi}_e(\omega)\hEvec(\omega)
+\end{equation}
+is equivalent to the time-domain relationship
+\begin{equation}
+  \Dvec(t) = \epsilon_0\epsilon_\infty\Evec(t) + 
+    \epsilon_0\int_{\zeta=0}^t\Evec(t-\zeta)\chi_e(\zeta)d\zeta
+\end{equation}
+where $\zeta$ is a dummy variable of integration.  In discrete form
+the electric flux density at time-step $q\Delt$ can be written
+\begin{equation}
+  \Dvec^q = \epsilon_0\epsilon_\infty\Evec^q + 
+    \epsilon_0\int_{\zeta=0}^{q\Delt}\Evec(q\Delt-\zeta)\chi_e(\zeta)d\zeta.
+  \label{eq:plrcIntegral}
+\end{equation}
+
+Although in an FDTD simulation the electric field $\Evec$ would only
+be available at discrete points in time, we wish to treat the field as
+if it varies continuously insofar as the integral is concerned.
+This is accomplished by assuming the field varies linearly between
+sample points.  For example, assume the continuous variable $t$ is
+between $i\Delt$ and $(i+1)\Delt$.  Over this range the electric field
+is approximated by
+\begin{equation}
+  \Evec(t) = \Evec^i + \frac{\Evec^{i+1} - \Evec^{i}}{\Delt}(t-i\Delt)
+  \quad \mbox{for }\quad  i\Delt\leq t\leq (i+1)\Delt.
+\end{equation}
+When $t$ is equal to $i\Delt$ we obtain $\Evec^i$ and when 
+$t$ is $(i+1)\Delt$ we obtain $\Evec^{i+1}$.  The field varies
+linearly between these points.
+
+To obtain a more general representation of the electric field, let us
+define the pulse function $p_i(t)$ which is given by
+\begin{equation}
+  p_i(t) = \left\{
+  \begin{array}{l}
+    1\quad \mbox{if} \quad i\Delt\leq t < (i+1)\Delt,\\
+    0\quad \mbox{otherwise}.
+  \end{array}\right.
+\end{equation}
+Using this pulse function the electric field can be written as
+\begin{equation}
+  \Evec(t) = \sum_{i=0}^{M-1}
+    \left[\Evec^i +
+          \frac{\Evec^{i+1} - \Evec^{i}}{\Delt}(t-i\Delt)\right] p_i(t).
+\end{equation}
+This provides a piecewise-linear approximation of the electric field
+over $M$ segments.  Despite the summation, the pulse function ensures
+that only one segment is turned on for any given value of $t$.  Hence
+the summation can be thought of as serving more to collect together
+the various segments rather than as serving to add several terms.
+
+In the integrand of \refeq{eq:plrcIntegral} the argument of the
+electric field is $q\Delt - \zeta$ where $q\Delt$ is constant with
+respect to the variable of integration $\zeta$.  When $\zeta$ varies
+from $i\Delt$ to $(i+1)\Delt$ the electric field should vary from the
+discrete points $\Evec^{q-i}$ to $\Evec^{q-i-1}$.  Thus, the electric
+field can be represented by
+\begin{equation}
+  \Evec(q\Delt-\zeta) = \Evec^{q-i} +
+  \frac{\Evec^{q-i-1} - \Evec^{q-i}}{\Delt}(\zeta-i\Delt)
+  \quad \mbox{for }\quad i\Delt\leq \zeta\leq (i+1)\Delt.
+\end{equation}
+Using the pulse function, the field over all values of $\zeta$ can be
+written
+\begin{equation}
+  \Evec(q\Delt-\zeta) = \sum_{i=0}^{q-1}
+    \left[\Evec^{q-i} +
+          \frac{\Evec^{q-i-1}-\Evec^{q-i}}{\Delt}(\zeta-i\Delt)\right]
+         p_i(\zeta).
+  \label{eq:plrcESegments}
+\end{equation}
+Note the limits of the summation.  The upper limit of integration is
+$q\Delt$ which corresponds to the end-point of the segment which
+varies from $(q-1)\Delt$ to $q\Delt$.  This segment has an index of
+$q-1$ (segment $0$ varies from $0$ to $\Delt$, segment $1$ varies from
+$\Delt$ to $2\Delt$, and so on).  The lower limit used here is not
+actually dictated by the electric field.  Rather, when we combine the
+electric field with the susceptibility function the product is zero
+for $\zeta$ less than zero since the susceptibility is zero for
+$\zeta$ less than zero (due to the material impulse response being
+causal).  Hence we start the lower limit of the summation at zero.
+
+Substituting \refeq{eq:plrcESegments} into \refeq{eq:plrcIntegral}
+yields
+\begin{equation}
+  \Dvec^q = \epsilon_0\epsilon_\infty\Evec^q + 
+    \epsilon_0\int_{\zeta=0}^{q\Delt}\sum_{i=0}^{q-1}
+    \left[\Evec^{q-i} +
+          \frac{\Evec^{q-i-1}-\Evec^{q-i}}{\Delt}(\zeta-i\Delt)\right]
+     p_i(\zeta)
+    \chi_e(\zeta)d\zeta.
+\end{equation}
+The summation and integration can be interchanged.  However, the
+pulse function dictates that the integration only needs to be carried
+out over the range of values where the pulse function is unity.  Thus
+we can write
+\begin{equation}
+  \Dvec^q = \epsilon_0\epsilon_\infty\Evec^q + 
+    \epsilon_0\sum_{i=0}^{q-1}\int_{\zeta=i\Delt}^{(i+1)\Delt}\left[
+    \Evec^{q-i} +
+          \frac{\Evec^{q-i-1}-\Evec^{q-i}}{\Delt}(\zeta-i\Delt)\right]
+    \chi_e(\zeta)d\zeta.
+\end{equation}
+The samples of the electric field are constants with respect to the
+variable of integration and can be taken outside of the integral.
+This yields
+\begin{eqnarray}
+  \lefteqn{\Dvec^q = \epsilon_0\epsilon_\infty\Evec^q +\mbox{}}  \nonumber \\
+  &&
+    \mbox{}\hspace{-.1in}\epsilon_0\sum_{i=0}^{q-1}\left[
+    \Evec^{q-i} 
+    \left(\int_{\zeta=i\Delt}^{(i+1)\Delt}\chi_e(\zeta)d\zeta\right)
+    + \frac{\Evec^{q-i-1}-\Evec^{q-i}}{\Delt}
+      \left(\int_{\zeta=i\Delt}^{(i+1)\Delt}(\zeta-i\Delt)\chi_e(\zeta)d\zeta\right)\right].
+\end{eqnarray}
+To simplify the notation, we define the following
+\begin{eqnarray}
+  \chi^i &=& \int_{\zeta=i\Delt}^{(i+1)\Delt}\chi_e(\zeta)d\zeta,
+  \label{eq:ChiIDef}
+ \\
+  \xi^i &=&
+     \frac{1}{\Delt}
+     \int_{\zeta=i\Delt}^{(i+1)\Delt}(\zeta-i\Delt)\chi_e(\zeta)d\zeta.
+  \label{eq:XiIDef}
+\end{eqnarray}
+This allows us to write
+\begin{equation}
+  \Dvec^q = \epsilon_0\epsilon_\infty\Evec^q + 
+    \epsilon_0\sum_{i=0}^{q-1}\left[
+    \Evec^{q-i} \chi^i
+    + \left(\Evec^{q-i-1}-\Evec^{q-i}\right)\xi^i\right].
+  \label{eq:plrcDq}
+\end{equation}
+
+In discrete form and using the electric flux density, Ampere's law can
+be written
+\begin{equation}
+  \nabla\times\Hvec^{q+1/2} = \frac{\Dvec^{q+1} - \Dvec^{q}}{\Delt}.
+  \label{eq:plrcAmpere}
+\end{equation}
+Equation \refeq{eq:plrcDq} gives $\Dvec^{q}$ in terms of the electric
+field.  This equation can also be used to express $\Dvec^{q+1}$ in
+terms of the electric field: one merely replaces $q$ with $q+1$.  This
+yields
+\begin{equation}
+  \Dvec^{q+1} = \epsilon_0\epsilon_\infty\Evec^{q+1} + 
+    \epsilon_0\sum_{i=0}^{q}\left[
+    \Evec^{q-i+1} \chi^i
+    + \left(\Evec^{q-i}-\Evec^{q-i+1}\right)\xi^i\right].
+  \label{eq:plrcDqI}
+\end{equation}
+In order to obtain an update equation for the electric field, we must
+express $\Evec^{q+1}$ in terms of other known (or past) quantities.
+As things stand now, there is an $\Evec^{q+1}$ ``buried'' inside the
+the summation in \refeq{eq:plrcDqI}.  To express that explicitly, we
+extract the $i=0$ term and then have the summation start from $i=1$.
+This yields
+\begin{eqnarray}
+  \Dvec^{q+1} &=& \epsilon_0\epsilon_\infty\Evec^{q+1} + 
+    \epsilon_0 \Evec^{q+1} \chi^0 + \epsilon_0
+    \left(\Evec^{q}-\Evec^{q+1}\right)\xi^0 \nonumber\\
+ && +
+    \epsilon_0\sum_{i=1}^{q}\left[
+    \Evec^{q-i+1} \chi^i
+    + \left(\Evec^{q-i}-\Evec^{q-i+1}\right)\xi^i\right].
+  \label{eq:plrcDqII}
+\end{eqnarray}
+Ultimately we want to combine the summations in \refeq{eq:plrcDq} and
+\refeq{eq:plrcDqII} and thus the limits of the summations must be the
+same.  The limits of the summation in \refeq{eq:plrcDqII} can be
+adjusting by using a new index $i'=i-1$ (thus $i=i'+1$).  Substituting
+$i'$ for $i$, \refeq{eq:plrcDqII} can be written
+\begin{eqnarray}
+  \Dvec^{q+1} &=& 
+    \Evec^{q+1} 
+     \epsilon_0(\epsilon_\infty + \chi^0 - \xi^0)
+     + \Evec^q \epsilon_0 \xi^0 \nonumber\\
+  && +
+    \epsilon_0\sum_{i'=0}^{q-1}\left[
+    \Evec^{q-i'} \chi^{i'+1}
+    + \left(\Evec^{q-i'-1}-\Evec^{q-i'}\right)\xi^{i'+1}\right].
+  \label{eq:plrcDqIII}
+\end{eqnarray}
+Since $i'$ is just an index, we can return to calling is merely $i$.
+
+The temporal finite-difference of the flux density is obtained by
+combining \refeq{eq:plrcDq} and \refeq{eq:plrcDqIII}.  The result is
+\begin{eqnarray}
+  \frac{\Dvec^{q+1} - \Dvec^{q}}{\Delt} &=& 
+  \frac{1}{\Delt}\biggl(
+    \Evec^{q+1} 
+     \epsilon_0(\epsilon_\infty - \chi^0 + \xi^0)
+     + \Evec^q \epsilon_0(-\epsilon_\infty + \xi^0) \nonumber\\
+  &&\qquad-
+     \epsilon_0\sum_{i=0}^{q-1}\left[
+    \Evec^{q-i} \Delta\chi^{i}
+    + \left(\Evec^{q-i-1}-\Evec^{q-i}\right)\Delta\xi^{i}\right]
+	\biggr)
+   \label{eq:plrcDdifference}
+\end{eqnarray}
+where
+\begin{eqnarray}
+  \Delta\chi^i &=& \chi^i -  \chi^{i+1}, \\
+  \Delta\xi^i &=& \xi^i -  \xi^{i+1}.
+\end{eqnarray}
+
+The summation in \refeq{eq:plrcDdifference} does not contain
+$\Evec^{q+1}$.  Hence, using \refeq{eq:plrcDdifference} to replace the
+right side of \refeq{eq:plrcAmpere} and solving for $\Evec^{q+1}$
+yields
+\begin{equation}
+  \Evec^{q+1}  = 
+    \frac{\epsilon_\infty - \xi^0}{\epsilon_\infty + \chi^0 - \xi^0}
+    \Evec^q
+    +
+    \frac{\frac{\Delt}{\epsilon_0}}{\epsilon_\infty + \chi^0 - \xi^0} 
+    \nabla\times\Hvec^{q+1/2} + 
+    \frac{1}{\epsilon_\infty + \chi^0 - \xi^0} \Psivec^q
+  \label{eq:plrcEUpdate}
+\end{equation}
+where $\Psivec^q$, known as the recursive accumulator, is given by
+\begin{equation}
+  \Psivec^q = \sum_{i=0}^{q-1}\left[
+    \Evec^{q-i} \Delta\chi^{i}
+    + \left(\Evec^{q-i-1}-\Evec^{q-i}\right)\Delta\xi^{i}\right]
+  \label{eq:plrcPsiDef}
+\end{equation}
+
+Equation \refeq{eq:plrcEUpdate} is used to update the electric field.
+It appears that a summation must be computed which requires knowledge
+of all the previous values of the electric field.  Clearly this would
+be prohibitive if this were the case in practice.  Fortunately,
+provided the material impulse response can be expressed in terms of
+exponentials, there is a recursive formulation which can be used to
+efficiently express this summation.
+
+Consider $\Psivec^q$ with the $i=0$ term written explicitly, i.e., 
+\begin{equation}
+  \Psivec^q = \Evec^{q} (\Delta\chi^{0} - \Delta\xi^{0})
+    + \Evec^{q-1}\Delta\xi^{0} +
+  \sum_{i=1}^{q-1}\bigl[
+    \Evec^{q-i} \Delta\chi^{i}
+    + \left(\Evec^{q-i-1}-\Evec^{q-i}\right)\Delta\xi^{i}\bigr].
+\end{equation}
+Employing a change of indices for the summation so that the new
+limits range from $0$ to $q-2$, this can be written:
+\begin{equation}
+  \Psivec^q = \Evec^{q} (\Delta\chi^{0} - \Delta\xi^{0})
+    + \Evec^{q-1}\Delta\xi^{0} +
+  \sum_{i=0}^{q-2}\bigl[
+    \Evec^{q-i-1} \Delta\chi^{i+1}
+    + \left(\Evec^{q-i-2}-\Evec^{q-i-1}\right)\Delta\xi^{i+1}\bigr].
+  \label{eq:plrcPsiDefI}
+\end{equation}
+Now consider $\Psivec^{q-1}$ by writing \refeq{eq:plrcPsiDef} with $q$
+replaced by $q-1$:
+\begin{equation}
+  \Psivec^{q-1} = \sum_{i=0}^{q-2}\left[
+    \Evec^{q-i-1} \Delta\chi^{i}
+    + \left(\Evec^{q-i-2}-\Evec^{q-i-1}\right)\Delta\xi^{i}\right]
+  \label{eq:plrcPsiQminusOne}
+\end{equation}
+Note the similarity between the summation in \refeq{eq:plrcPsiDefI}
+and the right-hand side of \refeq{eq:plrcPsiQminusOne}.  These are the
+same except in \refeq{eq:plrcPsiDefI} the summation involves
+$\Delta\chi^{i+1}$ and $\Delta\xi^{i+1}$ while in
+\refeq{eq:plrcPsiQminusOne} the summation involves $\Delta\chi^i$
+and $\Delta\xi^i$.  As we will see, for certain materials it is
+possible to relate these values to each other in a simple way.
+Specifically, we will find that these are related by
+\begin{eqnarray}
+  \Delta\chi^{i+1} &=& \crec \Delta\chi^{i}, 
+  \label{eq:CrecDefChi} \\
+  \Delta\xi^{i+1} &=& \crec \Delta\xi^{i},
+  \label{eq:CrecDefXi}
+\end{eqnarray}
+where $\crec$ is a ``recursion constant'' (which is yet to be
+determined).  Given that this recursion relationship exists for 
+$\Delta\chi^{i+1}$ and $\Delta\xi^{i+1}$, 
+\refeq{eq:plrcPsiDefI} can be written
+\begin{eqnarray}
+  \Psivec^q &=& \Evec^{q} (\Delta\chi^{0} - \Delta\xi^{0})
+    + \Evec^{q-1}\Delta\xi^{0} +
+  \crec \sum_{i=0}^{q-2}\bigl[
+    \Evec^{q-i-1} \Delta\chi^{i}
+    + \left(\Evec^{q-i-2}-\Evec^{q-i-1}\right)\Delta\xi^{i}\bigr], 
+  \nonumber\\
+  &=& \Evec^{q} (\Delta\chi^{0} - \Delta\xi^{0})
+    + \Evec^{q-1}\Delta\xi^{0} +
+  \crec \Psivec^{q-1},
+\end{eqnarray}
+or, after replacing $q$ with $q+1$, this becomes
+\begin{equation}
+  \Psivec^{q+1} = \Evec^{q+1} (\Delta\chi^{0} - \Delta\xi^{0})
+    + \Evec^{q}\Delta\xi^{0} + \crec \Psivec^q.
+    \label{eq:plrcPsiDefII}
+\end{equation}
+
+The PLRC algorithm is now, at least in the abstract sense, complete.
+The implementation is as follows:
+\begin{enumerate}
+\item Update the magnetic field in the usual way (perhaps using a
+dispersive formulation).  
+\item Update the electric field using \refeq{eq:plrcEUpdate} (being
+sure to first store the previous value of the electric field).
+\item Updated the recursive accumulator as specified by
+\refeq{eq:plrcPsiDefII} (using both the updated electric field and the
+stored value).
+\item Repeat.
+\end{enumerate}
+It now remains to determine the various constants for a given
+material.  Specifically, one must know $\chi^0$, $\xi^0$,
+$\epsilon_\infty$ (which appear in \refeq{eq:plrcEUpdate}), as well as
+$\Delta\chi^0$, $\Delta\xi^0$, and $\crec$ (which appear in
+\refeq{eq:plrcPsiDefII}).
+
+\section{PLRC for Debye Material}
+
+The time-domain form of the susceptibility function for Deybe
+materials was given in \refeq{eq:debyeChiTime}.  Using this in
+\refeq{eq:ChiIDef} and \refeq{eq:XiIDef} yields
+\begin{eqnarray}
+  \chi^i &=& \epsilon_d\left(1-e^{-\Delt/\tau_d}\right)e^{-i\Delt/\tau_d},
+  \label{eq:plrcChiDebye} \\
+  \xi^i &=& \frac{\epsilon_d\tau_d}{\Delt}
+            \left(1-\left[\frac{\Delt}{\tau_d}+1\right]
+                  e^{-\Delt/\tau_d}\right)e^{-i\Delt/\tau_d}.
+  \label{eq:plrcXiDebye}
+\end{eqnarray}
+Setting $i$ equal to zero yields
+\begin{eqnarray}
+  \chi^0 &=& \epsilon_d\left(1-e^{-\Delt/\tau_d}\right), \\
+  \xi^0 &=& \frac{\epsilon_d\tau_d}{\Delt}
+            \left(1-\left[\frac{\Delt}{\tau_d}+1\right]
+                  e^{-\Delt/\tau_d}\right).
+\end{eqnarray}
+The time-constant $\tau_d$ can be expressed in terms of multiples of
+the time step $\Delt$, e.g., $\tau_d=N_d\Delt$.  Note that the time
+step is 
+always divided by $\tau_d$ in these expressions so that the only important
+consideration is the ratio of these quantities, i.e., $\Delt/\tau_d = 1/N_d$.
+
+From \refeq{eq:plrcChiDebye} we observe
+\begin{eqnarray}
+  \chi^{i+1} &=&
+                 \epsilon_d\left(1-e^{-\Delt/\tau_d}\right)
+                 e^{-(i+1)\Delt/\tau_d}, \nonumber\\
+             &=& e^{-\Delt/\tau_d}
+                 \epsilon_d\left(1-e^{-\Delt/\tau_d}\right)
+                 e^{-i\Delt/\tau_d},\nonumber\\
+             &=& e^{-\Delt/\tau_d} \chi^i.
+\end{eqnarray}
+Now consider $\Delta\chi^i$ which is given by
+\begin{eqnarray}
+  \Delta\chi^i &=& \chi^i - \chi^{i+1}, \nonumber\\
+              &=& \chi^i - e^{-\Delt/\tau_d}\chi^i, \nonumber\\
+              &=& \chi^i(1 - e^{-\Delt/\tau_d}).
+\end{eqnarray}
+Thus $\Delta\chi^{i+1}$ can be written as
+\begin{eqnarray}
+  \Delta\chi^{i+1} &=& \chi^{i+1}(1 - e^{-\Delt/\tau_d}), \nonumber\\
+        &=& e^{-\Delt/\tau_d}\chi^{i}(1 - e^{-\Delt/\tau_d}), \nonumber\\
+        &=& e^{-\Delt/\tau_d}\Delta\chi^{i}.
+            \label{eq:prlcDelChiRecursion}
+\end{eqnarray}
+Similar arguments pertain to $\xi^i$ and $\Delta\xi^i$ resulting in
+\begin{equation}
+  \Delta\xi^{i+1} =e^{-\Delt/\tau_d} \Delta\xi^i.
+            \label{eq:prlcDelXiRecursion}
+\end{equation}
+
+From \refeq{eq:prlcDelChiRecursion} and \refeq{eq:prlcDelXiRecursion},
+and in accordance with the description of $\crec$ given in
+\refeq{eq:CrecDefChi} and \refeq{eq:CrecDefXi}, we conclude that
+\begin{equation}
+  \crec = e^{-\Delt/\tau_d}.
+\end{equation}
+The factor $\exp(-\Delt/\tau_d)$, i.e., $\crec$, appears in several of
+the terms given above.  Writing the ratio $\Delt/\tau_d$ as $1/N_d$,
+all the terms involved in the implementation of the PLRC method can be
+expressed as
+\begin{eqnarray}
+  \crec &=& e^{-1/N_d}, \\
+  \chi^0 &=& \epsilon_d\left(1-\crec\right), \\
+  \xi^0  &=& \epsilon_d N_d
+             \left(1-\left[\frac{1}{N_d}+1\right]\crec\right), \\
+  \Delta\chi^0 &=& \chi^0(1-\crec), \\
+  \Delta\xi^0  &=& \xi^0(1-\crec).
+\end{eqnarray}
+
+Nearly all the terms involved in the PLRC method are unitless and
+independent of scale.  The only term which is not is
+$\Delt/\epsilon_0$ which multiplies the curl of the magnetic field in
+\refeq{eq:plrcEUpdate}.  However, this is a term which has appeared in
+all the electric-field update equations we have ever considered and,
+after extracting the $1/\delta$ inherent in the finite-difference form
+of the curl operator, it can be expressed in terms of the Courant
+number and characteristic impedance, i.e.,
+$\Delt/(\delta\epsilon_0)=S_c\eta_0$.

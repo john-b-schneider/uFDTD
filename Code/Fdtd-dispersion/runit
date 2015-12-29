@@ -1,0 +1,58 @@
+#!/bin/bash -norc
+
+#######################################
+dispersion-demo << EOF
+200
+1
+20
+1
+1 180 1
+100 10
+sim
+junk
+EOF
+
+mv sim.0 cdtds-1-ppw-20
+
+#######################################
+dispersion-demo << EOF
+200
+1
+10
+1
+1 180 1
+100 10
+sim
+junk
+EOF
+
+mv sim.0 cdtds-1-ppw-10
+
+#######################################
+dispersion-demo << EOF
+250
+0.5
+20
+1
+1 180 1
+200 10
+sim
+junk
+EOF
+
+mv sim.0 cdtds-0.5-ppw-20
+
+#######################################
+dispersion-demo << EOF
+250
+0.5
+10
+1
+1 180 1
+200 10
+sim
+junk
+EOF
+
+mv sim.0 cdtds-0.5-ppw-10
+

@@ -1,0 +1,204 @@
+%\usepackage{float}
+%\floatstyle{ruled}
+%\newfloat{Program}{thp}{pro}[chapter]
+
+\newcommand{\codemiddle}{
+  \newline
+  \nopagebreak
+  \noindent
+  \rule{\textwidth}{1pt}
+  \vspace{-\baselineskip}
+  \rm
+%  \small
+  \renewcommand{\baselinestretch}{1.0}
+}
+
+%\newcommand{\codeSnippetStart}{
+%  \noindent
+%  \rm
+%  \small
+%  \renewcommand{\baselinestretch}{1.0}
+%}
+
+%\newcommand{\codeSnippetEnd}{
+%  \noindent
+%  \normalsize
+%}
+
+
+\newenvironment{program}
+{
+
+  \noindent
+  \rule[-6pt]{\textwidth}{1.5pt}
+  \begin{pro}
+  \rm
+}
+{
+  \nopagebreak[3]
+  \noindent
+  \rule[6pt]{\textwidth}{1.5pt}
+  \normalsize
+  \end{pro}
+}
+\newtheorem{pro}{Program}[chapter]
+
+\newenvironment{fragment}
+{
+
+  \noindent
+  \rule[-6pt]{\textwidth}{1.5pt}
+  \begin{frag}
+  \rm
+}
+{
+  \nopagebreak[3]
+  \noindent
+  \rule[6pt]{\textwidth}{1.5pt}
+  \normalsize
+  \end{frag}
+}
+\newtheorem{frag}[pro]{Fragment}
+
+% for small fragments of code that don't deserve to be Fragments or
+% Programs 
+\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
+
+
+
+\newcommand{\refeq}[1]{(\ref{#1})}
+
+\newcommand{\half}{\frac{1}{2}}
+
+
+% review chapter 
+\newcommand{\unitvec}[1]{\hat{\mathbf{a}}_{#1}}
+
+\newcommand{\Dvec}{\mathbf{D}}
+\newcommand{\Evec}{\mathbf{E}}
+\newcommand{\Hvec}{\mathbf{H}}
+\newcommand{\Bvec}{\mathbf{B}}
+\newcommand{\Jvec}{\mathbf{J}}
+
+% FDTD intro chapter
+\newcommand{\Einc}{E_z^{\mbox{\scriptsize inc}}}
+\newcommand{\Hinc}{H_y^{\mbox{\scriptsize inc}}}
+\newcommand{\Eincvec}{\mathbf{E}_z^{\mbox{\scriptsize inc}}}
+\newcommand{\Hincvec}{\mathbf{H}_y^{\mbox{\scriptsize inc}}}
+
+\newcommand{\fdtd}[3]{#1^{#3}\!\left[#2\right]}
+\newcommand{\fdtdh}[3]{#1^{#3}\!\!\left[#2\right]}
+
+\newcommand{\Delx}{\Delta_x}
+\newcommand{\Dely}{\Delta_y}
+\newcommand{\Delt}{\Delta_t}
+
+% FDTD dimensionless chapter
+\newcommand{\Delf}{\Delta_f}
+\newcommand{\ppw}{N_\lambda}
+\newcommand{\skin}{\delta_{\mbox{\scriptsize skin}}}
+
+% FDTD spectral chapter
+\newcommand{\hE}{\hat{E}}
+\newcommand{\hG}{\hat{\Gamma}}
+\newcommand{\hH}{\hat{H}}
+\newcommand{\hT}{\hat{T}}
+\newcommand{\heta}{\hat{\eta}}
+\newcommand{\hgamma}{\hat{\gamma}}
+\newcommand{\Pvec}{\mathbf{P}}
+
+% FDTD dispersion chapter
+\newcommand{\tbeta}{\tilde{\beta}}
+\newcommand{\tpartial}{\tilde{\partial}}
+\newcommand{\Eifdtdq}{\hat{E}_z^{i}[m,q]}
+\newcommand{\Erfdtdq}{\hat{E}_z^{r}[m,q]}
+\newcommand{\Etfdtdq}{\hat{E}_z^{t}[m,q]}
+\newcommand{\Hifdtdq}{\hat{H}_y^{i}[m,q]}
+\newcommand{\Hrfdtdq}{\hat{H}_y^{r}[m,q]}
+\newcommand{\Htfdtdq}{\hat{H}_y^{t}[m,q]}
+\newcommand{\Eifdtd}{\hat{E}_z^{i}[m]}
+\newcommand{\Erfdtd}{\hat{E}_z^{r}[m]}
+\newcommand{\Etfdtd}{\hat{E}_z^{t}[m]}
+\newcommand{\Hifdtd}{\hat{H}_y^{i}[m]}
+\newcommand{\Hrfdtd}{\hat{H}_y^{r}[m]}
+\newcommand{\Htfdtd}{\hat{H}_y^{t}[m]}
+\newcommand{\Gfdtd}{\hat{\tilde{\Gamma}}}
+\newcommand{\Tfdtd}{\hat{\tilde{T}}}
+% oblique stuff
+\newcommand{\Kvec}{\mathbf{K}}
+\newcommand{\rvec}{\mathbf{r}}
+\newcommand{\tbetavec}{\tilde{\boldsymbol{\beta}}}
+\newcommand{\hHvec}{\hat{\mathbf{H}}}
+\newcommand{\hEvec}{\hat{\mathbf{E}}}
+\newcommand{\GfdtdTe}{\hat{\tilde{\Gamma}}_{te}}
+\newcommand{\TfdtdTe}{\hat{\tilde{T}}_{te}}
+
+% FDTD multidimensional
+\newcommand{\cexe}{C_{\mathit{exe}}}
+\newcommand{\cexh}{C_{\mathit{exh}}}
+\newcommand{\ceye}{C_{\mathit{eye}}}
+\newcommand{\ceyh}{C_{\mathit{eyh}}}
+\newcommand{\ceze}{C_{\mathit{eze}}}
+\newcommand{\cezh}{C_{\mathit{ezh}}}
+
+\newcommand{\chxh}{C_{\mathit{hxh}}}
+\newcommand{\chxe}{C_{\mathit{hxe}}}
+\newcommand{\chyh}{C_{\mathit{hyh}}}
+\newcommand{\chye}{C_{\mathit{hye}}}
+\newcommand{\chzh}{C_{\mathit{hxh}}}
+\newcommand{\chze}{C_{\mathit{hxe}}}
+
+% FDTD 3D
+\newcommand{\Delz}{\Delta_z}
+
+% FDTD acoustics chapter
+\newcommand{\vvec}{\mathbf{v}}
+
+% FDTD dispersive materials
+\newcommand{\hBvec}{\hat{\mathbf{B}}}
+\newcommand{\hDvec}{\hat{\mathbf{D}}}
+\newcommand{\hJmvec}{\hat{\mathbf{J}}_m}
+\newcommand{\Jmvec}{\mathbf{J}_m}
+\newcommand{\hJpvec}{\hat{\mathbf{J}}_p}
+\newcommand{\Jpvec}{\mathbf{J}_p}
+\newcommand{\hMvec}{\hat{\mathbf{M}}}
+\newcommand{\hPvec}{\hat{\mathbf{P}}}
+\newcommand{\hxvec}{\hat{\mathbf{x}}}
+\newcommand{\cjj}{C_{\mathit{jj}}}
+\newcommand{\cje}{C_{\mathit{je}}}
+\newcommand{\cjh}{C_{\mathit{jh}}}
+\newcommand{\Psivec}{\boldsymbol{\Psi}}
+\newcommand{\crec}{C_{\mathit{rec}}}
+
+% FDTD PML
+\newcommand{\teps}{\tilde{\epsilon}}
+\newcommand{\tmu}{\tilde{\mu}}
+\newcommand{\kvec}{\mathbf{k}}
+\newcommand{\gammavec}{\boldsymbol{\gamma}}
+\newcommand{\nabpml}{\tilde{\nabla}}
+
+% FDTD acoustics
+\newcommand{\cprv}{C_{\mathit{prv}}}
+\newcommand{\cvxp}{C_{\mathit{vxp}}}
+\newcommand{\cvyp}{C_{\mathit{vyp}}}
+
+% FDTD near-to-far transformation
+
+\newcommand{\stwo}{\sigma_{\mbox{\tiny 2D}}}
+\newcommand{\nunit}{\hat{\mathbf{n}}'}
+\newcommand{\runit}{\unitvec{\rho}}
+\newcommand{\xunit}{\unitvec{x}}
+\newcommand{\yunit}{\unitvec{y}}
+\newcommand{\zunit}{\unitvec{z}}
+\newcommand{\rhovec}{\boldsymbol{\rho}}
+\newcommand{\nlam}{N_\lambda}
+\newcommand{\ntot}{N_{\mbox{\scriptsize tot}}}
+\newcommand{\Mvec}{\mathbf{M}}
+\newcommand{\Ntwod}{\mathbf{N}_{\mbox{\scriptsize 2D}}}
+\newcommand{\Ltwod}{\mathbf{L}_{\mbox{\scriptsize 2D}}}
+\newcommand{\Avec}{\mathbf{A}}
+\newcommand{\Fvec}{\mathbf{F}}
+
+
+% method of momements introduction
+

@@ -1,0 +1,24 @@
+#!/bin/bash -norc
+1d-disp <<EOF
+3
+20
+100
+.25
+EOF
+mv junk-out disp-err-25
+
+1d-disp <<EOF
+3
+20
+100
+.5
+EOF
+mv junk-out disp-err-50
+
+1d-disp <<EOF
+3
+20
+100
+.75
+EOF
+mv junk-out disp-err-75

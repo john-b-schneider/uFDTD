@@ -1,0 +1,46 @@
+\begin{thebibliography}{1}
+
+\bibitem{sullivan2001a}
+D.~Sullivan and J.~L. Young.
+\newblock Far-field time-domain calculation from aperture radiators using the
+  {FDTD} method.
+\newblock {\em IEEE Transactions on Antennas and Propagation}, 49(3):464--469,
+  March 2001.
+
+\bibitem{dey1997a1}
+S.~Dey and R.~Mittra.
+\newblock A locally conformal finite-difference time-domain ({FDTD}) algorithm
+  for modeling three-dimensional perfectly conducting objects.
+\newblock {\em IEEE Microwave Guided Wave Letters}, 7(9):273--275, September
+  1997.
+
+\bibitem{benkler2006s}
+S.~Benkler, N.~Chavannes, and N.~Kuster.
+\newblock A new {3-D} conformal {PEC} {FDTD} scheme with user-defined geometric
+  precision and derived stability criterion.
+\newblock {\em IEEE Transactions on Antennas and Propagation},
+  54(6):1843--1849, June 2006.
+
+\bibitem{balanis1989b}
+C.~A. Balanis.
+\newblock {\em Advanced Engineering Electromagnetics}.
+\newblock {John Wiley \& Sons}, {New York}, 1989.
+
+\bibitem{li2005a2}
+X.~Li, A.~Taflove, and V.~Backman.
+\newblock Modified {FDTD} near-to-far-field transformation for improved
+  backscattering calculation of strongly forward-scattering objects.
+\newblock {\em IEEE Antennas and Wireless Propagation Letters}, 4:35--38, 2005.
+
+\bibitem{taflove2005b}
+A.~Taflove and S.~Hagness.
+\newblock {\em Computational Electrodynamics: {The} Finite-Difference
+  Time-Domain Method, 3 ed.}
+\newblock {Artech House}, Boston, MA, 2005.
+
+\bibitem{ishimaru1991b}
+A.~Ishimaru.
+\newblock {\em Electromagnetic Wave Propagation, Radiation, and Scattering}.
+\newblock Prentice Hall, Englewood Cliffs, New Jersey, 1991.
+
+\end{thebibliography}

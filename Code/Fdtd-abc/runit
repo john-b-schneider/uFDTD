@@ -1,0 +1,9 @@
+#!/bin/bash -norc
+abcdemo1 << EOF
+19
+30
+10
+10 10
+0 199 1
+sim
+EOF
