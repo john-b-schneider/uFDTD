@@ -1014,7 +1014,7 @@ the contents of snapshot file {\tt sim.0} contain the fields at time
 zero or at time one?  And, do the other snapshots correspond to times
 that multiples of $10$ or do the correspond to one plus a multiple of
 $10$?  In nearly all practical cases it won't matter.  The precise
-location of $t=0$ is rather aribtrary.  So, when looking at the
+location of $t=0$ is rather arbitrary.  So, when looking at the
 snapshots it is usually sufficient to know that the sequence of
 snapshots start ``at the beginning of the simulation'' and then are
 taken every $10$ time steps.  However, if one wants to be more precise
@@ -1026,7 +1026,7 @@ with the source being applied after the update equation and then the
 snapshot being taken last, we would see the peak at the source node in
 frame {\tt sim.1}.  In other words the snapshots do indeed correspond
 to times that are multiples of $10$.  So, in some sense the electric
-fields start at a time step of $-1$.  The very first update update
+fields start at a time step of $-1$.  The very first update
 loop takes them up to time step $0$, and then the source function is
 applied to set the field at the source node at time-step $0$.  {\em
   However}, this is truly a minor point and we will not worry about it
