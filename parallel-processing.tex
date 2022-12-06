@@ -590,7 +590,7 @@ your system(s), e.g., {\tt mpicc}, {\tt mpiexe}, {\tt mpirun}, etc.
 On most systems by default these files will be installed in the
 directory {\tt /usr/local/bin} (but one can specify that the files
 should be installed elsewhere if so desired).  One must ensure that
-the directory where these excutables reside is in the search path.
+the directory where these executables reside is in the search path.
 
 When using MPI it is usually necessary to compile the source code in a
 special way.  Instead of using the {\tt gcc} compiler on UNIX/Linux
@@ -614,7 +614,7 @@ number of processes.  The following command says to run four copies of
 But where, precisely, is this run?  In this case four copies of the
 program are run on the local host.  That is not precisely what we
 want---we are interested in distributing the job to different
-machines.  There are multiple ways in which one can excercise control
+machines.  There are multiple ways in which one can exercise control
 of the running of MPI programs and we will explore just a few.
 
 First, let us assume a ``multicomputer'' consists of five nodes with
@@ -647,7 +647,7 @@ the exact same directory that all the machines are sharing.  In that
 case there would only be one copy of {\tt useless-mpi}.
 Alternatively, each of the computers may have their own local copy of
 a directory named \verb+~/Ompi+.  In that case there would have to be
-a local copy of the excutable file {\tt useless-mpi} present on each
+a local copy of the executable file {\tt useless-mpi} present on each
 of the individual computers.
 
 One could now run eight copies of the program by issuing the following
@@ -688,7 +688,7 @@ two.  The command to run $12$ copies of the program would now be
 \end{verbatim}
 
 By introducing more arguments to the command line, one can exercise more
-fine-grained control of the executation of the program.  Let us again
+fine-grained control of the execution of the program.  Let us again
 assume that there is one common directory \verb+~/Ompi+ that all the
 machines share.  Let us further assume two version of {\tt
   useless-mpi} have been compiled: one for PowerPC-based machines

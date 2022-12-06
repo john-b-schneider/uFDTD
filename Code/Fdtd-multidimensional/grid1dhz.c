@@ -1,4 +1,4 @@
-/* Create a 1D grid suitable for an auxilliary grid used as part of
+/* Create a 1D grid suitable for an auxiliary grid used as part of
  * the implementation of a TFSF boundary in a TEz simulations. */
 
 #include <math.h>

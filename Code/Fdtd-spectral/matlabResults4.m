@@ -5,7 +5,7 @@ inc=fft(incTime);  % take Fourier transforms
 die=fft(dieTime);
 
 nSteps=length(incTime);  % number of time steps
-freqMin=1;    % minimun frequency index of interest
+freqMin=1;    % minimum frequency index of interest
 freqMax=500;  % maximum frequency of interest
 freqIndex=freqMin:freqMax; % range of frequencies of interest
 freqSlice=freqIndex+1; % correct for offset of 1 in matlab's indexing

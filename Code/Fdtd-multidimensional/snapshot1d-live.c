@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// following should corresond to gnuplot location
+// following should correspond to gnuplot location
 #define GNUPLOT "/net/local/bin/gnuplot"
 //#define GNUPLOT "/sw/bin/gnuplot"
 
@@ -16,7 +16,7 @@ static int temporalStride=-2, spatialStride,
   startTime, startNode, endNode, frame=0;
 static char basename[80], filename[100];
 
-/* stuff for live annimation */
+/* stuff for live animation */
 static float min, max;
 static int live, saveFiles=0, oldTime,  newTime,
   fileNumRange, lastTimeShown;
