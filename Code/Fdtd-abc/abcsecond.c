@@ -8,7 +8,7 @@ static double *ezOldLeft1, *ezOldLeft2, /*@ \label{abcsecondA} @*/
               *ezOldRight1, *ezOldRight2;
 static double *abcCoefLeft, *abcCoefRight; /*@ \label{abcsecondB} @*/
 
-/* Initizalization function for second-order ABC. */
+/* Initialization function for second-order ABC. */
 void abcInit(Grid *g) {
   double temp1, temp2;
   

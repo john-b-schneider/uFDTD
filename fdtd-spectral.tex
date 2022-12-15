@@ -396,13 +396,13 @@ inc = fft(incTime);  % take Fourier transforms
 die = fft(dieTime);
 
 nSteps = length(incTime);  % number of time steps
-freqMin = 1;    % minimun frequency index of interest
+freqMin = 1;    % minimum frequency index of interest
 freqMax = 500;  % maximum frequency of interest
 freqIndex = freqMin:freqMax; % range of frequencies of interest
 % correct for offset of 1 in matlab's indexing
 freqSlice = freqIndex + 1;
 courantNumber = 1;
-% points per wavelength for freqencies of interest
+% points per wavelength for frequencies of interest
 nLambda = nSteps ./ freqIndex * courantNumber;
 clf
 subplot(3, 1, 1)
@@ -456,7 +456,7 @@ axis([0 300 0 1])
 hold off
 
 % Array obtained from exp() must be transposed to make arrays
-% conformal.  Simply using ' (a prime) for trasposition will yield
+% conformal.  Simply using ' (a prime) for transposition will yield
 % the conjugate transpose.  Instead, use .' (dot-prime) to get
 % transposition without conjugation.
 subplot(2, 1, 2)

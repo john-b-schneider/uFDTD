@@ -10,7 +10,7 @@ axis([0 300 0 1])
 hold off
 
 % Exponential has to be transposed to array conformal with others.
-% Simply using ' (a prime) for trasposition will yield the conjugat
+% Simply using ' (a prime) for transposition will yield the conjugat
 % transpose.  Instead have to use .' (dot-prime) to get
 % transposition without conjugation.
 subplot(2,1,2)

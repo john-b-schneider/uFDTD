@@ -7,7 +7,7 @@ static int initDone = 0;
 static double ezOldLeft = 0.0, ezOldRight = 0.0;
 static double abcCoefLeft, abcCoefRight;
 
-/* Initizalization function for first-order ABC. */
+/* Initialization function for first-order ABC. */
 void abcInit(Grid *g) {
   double temp;
   

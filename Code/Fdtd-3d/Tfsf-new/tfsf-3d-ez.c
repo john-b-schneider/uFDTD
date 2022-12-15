@@ -11,7 +11,7 @@
 static int firstX=0, firstY, firstZ, // indices for first point in TF region
            lastX, lastY, lastZ;      // indices for last point in TF region
 
-Grid *g1;  // 1D auxilliary grid
+Grid *g1;  // 1D auxiliary grid
 
 void tfsfInit(Grid *g) {
 

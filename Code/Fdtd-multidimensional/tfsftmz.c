@@ -7,7 +7,7 @@
 static int firstX = 0, firstY, // indices for first point in TF region /*@\label{tfsftmzA}@*/
            lastX, lastY;       // indices for last point in TF region  /*@\label{tfsftmzB}@*/
 
-static Grid *g1;  // 1D auxilliary grid  /*@\label{tfsftmzC}@*/
+static Grid *g1;  // 1D auxiliary grid  /*@\label{tfsftmzC}@*/
 
 void tfsfInit(Grid *g) {
 

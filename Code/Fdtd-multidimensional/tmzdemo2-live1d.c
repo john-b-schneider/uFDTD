@@ -15,7 +15,7 @@ int main()
   gridInit(g2);         // initialize 2d grid
 
   ALLOC_1D(g1,1,Grid);  // allocate memory for 1D Grid
-  memcpy(g1,g2,sizeof(Grid)); // copy informatin from 2D array
+  memcpy(g1,g2,sizeof(Grid)); // copy information from 2D array
   gridInit1d(g1);       // initialize 1d grid
 
   tfsfInit(g1,g2);

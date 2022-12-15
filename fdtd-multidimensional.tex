@@ -687,7 +687,7 @@ any function that is using these macros will also need to know about a
 {\tt fdtd-macro-tmz.h} Header file providing macros suitable for
 accessing the elements and arrays of either a 1D or 2D {\tt Grid}.
 There are two distinct sets of macros.  The first set takes an
-argument that speficies the name of the pointer to the {\tt Grid}
+argument that specifies the name of the pointer to the {\tt Grid}
 structure.  The second set assumes the name of the pointer is {\tt g}.
 \label{pro:fdtdmacrotmzh}
 \codemiddle
@@ -1344,7 +1344,7 @@ SF region.  This is true despite the fact that these $H_y$ nodes share
 the same $x$-index as the $E_z$ nodes.
 
 Further note that in this particular construction of a TFSF boundary,
-the electric fields tantential to the TFSF boundary are always in the
+the electric fields tangential to the TFSF boundary are always in the
 TF region.  These nodes will have at least one neighboring magnetic
 field node that is in the SF region.  Thus, the correction necessary
 to obtain a consistent update of these electric field nodes would
@@ -1738,7 +1738,7 @@ calculated using an auxiliary 1D simulation.
 static int firstX = 0, firstY, // indices for first point in TF region /*@\label{tfsftmzA}@*/
            lastX, lastY;       // indices for last point in TF region  /*@\label{tfsftmzB}@*/
 
-static Grid *g1;  // 1D auxilliary grid  /*@\label{tfsftmzC}@*/
+static Grid *g1;  // 1D auxiliary grid  /*@\label{tfsftmzC}@*/
 
 void tfsfInit(Grid *g) {
 
@@ -1833,7 +1833,7 @@ nodes in this lossy region.
 
 \begin{program}
 {\tt grid1dez.c}
-Initialization function for the 1D auxilliary grid used by the TFSF
+Initialization function for the 1D auxiliary grid used by the TFSF
 function to calculate the incident field.
 \label{pro:grid1dez}
 \codemiddle
@@ -2845,7 +2845,7 @@ auxiliary 1D grid is used to compute the incident field.
 static int firstX = 0, firstY, // indices for first point in TF region 
            lastX, lastY;     // indices for last point in TF region
 
-static Grid *g1;  // 1D auxilliary grid
+static Grid *g1;  // 1D auxiliary grid
 
 void tfsfInit(Grid *g) {
 
@@ -2931,7 +2931,7 @@ grid for the TE$^z$ TFSF boundary.
 \label{pro:grid1dhz}
 \codemiddle
 \begin{lstlisting}
-/* Create a 1D grid suitable for an auxilliary grid used as part of
+/* Create a 1D grid suitable for an auxiliary grid used as part of
  * the implementation of a TFSF boundary in a TEz simulations. */
 
 #include <math.h>
