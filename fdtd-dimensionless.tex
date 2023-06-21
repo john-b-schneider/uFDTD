@@ -467,13 +467,21 @@ the spectral content at the frequency $f = k\Delf = k/(N_T\Delt)$.
 Note that $a_k$ is obtained simply by taking the sum of the sequence
 $g[q]$ weighted by an exponential.
 
-The exponential in \refeq{eq:dftAk} can be written in terms of real
-and imaginary parts, i.e., 
+Using Euler's formula, the exponential in \refeq{eq:dftAk} can be
+written in terms of real and imaginary parts, i.e.,
+\begin{equation}
+  a_k = \frac{1}{N_T}
+      \sum_{q=\langle N_T\rangle} g[q]
+      \left(\cos\!\left(\frac{2\pi k}{N_T}q\right)
+      -j\sin\!\left(\frac{2\pi k}{N_T}q\right)\right)
+\end{equation}
+Assuming $g[q]$ is real, we can split this into real and imaginary
+parts:
 \begin{eqnarray}
-  \Re[a_k] &=& \frac{1}{N_T} 
+  \Re[a_k] &=& \frac{1}{N_T}
            \sum_{q=0}^{N_T - 1} g[q] \cos\!\left(\frac{2\pi k}{N_T}q\right), \\
-  \Im[a_k] &=& -\frac{1}{N_T - 1}
-           \sum_{q=0}^{N_T} g[q] \sin\!\left(\frac{2\pi k}{N_T}q\right),
+  \Im[a_k] &=& -\frac{1}{N_T}
+           \sum_{q=0}^{N_T - 1} g[q] \sin\!\left(\frac{2\pi k}{N_T}q\right),
 \end{eqnarray}
 where $\Re[]$ indicates the real part and $\Im[]$ indicates the
 imaginary part.  In practice, $g[q]$ would be a particular field
