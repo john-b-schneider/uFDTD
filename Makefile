@@ -11,7 +11,7 @@ chapters=numerical-issues.tex em-review.tex fdtd-intro.tex\
 
 num_chapters=chap1.pdf chap2.pdf chap3.pdf chap4.pdf chap5.pdf chap6.pdf\
 	chap7.pdf chap8.pdf chap9.pdf chap10.pdf chap11.pdf chap12.pdf\
-	chap13.pdf chap14.pdf appendices.pdf
+	chap13.pdf chap14.pdf appendices.pdf bibliography.pdf
 
 DATE=$(shell date +%m.%d.%Y)
 
@@ -23,6 +23,7 @@ sisyphus.pdf: sisyphus.tex ${chapters} commands.tex
 
 .tex.pdf:
 	pdflatex $*
+        bibtex $*
 	pdflatex $*
 	pdflatex $*
 
@@ -77,6 +78,10 @@ chap14.pdf: sisyphus.pdf
 appendices.pdf: sisyphus.pdf
 	gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=377 -dLastPage=402 -sOutputFile=appendices.pdf sisyphus.pdf
 
+bibliography.pdf: sisyphus.pdf
+        gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=403 -dLastPage=403 -sOutput\
+File=bibliography.pdf sisyphus.pdf
+
 all: ${psfiles}
 
 pdf: ${pdffiles}
@@ -95,5 +100,5 @@ distro:
 	cd ..; tar cvzf /tmp/uFDTD-${DATE}.tgz uFDTD
 
 publish:
-	cp chap*.pdf appendices.pdf ~/public_html/ufdtd
+	cp chap*.pdf appendices.pdf bibliography.pdf ~/public_html/ufdtd
 	cp sisyphus.pdf  ~/public_html/ufdtd/ufdtd.pdf
